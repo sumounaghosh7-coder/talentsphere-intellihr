@@ -1,236 +1,127 @@
-# TalentSphere – Smart Human Resource Management Platform
+# TalentSphere — Smart Human Resource Management Platform
 
-> A modern, responsive, and interactive Human Resource Management System designed to simplify employee management, workforce operations, and HR analytics through a clean and professional web interface.
+A modern, responsive and interactive HR Management System for workforce operations, employee management and HR analytics.
 
-## 📌 Project Overview
+## 🌐 Live Demo
 
-**TalentSphere** is a frontend-based **Smart Human Resource Management Platform** developed to provide a centralized interface for managing essential HR operations. The project brings together employee management, recruitment, attendance, leave management, performance tracking, payroll, reports, calendar activities, and system settings into a single dashboard.
+🚀 **Live Application:**
+[https://talentsphere-vercel.vercel.app](https://talentsphere-vercel.vercel.app)
 
-The platform is designed with a focus on **simplicity, responsiveness, usability, and data visualization**. It demonstrates how modern web technologies can be used to build an HR management solution suitable for small organizations, startups, and as a foundation for larger enterprise HR systems.
-
-TalentSphere uses **LocalStorage** for client-side data persistence, allowing users to add, update, search, filter, and manage HR records directly from the browser without requiring a backend database.
+💻 **GitHub Repository:**
+[https://github.com/sumounaghosh7-coder/talentsphere-intellihr](https://github.com/sumounaghosh7-coder/talentsphere-intellihr)
 
 ---
 
-## 🎯 Objectives
+## 📌 Project Overview
 
-The main objectives of TalentSphere are:
+**TalentSphere** is a frontend-based Smart Human Resource Management Platform designed to bring essential HR operations into one centralized dashboard.
 
-* To create a centralized HR management dashboard.
-* To simplify employee record management.
-* To provide recruitment and candidate tracking functionality.
-* To monitor daily employee attendance.
-* To manage employee leave requests and approvals.
-* To track employee performance.
-* To manage payroll and salary information.
-* To provide HR-related reports and analytics.
-* To visualize workforce data using interactive charts.
-* To provide a responsive interface for desktop and mobile devices.
-* To demonstrate practical implementation of frontend web development concepts.
+The platform provides modules for:
+
+* 👥 Employee Management
+* 🎯 Recruitment Management
+* 🕒 Attendance Management
+* 🏖️ Leave Management
+* 📈 Performance Management
+* 💰 Payroll Management
+* 📊 Reports & Analytics
+* 📅 HR Calendar
+* ⚙️ Application Settings
+
+The project focuses on responsive UI design, usability, CRUD operations, client-side data management and data visualization.
+
+TalentSphere currently uses **Browser LocalStorage** for client-side data persistence.
 
 ---
 
 ## ✨ Key Features
 
-### 🏠 1. HR Dashboard
-
-The dashboard provides an overall summary of the organization's workforce.
-
-**Features include:**
+### 🏠 HR Dashboard
 
 * Total employee count
 * Present employee count
 * Employees on leave
 * Open positions
 * Workforce growth chart
-* Department distribution chart
+* Department distribution
 * Recent employees
 * Recent leave requests
-* Quick navigation to major HR modules
+* Quick navigation to HR modules
 
----
+### 👥 Employee Management
 
-### 👥 2. Employee Management
-
-The Employee Management module provides a centralized employee directory.
-
-**Features include:**
-
-* View employee records
-* Add new employees
-* Edit employee information
-* Delete employee records
-* Search employees
-* Filter by department
-* Filter by employment status
+* Add, edit and delete employees
+* Employee search
+* Department filtering
+* Employment status filtering
 * Employee statistics
-* Employee profile access
-* CSV export functionality
-* LocalStorage-based data persistence
+* Employee profiles
+* CSV export
+* LocalStorage persistence
 
-Employee information can include:
-
-* Employee ID
-* Employee name
-* Department
-* Designation
-* Joining date
-* Employment status
-
----
-
-### 👤 3. Employee Details
-
-The Employee Details module provides a dedicated profile page for individual employees.
-
-**Features include:**
-
-* Employee profile
-* Employee ID
-* Department
-* Designation
-* Joining date
-* Employment status
-* Employee tenure
-* Attendance overview
-* Attendance visualization
-* Employment information
-* Personal information
-* Report functionality
-
-Employee profiles can be accessed using an employee ID through the page URL.
-
----
-
-### 🎯 4. Recruitment Management
-
-The Recruitment module helps HR teams monitor the hiring process.
-
-**Features include:**
+### 🎯 Recruitment Management
 
 * Open positions
 * Candidate tracking
 * Recruitment pipeline
-* Job positions
 * Candidate status
 * Hiring progress
 * Recruitment statistics
 * Search and filtering
 
-The module provides an organized overview of the recruitment workflow.
-
----
-
-### 🕒 5. Attendance Management
-
-The Attendance module allows HR users to monitor employee attendance.
-
-**Features include:**
+### 🕒 Attendance Management
 
 * Daily attendance records
-* Present/Absent/Late/Leave status
+* Present / Absent / Late / Leave status
 * Attendance statistics
-* Employee-based filtering
-* Date filtering
-* Mark attendance
-* Mark all employees as present
-* Edit attendance records
+* Employee and date filtering
+* Mark and edit attendance
 * Weekly attendance chart
 * Attendance distribution chart
 * Monthly attendance calendar
 * CSV export
 
-Attendance data is stored locally using browser LocalStorage.
-
----
-
-### 🏖️ 6. Leave Management
-
-The Leave Management module handles employee leave requests.
-
-**Features include:**
+### 🏖️ Leave Management
 
 * Apply for leave
 * View leave requests
-* Approve leave requests
-* Reject leave requests
+* Approve or reject requests
 * Cancel requests
-* Delete records
 * Leave balance
 * Leave statistics
-* Leave type filtering
-* Status filtering
+* Leave filtering
 * Employee search
 * Leave calendar
 * Leave distribution chart
 
-Supported leave categories can include:
-
-* Casual Leave
-* Sick Leave
-* Earned Leave
-* Maternity Leave
-* Other Leave
-
----
-
-### 📈 7. Performance Management
-
-The Performance module provides an interface for monitoring employee performance.
-
-**Features include:**
+### 📈 Performance Management
 
 * Employee performance records
 * Performance ratings
 * Performance overview
 * Department-based analysis
 * Performance trends
-* Employee evaluation information
-* Interactive data visualization
+* Interactive visualization
 
-This module can serve as a foundation for implementing a complete employee performance evaluation system.
+### 💰 Payroll Management
 
----
-
-### 💰 8. Payroll Management
-
-The Payroll module provides an interface for managing employee salary information.
-
-**Features include:**
-
-* Total payroll calculation
+* Total payroll
 * Net payroll
 * Total deductions
-* Processed payroll
 * Employee salary records
 * Basic salary
 * Allowances
 * Deductions
 * Net salary calculation
 * Payroll status
-* Search and filtering
-* Department filtering
-* Month filtering
-* Salary details
-* Add payroll records
-* Edit payroll records
-* Delete payroll records
+* Department and month filtering
+* Add, edit and delete payroll records
 * Payroll trend visualization
 * CSV export
 
-The system automatically calculates:
+**Net Salary = Basic Salary + Allowance - Deduction**
 
-```text
-Net Salary = Basic Salary + Allowance - Deduction
-```
-
----
-
-### 📊 9. Reports & Analytics
-
-The Reports module provides a centralized view of HR-related data.
-
-**Analytics can include:**
+### 📊 Reports & Analytics
 
 * Workforce statistics
 * Department distribution
@@ -239,30 +130,17 @@ The Reports module provides a centralized view of HR-related data.
 * Payroll information
 * Recruitment statistics
 * Performance insights
+* Interactive charts using Chart.js
 
-Interactive charts are implemented using **Chart.js**.
-
----
-
-### 📅 10. HR Calendar
-
-The Calendar module provides a centralized calendar interface for HR activities.
-
-It can be used to visualize:
+### 📅 HR Calendar
 
 * Leave dates
 * Attendance-related activities
 * HR events
-* Employee-related schedules
+* Employee schedules
 * Important organizational dates
 
----
-
-### ⚙️ 11. Settings
-
-The Settings module allows users to manage application preferences.
-
-**Features include:**
+### ⚙️ Settings
 
 * Profile settings
 * Appearance preferences
@@ -277,30 +155,58 @@ The Settings module allows users to manage application preferences.
 
 ---
 
-## 🛠️ Technologies Used
+# 🛠️ Technology Stack
 
 ### Frontend
 
-* **HTML5** – Website structure and semantic content
-* **Tailwind CSS** – Responsive and modern UI design
-* **JavaScript (ES6+)** – Application logic and interactivity
-* **Chart.js** – Interactive charts and data visualization
-* **Lucide Icons** – Modern interface icons
+* HTML5
+* Tailwind CSS
+* JavaScript ES6+
+* Chart.js
+* Lucide Icons
 
-### Browser Storage
+### Data Management
 
-* **LocalStorage** – Client-side data persistence
+* Browser LocalStorage
+* Client-side CRUD operations
+* CSV data export
 
-### Development Tools
+### Development & Deployment
 
-* **Visual Studio Code**
-* **Git**
-* **GitHub**
-* **Vercel**
+* Visual Studio Code
+* Git
+* GitHub
+* Vercel
 
 ---
 
-## 📂 Project Structure
+# 🏗️ Project Architecture
+
+```text
+                         TalentSphere
+                              │
+              ┌───────────────┴───────────────┐
+              │                               │
+          HTML Pages                      JavaScript
+              │                               │
+      ┌───────┼────────┐             ┌────────┼────────┐
+      │       │        │             │        │        │
+  Dashboard  HR Pages   UI        Storage   Charts   Theme
+      │
+      ├── Employees
+      ├── Recruitment
+      ├── Attendance
+      ├── Leave
+      ├── Performance
+      ├── Payroll
+      ├── Reports
+      ├── Calendar
+      └── Settings
+```
+
+---
+
+# 📂 Project Structure
 
 ```text
 TalentSphere/
@@ -339,41 +245,11 @@ TalentSphere/
 
 ---
 
-## 🧩 Project Architecture
+# 💾 Data Management
 
-TalentSphere follows a simple **frontend modular architecture**.
+TalentSphere currently uses **LocalStorage** instead of a backend database.
 
-```text
-                    TalentSphere
-                         │
-              ┌──────────┴──────────┐
-              │                     │
-          HTML Pages           JavaScript
-              │                     │
-       ┌──────┼──────┐       ┌──────┼──────┐
-       │      │      │       │      │      │
-    Dashboard HR Pages  UI  Storage Charts Theme
-       │
-       ├── Employees
-       ├── Recruitment
-       ├── Attendance
-       ├── Leave
-       ├── Performance
-       ├── Payroll
-       ├── Reports
-       ├── Calendar
-       └── Settings
-```
-
-Each major module has its own HTML page and JavaScript functionality, while common functionality is handled through shared JavaScript files.
-
----
-
-## 💾 Data Management
-
-TalentSphere currently uses browser **LocalStorage** instead of a backend database.
-
-Different modules maintain their own client-side data, such as:
+Client-side data includes:
 
 ```text
 talentSphereEmployees
@@ -386,15 +262,13 @@ talentSphereSettings
 talentSpherePreferences
 ```
 
-This makes the project easy to run locally without requiring database installation or server configuration.
-
 ---
 
-## 📊 Data Visualization
+# 📊 Data Visualization
 
-TalentSphere uses **Chart.js** to convert HR data into easy-to-understand visualizations.
+TalentSphere uses **Chart.js** to transform HR data into visual insights.
 
-Charts implemented across the platform include:
+Visualizations include:
 
 * Workforce growth
 * Department distribution
@@ -404,33 +278,27 @@ Charts implemented across the platform include:
 * Payroll trends
 * Performance analytics
 
-The charts are designed to make HR data easier to understand and analyze.
+---
+
+# 🌙 Dark Mode
+
+TalentSphere includes a built-in dark mode for improved usability and personalization.
+
+Theme preferences are stored using LocalStorage.
 
 ---
 
-## 🌙 Dark Mode
+# 📱 Responsive Design
 
-TalentSphere includes a built-in dark mode for improved usability and visual customization.
+The application is designed for:
 
-The selected theme is stored using LocalStorage so that the user's preference can persist across pages.
-
----
-
-## 📱 Responsive Design
-
-The application is designed to work across different screen sizes.
-
-```text
-Desktop
-   ↓
-Tablet
-   ↓
-Mobile
-```
+* Desktop
+* Tablet
+* Mobile
 
 Responsive features include:
 
-* Mobile navigation sidebar
+* Mobile navigation
 * Responsive tables
 * Flexible dashboard cards
 * Responsive charts
@@ -439,15 +307,13 @@ Responsive features include:
 
 ---
 
-## 🔍 Search & Filtering
+# 🔎 Search & Filtering
 
-Several modules provide search and filtering capabilities to make large datasets easier to manage.
-
-Examples include:
+Search and filtering functionality is available across multiple modules:
 
 * Employee search
 * Department filtering
-* Status filtering
+* Employment status filtering
 * Attendance filtering
 * Leave filtering
 * Payroll filtering
@@ -455,118 +321,151 @@ Examples include:
 
 ---
 
-## 📤 Data Export
+# 📤 CSV Export
 
-Selected modules provide CSV export functionality so that HR data can be downloaded and used outside the application.
-
-Example:
+Selected modules support CSV data export.
 
 ```text
-Employee Records → CSV
-Attendance Records → CSV
-Payroll Records → CSV
+Employee Records
+       ↓
+      CSV
+
+Attendance Records
+       ↓
+      CSV
+
+Payroll Records
+       ↓
+      CSV
 ```
 
 ---
 
-## 🚀 Getting Started
+# 🚀 Getting Started
 
-### 1. Clone the Repository
+## Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/talentsphere-intellihr.git
+git clone https://github.com/sumounaghosh7-coder/talentsphere-intellihr.git
 ```
 
-### 2. Open the Project
+## Navigate to the Project
 
 ```bash
 cd talentsphere-intellihr
 ```
 
-### 3. Run the Application
+## Run the Application
 
-Since TalentSphere is a frontend project, no backend installation is required.
+TalentSphere is currently a frontend-based application and does not require backend installation.
 
-You can open:
+Open:
 
 ```text
 index.html
 ```
 
-directly in your browser.
+in your browser.
 
-For development, it is recommended to use **Visual Studio Code with Live Server**.
+For development, **Visual Studio Code with Live Server** is recommended.
 
 ---
 
-## 🌐 Deployment
+# 🌐 Deployment
 
-TalentSphere can be deployed using platforms such as **Vercel** or **GitHub Pages**.
-
-For Vercel deployment:
+TalentSphere is deployed using **Vercel**.
 
 ```text
 GitHub Repository
-        ↓
-      Vercel
-        ↓
-TalentSphere Live Website
+       │
+       ↓
+     Vercel
+       │
+       ↓
+TalentSphere Live Application
 ```
 
-No server-side configuration is required because the current version is a frontend-based application.
+### 🚀 Live Application
+
+[https://talentsphere-vercel.vercel.app](https://talentsphere-vercel.vercel.app)
 
 ---
 
-## 🔮 Future Improvements
+# 🔮 Future Development Roadmap
 
-The current version is designed as a frontend HR management platform. Future versions can extend it with a backend and advanced enterprise functionality.
+The current version provides a frontend foundation that can be extended into a full-stack HRMS and HR Analytics platform.
 
-Planned improvements may include:
+Planned enhancements include:
 
-* User authentication
-* Admin and HR role management
-* Backend API
-* MySQL/PostgreSQL database
-* Node.js/Express backend
-* Employee document management
-* Real-time notifications
-* Advanced recruitment pipeline
-* Automated payroll processing
-* Email notifications
-* AI-based recruitment assistance
-* AI-powered employee analytics
-* Predictive attrition analysis
-* Advanced HR dashboards
-* Cloud database integration
-* REST API integration
-* Secure authentication and authorization
+* User Authentication
+* Admin & HR Role Management
+* Backend REST API
+* MySQL / PostgreSQL Database
+* Node.js / Express Backend
+* Employee Document Management
+* Real-time Notifications
+* Advanced Recruitment Pipeline
+* Automated Payroll Processing
+* Email Notifications
+* AI-assisted Recruitment
+* AI-powered Employee Analytics
+* Predictive Attrition Analysis
+* Cloud Database Integration
+* Secure Authentication & Authorization
 
 ---
 
-## 🎓 Academic & Portfolio Purpose
-
-TalentSphere is developed as a practical **B.Tech CSE (AI-ML) portfolio project** demonstrating concepts of:
+# 🎓 Skills Demonstrated
 
 * Frontend Web Development
 * Responsive UI Design
 * JavaScript Programming
-* Data Management
+* CRUD Operations
+* Client-side Data Management
 * Data Visualization
 * HR Analytics
-* CRUD Operations
-* Browser Storage
 * Modular Project Architecture
+* LocalStorage
+* Search & Filtering
+* CSV Data Export
 * Git & GitHub
-* Web Deployment
-
-The project can also serve as a foundation for developing a full-stack **HRMS / HR Analytics platform**.
+* Vercel Deployment
 
 ---
 
-## 👩‍💻 Author
+# 💼 Project Highlights
 
-**Sumouna Ghosh**
+TalentSphere was developed around a practical business problem: **bringing multiple HR operations into one centralized platform.**
 
+The project demonstrates the complete development workflow:
+
+```text
+Problem Identification
+        ↓
+UI / UX Design
+        ↓
+Frontend Development
+        ↓
+Data Management
+        ↓
+Data Visualization
+        ↓
+Testing
+        ↓
+GitHub Version Control
+        ↓
+Vercel Deployment
+```
+
+The project also provides a foundation for future expansion into a full-stack HRMS with backend APIs, databases, authentication and AI-powered analytics.
+
+---
+
+# 👩‍💻 About the Developer
+
+## Sumouna Ghosh
+
+**B.Tech CSE (AI & ML) Student**
 
 ### Areas of Interest
 
@@ -579,23 +478,37 @@ The project can also serve as a foundation for developing a full-stack **HRMS / 
 
 ---
 
-## 📜 License
+# 📌 Project Information
 
-This project is currently developed for educational and portfolio purposes.
+| Category         | Details                          |
+| ---------------- | -------------------------------- |
+| Project Name     | TalentSphere                     |
+| Project Type     | Human Resource Management System |
+| Application Type | Frontend Web Application         |
+| Primary Focus    | HR Operations & Analytics        |
+| Data Storage     | Browser LocalStorage             |
+| Deployment       | Vercel                           |
+| Repository       | GitHub                           |
+| Purpose          | Academic & Portfolio Project     |
 
 ---
 
-## ⭐ Support
+# 🔗 Project Links
 
-If you find this project useful or interesting, consider giving the repository a **Star ⭐** on GitHub.
+**Live Demo:**
+[https://talentsphere-vercel.vercel.app](https://talentsphere-vercel.vercel.app)
+
+**GitHub Repository:**
+[https://github.com/sumounaghosh7-coder/talentsphere-intellihr](https://github.com/sumounaghosh7-coder/talentsphere-intellihr)
 
 ---
 
-### 🔗 Project
+# ⭐ Support
 
-**Repository:** `talentsphere-intellihr`
+If you find TalentSphere interesting or useful, consider giving the repository a **Star ⭐** on GitHub.
 
-**Project Name:**
-`TalentSphere – Smart Human Resource Management Platform`
+---
 
-> **TalentSphere brings essential HR operations, workforce management, and analytics together in one modern web platform.**
+**TalentSphere — Bringing HR Operations, Workforce Management & Analytics Together.**
+
+**Built by Sumouna Ghosh**
