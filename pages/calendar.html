@@ -1,0 +1,2123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Calendar | TalentSphere</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: "class"
+        };
+    </script>
+
+    <style>
+        * {
+            scrollbar-width: thin;
+        }
+
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .sidebar-transition {
+            transition: transform 0.3s ease;
+        }
+
+        .calendar-day {
+            min-height: 125px;
+        }
+
+        .calendar-day:hover {
+            background-color: rgba(148, 163, 184, 0.06);
+        }
+
+        .event-item {
+            transition: all 0.2s ease;
+        }
+
+        .event-item:hover {
+            transform: translateY(-1px);
+        }
+
+        .modal-bg {
+            backdrop-filter: blur(6px);
+        }
+
+        @media(max-width: 768px) {
+            .calendar-day {
+                min-height: 90px;
+            }
+        }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+
+            body {
+                background: white !important;
+                color: black !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+
+<!-- =====================================================
+     MOBILE OVERLAY
+===================================================== -->
+
+<div id="sidebarOverlay"
+     class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden">
+</div>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside id="sidebar"
+       class="sidebar-transition fixed left-0 top-0 z-40 h-screen w-64
+              bg-white dark:bg-slate-900
+              border-r border-slate-200 dark:border-slate-800
+              -translate-x-full lg:translate-x-0">
+
+    <div class="h-full flex flex-col">
+
+        <!-- Logo -->
+
+        <div class="h-20 flex items-center px-6
+                    border-b border-slate-200 dark:border-slate-800">
+
+            <div class="w-10 h-10 rounded-xl
+                        bg-gradient-to-br from-blue-600 to-cyan-500
+                        flex items-center justify-center
+                        text-white font-bold text-lg">
+                TS
+            </div>
+
+            <div class="ml-3">
+
+                <h1 class="font-bold text-lg">
+                    TalentSphere
+                </h1>
+
+                <p class="text-xs text-slate-500 dark:text-slate-400">
+                    Smart HR Platform
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Navigation -->
+
+        <nav class="flex-1 px-4 py-5 space-y-1 overflow-y-auto">
+
+            <p class="px-3 mb-3 text-xs font-semibold
+                      uppercase tracking-wider text-slate-400">
+                Main Menu
+            </p>
+
+
+            <a href="../index.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      text-slate-600 dark:text-slate-300
+                      hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                Dashboard
+
+            </a>
+
+
+            <a href="employees.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      text-slate-600 dark:text-slate-300
+                      hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                <i data-lucide="users" class="w-5 h-5"></i>
+                Employees
+
+            </a>
+
+
+            <a href="employee-details.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      text-slate-600 dark:text-slate-300
+                      hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                <i data-lucide="user-round" class="w-5 h-5"></i>
+                Employee Details
+
+            </a>
+
+
+            <a href="recruitment.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      text-slate-600 dark:text-slate-300
+                      hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                <i data-lucide="briefcase-business" class="w-5 h-5"></i>
+                Recruitment
+
+            </a>
+
+
+            <a href="attendance.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      text-slate-600 dark:text-slate-300
+                      hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                <i data-lucide="calendar-check" class="w-5 h-5"></i>
+                Attendance
+
+            </a>
+
+
+            <a href="leave.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      text-slate-600 dark:text-slate-300
+                      hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                <i data-lucide="calendar-off" class="w-5 h-5"></i>
+                Leave Management
+
+            </a>
+
+
+            <a href="performance.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      text-slate-600 dark:text-slate-300
+                      hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                <i data-lucide="chart-no-axes-combined" class="w-5 h-5"></i>
+                Performance
+
+            </a>
+
+
+            <a href="payroll.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      text-slate-600 dark:text-slate-300
+                      hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                <i data-lucide="wallet" class="w-5 h-5"></i>
+                Payroll
+
+            </a>
+
+
+            <a href="reports.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      text-slate-600 dark:text-slate-300
+                      hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                <i data-lucide="file-chart-column" class="w-5 h-5"></i>
+                Reports
+
+            </a>
+
+
+            <!-- ACTIVE -->
+
+            <a href="calendar.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      bg-blue-50 dark:bg-blue-500/10
+                      text-blue-600 dark:text-blue-400
+                      font-semibold">
+
+                <i data-lucide="calendar-days" class="w-5 h-5"></i>
+                Calendar
+
+            </a>
+
+
+            <a href="settings.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      text-slate-600 dark:text-slate-300
+                      hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                <i data-lucide="settings" class="w-5 h-5"></i>
+                Settings
+
+            </a>
+
+        </nav>
+
+
+        <!-- Sidebar Bottom -->
+
+        <div class="p-4 border-t border-slate-200 dark:border-slate-800">
+
+            <div class="rounded-xl
+                        bg-gradient-to-r from-blue-600 to-cyan-500
+                        p-4 text-white">
+
+                <div class="flex items-center gap-2 mb-2">
+
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+
+                    <span class="font-semibold text-sm">
+                        TalentSphere AI
+                    </span>
+
+                </div>
+
+                <p class="text-xs text-blue-100 mb-3">
+                    Organize your workforce smarter.
+                </p>
+
+                <button onclick="showToast('AI Calendar Assistant coming soon!')"
+                        class="w-full bg-white/20 hover:bg-white/30
+                               rounded-lg py-2 text-xs font-semibold">
+                    Explore AI
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<div class="lg:ml-64 min-h-screen">
+
+    <!-- =================================================
+         TOP NAVBAR
+    ================================================= -->
+
+    <header class="h-20 sticky top-0 z-20
+                   bg-white/90 dark:bg-slate-900/90
+                   backdrop-blur
+                   border-b border-slate-200 dark:border-slate-800">
+
+        <div class="h-full px-4 sm:px-6
+                    flex items-center justify-between">
+
+            <div class="flex items-center gap-4">
+
+                <button id="menuBtn"
+                        class="lg:hidden p-2 rounded-lg
+                               hover:bg-slate-100
+                               dark:hover:bg-slate-800">
+
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+
+                </button>
+
+
+                <div>
+
+                    <h2 class="text-xl font-bold">
+                        HR Calendar
+                    </h2>
+
+                    <p class="text-xs text-slate-500
+                              dark:text-slate-400 hidden sm:block">
+                        Manage events, leave and important HR activities
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="flex items-center gap-2">
+
+                <button id="themeBtn"
+                        class="p-2 rounded-lg
+                               hover:bg-slate-100
+                               dark:hover:bg-slate-800">
+
+                    <i id="themeIcon"
+                       data-lucide="moon"
+                       class="w-5 h-5"></i>
+
+                </button>
+
+
+                <button onclick="showToast('No new notifications')"
+                        class="relative p-2 rounded-lg
+                               hover:bg-slate-100
+                               dark:hover:bg-slate-800">
+
+                    <i data-lucide="bell" class="w-5 h-5"></i>
+
+                    <span class="absolute top-1 right-1
+                                 w-2 h-2 bg-red-500 rounded-full">
+                    </span>
+
+                </button>
+
+
+                <div class="hidden sm:flex items-center gap-3 ml-2">
+
+                    <div class="w-9 h-9 rounded-full
+                                bg-gradient-to-br from-blue-500 to-cyan-400
+                                flex items-center justify-center
+                                text-white font-semibold text-sm">
+                        SG
+                    </div>
+
+                    <div class="hidden md:block">
+
+                        <p class="text-sm font-semibold">
+                            HR Admin
+                        </p>
+
+                        <p class="text-xs text-slate-500">
+                            Administrator
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- =================================================
+         CONTENT
+    ================================================= -->
+
+    <main class="p-4 sm:p-6">
+
+        <!-- PAGE HEADER -->
+
+        <div class="flex flex-col lg:flex-row
+                    lg:items-center lg:justify-between
+                    gap-4 mb-6">
+
+            <div>
+
+                <h1 class="text-2xl font-bold">
+                    HR Calendar
+                </h1>
+
+                <p class="text-sm text-slate-500
+                          dark:text-slate-400 mt-1">
+                    View and manage company events and employee activities.
+                </p>
+
+            </div>
+
+
+            <div class="flex flex-wrap gap-2">
+
+                <button onclick="goToToday()"
+                        class="px-4 py-2.5 rounded-lg
+                               border border-slate-200
+                               dark:border-slate-700
+                               text-sm font-semibold
+                               hover:bg-slate-100
+                               dark:hover:bg-slate-800">
+
+                    Today
+
+                </button>
+
+
+                <button onclick="openEventModal()"
+                        class="flex items-center gap-2
+                               px-4 py-2.5 rounded-lg
+                               bg-blue-600 hover:bg-blue-700
+                               text-white text-sm font-semibold">
+
+                    <i data-lucide="plus" class="w-4 h-4"></i>
+
+                    Add Event
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             SUMMARY CARDS
+        ================================================= -->
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+
+            <div class="bg-white dark:bg-slate-900
+                        border border-slate-200
+                        dark:border-slate-800
+                        rounded-2xl p-5 shadow-sm">
+
+                <div class="flex items-center justify-between">
+
+                    <div>
+
+                        <p class="text-xs text-slate-500">
+                            Total Events
+                        </p>
+
+                        <h3 id="totalEvents"
+                            class="text-2xl font-bold mt-1">
+                            8
+                        </h3>
+
+                    </div>
+
+                    <div class="w-10 h-10 rounded-xl
+                                bg-blue-50 dark:bg-blue-500/10
+                                flex items-center justify-center">
+
+                        <i data-lucide="calendar"
+                           class="w-5 h-5 text-blue-600">
+                        </i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="bg-white dark:bg-slate-900
+                        border border-slate-200
+                        dark:border-slate-800
+                        rounded-2xl p-5 shadow-sm">
+
+                <div class="flex items-center justify-between">
+
+                    <div>
+
+                        <p class="text-xs text-slate-500">
+                            Meetings
+                        </p>
+
+                        <h3 id="meetingCount"
+                            class="text-2xl font-bold mt-1">
+                            3
+                        </h3>
+
+                    </div>
+
+                    <div class="w-10 h-10 rounded-xl
+                                bg-purple-50 dark:bg-purple-500/10
+                                flex items-center justify-center">
+
+                        <i data-lucide="video"
+                           class="w-5 h-5 text-purple-600">
+                        </i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="bg-white dark:bg-slate-900
+                        border border-slate-200
+                        dark:border-slate-800
+                        rounded-2xl p-5 shadow-sm">
+
+                <div class="flex items-center justify-between">
+
+                    <div>
+
+                        <p class="text-xs text-slate-500">
+                            Leave Events
+                        </p>
+
+                        <h3 id="leaveCount"
+                            class="text-2xl font-bold mt-1">
+                            3
+                        </h3>
+
+                    </div>
+
+                    <div class="w-10 h-10 rounded-xl
+                                bg-amber-50 dark:bg-amber-500/10
+                                flex items-center justify-center">
+
+                        <i data-lucide="calendar-off"
+                           class="w-5 h-5 text-amber-600">
+                        </i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="bg-white dark:bg-slate-900
+                        border border-slate-200
+                        dark:border-slate-800
+                        rounded-2xl p-5 shadow-sm">
+
+                <div class="flex items-center justify-between">
+
+                    <div>
+
+                        <p class="text-xs text-slate-500">
+                            Birthdays
+                        </p>
+
+                        <h3 id="birthdayCount"
+                            class="text-2xl font-bold mt-1">
+                            2
+                        </h3>
+
+                    </div>
+
+                    <div class="w-10 h-10 rounded-xl
+                                bg-pink-50 dark:bg-pink-500/10
+                                flex items-center justify-center">
+
+                        <i data-lucide="cake"
+                           class="w-5 h-5 text-pink-600">
+                        </i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CALENDAR CARD
+        ================================================= -->
+
+        <div class="bg-white dark:bg-slate-900
+                    border border-slate-200
+                    dark:border-slate-800
+                    rounded-2xl shadow-sm overflow-hidden">
+
+            <!-- CALENDAR HEADER -->
+
+            <div class="p-4 sm:p-5
+                        border-b border-slate-200
+                        dark:border-slate-800">
+
+                <div class="flex flex-col sm:flex-row
+                            sm:items-center
+                            sm:justify-between gap-4">
+
+                    <!-- Month Navigation -->
+
+                    <div class="flex items-center gap-3">
+
+                        <button onclick="previousMonth()"
+                                class="w-9 h-9 rounded-lg
+                                       border border-slate-200
+                                       dark:border-slate-700
+                                       flex items-center justify-center
+                                       hover:bg-slate-100
+                                       dark:hover:bg-slate-800">
+
+                            <i data-lucide="chevron-left"
+                               class="w-5 h-5"></i>
+
+                        </button>
+
+
+                        <h2 id="monthTitle"
+                            class="text-lg font-bold min-w-[160px]
+                                   text-center">
+                        </h2>
+
+
+                        <button onclick="nextMonth()"
+                                class="w-9 h-9 rounded-lg
+                                       border border-slate-200
+                                       dark:border-slate-700
+                                       flex items-center justify-center
+                                       hover:bg-slate-100
+                                       dark:hover:bg-slate-800">
+
+                            <i data-lucide="chevron-right"
+                               class="w-5 h-5"></i>
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- Filter -->
+
+                    <div class="flex items-center gap-2">
+
+                        <select id="eventFilter"
+                                onchange="renderCalendar()"
+                                class="px-3 py-2 rounded-lg
+                                       border border-slate-200
+                                       dark:border-slate-700
+                                       bg-white dark:bg-slate-900
+                                       text-sm outline-none">
+
+                            <option value="all">
+                                All Events
+                            </option>
+
+                            <option value="Meeting">
+                                Meetings
+                            </option>
+
+                            <option value="Leave">
+                                Leave
+                            </option>
+
+                            <option value="Birthday">
+                                Birthdays
+                            </option>
+
+                            <option value="Training">
+                                Training
+                            </option>
+
+                            <option value="Holiday">
+                                Holidays
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- WEEKDAYS -->
+
+            <div class="grid grid-cols-7
+                        border-b border-slate-200
+                        dark:border-slate-800">
+
+                <div class="p-3 text-center text-xs
+                            font-semibold text-slate-500">
+                    Sun
+                </div>
+
+                <div class="p-3 text-center text-xs
+                            font-semibold text-slate-500">
+                    Mon
+                </div>
+
+                <div class="p-3 text-center text-xs
+                            font-semibold text-slate-500">
+                    Tue
+                </div>
+
+                <div class="p-3 text-center text-xs
+                            font-semibold text-slate-500">
+                    Wed
+                </div>
+
+                <div class="p-3 text-center text-xs
+                            font-semibold text-slate-500">
+                    Thu
+                </div>
+
+                <div class="p-3 text-center text-xs
+                            font-semibold text-slate-500">
+                    Fri
+                </div>
+
+                <div class="p-3 text-center text-xs
+                            font-semibold text-slate-500">
+                    Sat
+                </div>
+
+            </div>
+
+
+            <!-- CALENDAR -->
+
+            <div id="calendarGrid"
+                 class="grid grid-cols-7">
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             UPCOMING EVENTS
+        ================================================= -->
+
+        <div class="grid grid-cols-1 lg:grid-cols-3
+                    gap-6 mt-6">
+
+            <!-- Upcoming -->
+
+            <div class="lg:col-span-2
+                        bg-white dark:bg-slate-900
+                        border border-slate-200
+                        dark:border-slate-800
+                        rounded-2xl shadow-sm">
+
+                <div class="p-5
+                            border-b border-slate-200
+                            dark:border-slate-800">
+
+                    <div class="flex items-center justify-between">
+
+                        <div>
+
+                            <h3 class="font-semibold">
+                                Upcoming Events
+                            </h3>
+
+                            <p class="text-xs text-slate-500 mt-1">
+                                Your next scheduled HR activities
+                            </p>
+
+                        </div>
+
+                        <i data-lucide="calendar-clock"
+                           class="w-5 h-5 text-blue-600">
+                        </i>
+
+                    </div>
+
+                </div>
+
+
+                <div id="upcomingEvents"
+                     class="divide-y divide-slate-100
+                            dark:divide-slate-800">
+                </div>
+
+            </div>
+
+
+            <!-- Legend -->
+
+            <div class="bg-white dark:bg-slate-900
+                        border border-slate-200
+                        dark:border-slate-800
+                        rounded-2xl shadow-sm p-5">
+
+                <h3 class="font-semibold mb-5">
+                    Calendar Legend
+                </h3>
+
+
+                <div class="space-y-4">
+
+                    <div class="flex items-center gap-3">
+
+                        <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+
+                        <span class="text-sm">
+                            Meeting
+                        </span>
+
+                    </div>
+
+
+                    <div class="flex items-center gap-3">
+
+                        <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+
+                        <span class="text-sm">
+                            Leave
+                        </span>
+
+                    </div>
+
+
+                    <div class="flex items-center gap-3">
+
+                        <span class="w-3 h-3 rounded-full bg-pink-500"></span>
+
+                        <span class="text-sm">
+                            Birthday
+                        </span>
+
+                    </div>
+
+
+                    <div class="flex items-center gap-3">
+
+                        <span class="w-3 h-3 rounded-full bg-purple-500"></span>
+
+                        <span class="text-sm">
+                            Training
+                        </span>
+
+                    </div>
+
+
+                    <div class="flex items-center gap-3">
+
+                        <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+
+                        <span class="text-sm">
+                            Holiday
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="mt-7 pt-5
+                            border-t border-slate-200
+                            dark:border-slate-800">
+
+                    <div class="flex items-center gap-3">
+
+                        <div class="w-8 h-8 rounded-lg
+                                    bg-blue-50 dark:bg-blue-500/10
+                                    flex items-center justify-center">
+
+                            <i data-lucide="info"
+                               class="w-4 h-4 text-blue-600">
+                            </i>
+
+                        </div>
+
+                        <p class="text-xs text-slate-500
+                                  dark:text-slate-400">
+                            Click any calendar day to add a new event.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <footer class="mt-8 pt-6
+                       border-t border-slate-200
+                       dark:border-slate-800
+                       text-center">
+
+            <p class="text-xs text-slate-500">
+                © 2026 TalentSphere. Smart Human Resource Management Platform.
+            </p>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     EVENT MODAL
+===================================================== -->
+
+<div id="eventModal"
+     class="fixed inset-0 z-50 hidden
+            bg-black/50 modal-bg
+            flex items-center justify-center p-4">
+
+    <div class="w-full max-w-lg
+                bg-white dark:bg-slate-900
+                rounded-2xl shadow-2xl
+                border border-slate-200
+                dark:border-slate-800">
+
+        <!-- Modal Header -->
+
+        <div class="flex items-center justify-between
+                    p-5 border-b border-slate-200
+                    dark:border-slate-800">
+
+            <div>
+
+                <h3 class="font-bold text-lg">
+                    Add Calendar Event
+                </h3>
+
+                <p class="text-xs text-slate-500 mt-1">
+                    Create a new HR event
+                </p>
+
+            </div>
+
+
+            <button onclick="closeEventModal()"
+                    class="w-9 h-9 rounded-lg
+                           hover:bg-slate-100
+                           dark:hover:bg-slate-800
+                           flex items-center justify-center">
+
+                <i data-lucide="x" class="w-5 h-5"></i>
+
+            </button>
+
+        </div>
+
+
+        <!-- Form -->
+
+        <form id="eventForm" class="p-5 space-y-4">
+
+            <div>
+
+                <label class="block text-sm font-medium mb-1.5">
+                    Event Title
+                </label>
+
+                <input id="eventTitle"
+                       type="text"
+                       required
+                       placeholder="e.g. Team Meeting"
+                       class="w-full px-3 py-2.5 rounded-lg
+                              border border-slate-200
+                              dark:border-slate-700
+                              bg-white dark:bg-slate-950
+                              outline-none focus:ring-2
+                              focus:ring-blue-500">
+
+            </div>
+
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                <div>
+
+                    <label class="block text-sm font-medium mb-1.5">
+                        Date
+                    </label>
+
+                    <input id="eventDate"
+                           type="date"
+                           required
+                           class="w-full px-3 py-2.5 rounded-lg
+                                  border border-slate-200
+                                  dark:border-slate-700
+                                  bg-white dark:bg-slate-950
+                                  outline-none focus:ring-2
+                                  focus:ring-blue-500">
+
+                </div>
+
+
+                <div>
+
+                    <label class="block text-sm font-medium mb-1.5">
+                        Event Type
+                    </label>
+
+                    <select id="eventType"
+                            required
+                            class="w-full px-3 py-2.5 rounded-lg
+                                   border border-slate-200
+                                   dark:border-slate-700
+                                   bg-white dark:bg-slate-950
+                                   outline-none focus:ring-2
+                                   focus:ring-blue-500">
+
+                        <option value="Meeting">
+                            Meeting
+                        </option>
+
+                        <option value="Leave">
+                            Leave
+                        </option>
+
+                        <option value="Birthday">
+                            Birthday
+                        </option>
+
+                        <option value="Training">
+                            Training
+                        </option>
+
+                        <option value="Holiday">
+                            Holiday
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <label class="block text-sm font-medium mb-1.5">
+                    Time
+                </label>
+
+                <input id="eventTime"
+                       type="time"
+                       class="w-full px-3 py-2.5 rounded-lg
+                              border border-slate-200
+                              dark:border-slate-700
+                              bg-white dark:bg-slate-950
+                              outline-none focus:ring-2
+                              focus:ring-blue-500">
+
+            </div>
+
+
+            <div>
+
+                <label class="block text-sm font-medium mb-1.5">
+                    Description
+                </label>
+
+                <textarea id="eventDescription"
+                          rows="3"
+                          placeholder="Add event details..."
+                          class="w-full px-3 py-2.5 rounded-lg
+                                 border border-slate-200
+                                 dark:border-slate-700
+                                 bg-white dark:bg-slate-950
+                                 outline-none focus:ring-2
+                                 focus:ring-blue-500">
+                </textarea>
+
+            </div>
+
+
+            <div class="flex justify-end gap-3 pt-2">
+
+                <button type="button"
+                        onclick="closeEventModal()"
+                        class="px-4 py-2.5 rounded-lg
+                               border border-slate-200
+                               dark:border-slate-700
+                               text-sm font-semibold">
+
+                    Cancel
+
+                </button>
+
+
+                <button type="submit"
+                        class="px-5 py-2.5 rounded-lg
+                               bg-blue-600 hover:bg-blue-700
+                               text-white text-sm font-semibold">
+
+                    Create Event
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div id="toast"
+     class="fixed bottom-5 right-5 z-[60] hidden">
+
+    <div class="bg-slate-900 dark:bg-white
+                text-white dark:text-slate-900
+                px-4 py-3 rounded-xl shadow-xl
+                flex items-center gap-3">
+
+        <i data-lucide="circle-check"
+           class="w-5 h-5 text-emerald-400
+                  dark:text-emerald-600">
+        </i>
+
+        <span id="toastMessage"
+              class="text-sm">
+        </span>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   INITIAL DATA
+===================================================== */
+
+const defaultEvents = [
+
+    {
+        id: 1,
+        title: "Monthly HR Meeting",
+        date: "2026-09-02",
+        time: "10:00",
+        type: "Meeting",
+        description: "Monthly HR department meeting."
+    },
+
+    {
+        id: 2,
+        title: "Ananya Roy - Casual Leave",
+        date: "2026-09-03",
+        time: "",
+        type: "Leave",
+        description: "Employee leave."
+    },
+
+    {
+        id: 3,
+        title: "Rahul Das Birthday",
+        date: "2026-09-08",
+        time: "",
+        type: "Birthday",
+        description: "Employee birthday."
+    },
+
+    {
+        id: 4,
+        title: "Leadership Training",
+        date: "2026-09-12",
+        time: "11:00",
+        type: "Training",
+        description: "Leadership and management training."
+    },
+
+    {
+        id: 5,
+        title: "Arjun Mehta - Earned Leave",
+        date: "2026-09-14",
+        time: "",
+        type: "Leave",
+        description: "Planned employee leave."
+    },
+
+    {
+        id: 6,
+        title: "Project Review Meeting",
+        date: "2026-09-18",
+        time: "15:00",
+        type: "Meeting",
+        description: "Quarterly project review."
+    },
+
+    {
+        id: 7,
+        title: "Company Foundation Day",
+        date: "2026-09-24",
+        time: "",
+        type: "Holiday",
+        description: "Company holiday."
+    },
+
+    {
+        id: 8,
+        title: "Sneha Roy Birthday",
+        date: "2026-09-27",
+        time: "",
+        type: "Birthday",
+        description: "Employee birthday."
+    }
+
+];
+
+
+let events =
+    JSON.parse(
+        localStorage.getItem("talentSphereCalendarEvents")
+    ) || defaultEvents;
+
+
+/* =====================================================
+   DATE STATE
+===================================================== */
+
+let currentDate = new Date(2026, 8, 1);
+
+
+/* =====================================================
+   THEME
+===================================================== */
+
+const themeBtn =
+    document.getElementById("themeBtn");
+
+const themeIcon =
+    document.getElementById("themeIcon");
+
+
+if (
+    localStorage.getItem("talentSphereTheme")
+    === "dark"
+) {
+
+    document.documentElement.classList.add("dark");
+
+}
+
+
+function updateThemeIcon() {
+
+    const isDark =
+        document.documentElement
+            .classList.contains("dark");
+
+    themeIcon.setAttribute(
+        "data-lucide",
+        isDark ? "sun" : "moon"
+    );
+
+    lucide.createIcons();
+
+}
+
+
+updateThemeIcon();
+
+
+themeBtn.addEventListener("click", () => {
+
+    document.documentElement.classList.toggle("dark");
+
+    const isDark =
+        document.documentElement
+            .classList.contains("dark");
+
+    localStorage.setItem(
+        "talentSphereTheme",
+        isDark ? "dark" : "light"
+    );
+
+    updateThemeIcon();
+
+    renderCalendar();
+
+});
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+const sidebar =
+    document.getElementById("sidebar");
+
+const overlay =
+    document.getElementById("sidebarOverlay");
+
+const menuBtn =
+    document.getElementById("menuBtn");
+
+
+menuBtn.addEventListener("click", () => {
+
+    sidebar.classList.remove("-translate-x-full");
+
+    overlay.classList.remove("hidden");
+
+});
+
+
+overlay.addEventListener("click", () => {
+
+    sidebar.classList.add("-translate-x-full");
+
+    overlay.classList.add("hidden");
+
+});
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer;
+
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById("toast");
+
+    const toastMessage =
+        document.getElementById("toastMessage");
+
+    toastMessage.textContent = message;
+
+    toast.classList.remove("hidden");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+
+        toast.classList.add("hidden");
+
+    }, 3000);
+
+}
+
+
+/* =====================================================
+   EVENT COLORS
+===================================================== */
+
+function getEventColor(type) {
+
+    const colors = {
+
+        Meeting:
+            "bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300",
+
+        Leave:
+            "bg-amber-100 dark:bg-amber-500/20 text-amber-700 dark:text-amber-300",
+
+        Birthday:
+            "bg-pink-100 dark:bg-pink-500/20 text-pink-700 dark:text-pink-300",
+
+        Training:
+            "bg-purple-100 dark:bg-purple-500/20 text-purple-700 dark:text-purple-300",
+
+        Holiday:
+            "bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300"
+
+    };
+
+    return colors[type] || colors.Meeting;
+
+}
+
+
+function getDotColor(type) {
+
+    const colors = {
+
+        Meeting: "bg-blue-500",
+        Leave: "bg-amber-500",
+        Birthday: "bg-pink-500",
+        Training: "bg-purple-500",
+        Holiday: "bg-emerald-500"
+
+    };
+
+    return colors[type] || "bg-blue-500";
+
+}
+
+
+/* =====================================================
+   CALENDAR
+===================================================== */
+
+function renderCalendar() {
+
+    const grid =
+        document.getElementById("calendarGrid");
+
+    const year =
+        currentDate.getFullYear();
+
+    const month =
+        currentDate.getMonth();
+
+    const monthTitle =
+        document.getElementById("monthTitle");
+
+    monthTitle.textContent =
+        new Date(year, month, 1)
+            .toLocaleDateString(
+                "en-US",
+                {
+                    month: "long",
+                    year: "numeric"
+                }
+            );
+
+
+    const firstDay =
+        new Date(year, month, 1)
+            .getDay();
+
+    const daysInMonth =
+        new Date(year, month + 1, 0)
+            .getDate();
+
+    const daysInPreviousMonth =
+        new Date(year, month, 0)
+            .getDate();
+
+
+    const filter =
+        document.getElementById("eventFilter").value;
+
+
+    grid.innerHTML = "";
+
+
+    /* Previous month */
+
+    for (
+        let i = firstDay - 1;
+        i >= 0;
+        i--
+    ) {
+
+        const day =
+            daysInPreviousMonth - i;
+
+        const cell =
+            createCalendarCell(
+                day,
+                true,
+                year,
+                month - 1,
+                filter
+            );
+
+        grid.appendChild(cell);
+
+    }
+
+
+    /* Current month */
+
+    for (
+        let day = 1;
+        day <= daysInMonth;
+        day++
+    ) {
+
+        const cell =
+            createCalendarCell(
+                day,
+                false,
+                year,
+                month,
+                filter
+            );
+
+        grid.appendChild(cell);
+
+    }
+
+
+    /* Next month */
+
+    const totalCells =
+        firstDay + daysInMonth;
+
+    const remaining =
+        7 - (totalCells % 7);
+
+    if (remaining < 7) {
+
+        for (
+            let day = 1;
+            day <= remaining;
+            day++
+        ) {
+
+            const cell =
+                createCalendarCell(
+                    day,
+                    true,
+                    year,
+                    month + 1,
+                    filter
+                );
+
+            grid.appendChild(cell);
+
+        }
+
+    }
+
+
+    updateStats();
+
+    renderUpcomingEvents();
+
+    lucide.createIcons();
+
+}
+
+
+function createCalendarCell(
+    day,
+    otherMonth,
+    year,
+    month,
+    filter
+) {
+
+    const cell =
+        document.createElement("div");
+
+
+    const actualDate =
+        new Date(year, month, day);
+
+
+    const dateString =
+        formatDate(actualDate);
+
+
+    cell.className =
+        `calendar-day p-2 sm:p-3
+         border-r border-b
+         border-slate-200 dark:border-slate-800
+         ${otherMonth
+             ? "opacity-40"
+             : ""
+         }
+         cursor-pointer`;
+
+
+    cell.addEventListener(
+        "click",
+        () => {
+
+            if (!otherMonth) {
+
+                openEventModal(dateString);
+
+            }
+
+        }
+    );
+
+
+    const today =
+        new Date();
+
+
+    const isProjectToday =
+        dateString === "2026-09-19";
+
+
+    let dayHTML = `
+
+        <div class="flex items-center justify-between mb-2">
+
+            <span class="
+                inline-flex items-center justify-center
+                w-7 h-7 rounded-full
+                text-xs font-semibold
+                ${isProjectToday
+                    ? "bg-blue-600 text-white"
+                    : ""
+                }">
+
+                ${day}
+
+            </span>
+
+            ${!otherMonth
+                ? `
+                <button
+                    onclick="event.stopPropagation(); openEventModal('${dateString}')"
+                    class="opacity-0 group-hover:opacity-100
+                           text-slate-400 hover:text-blue-600">
+                    <i data-lucide="plus" class="w-4 h-4"></i>
+                </button>
+                `
+                : ""
+            }
+
+        </div>
+
+        <div class="space-y-1">
+    `;
+
+
+    const dayEvents =
+        events.filter(event => {
+
+            if (event.date !== dateString) {
+                return false;
+            }
+
+            if (filter === "all") {
+                return true;
+            }
+
+            return event.type === filter;
+
+        });
+
+
+    dayEvents
+        .slice(0, 3)
+        .forEach(event => {
+
+            dayHTML += `
+
+                <div class="
+                    event-item
+                    ${getEventColor(event.type)}
+                    rounded-md px-1.5 py-1
+                    text-[10px] sm:text-xs
+                    font-medium truncate">
+
+                    <span class="inline-block
+                                 w-1.5 h-1.5
+                                 rounded-full
+                                 ${getDotColor(event.type)}
+                                 mr-1">
+                    </span>
+
+                    ${event.title}
+
+                </div>
+
+            `;
+
+        });
+
+
+    if (dayEvents.length > 3) {
+
+        dayHTML += `
+
+            <div class="text-[10px]
+                        text-slate-500
+                        pl-1">
+
+                +${dayEvents.length - 3} more
+
+            </div>
+
+        `;
+
+    }
+
+
+    dayHTML += `</div>`;
+
+
+    cell.innerHTML = dayHTML;
+
+    return cell;
+
+}
+
+
+/* =====================================================
+   FORMAT DATE
+===================================================== */
+
+function formatDate(date) {
+
+    const year =
+        date.getFullYear();
+
+    const month =
+        String(date.getMonth() + 1)
+            .padStart(2, "0");
+
+    const day =
+        String(date.getDate())
+            .padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function previousMonth() {
+
+    currentDate =
+        new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth() - 1,
+            1
+        );
+
+    renderCalendar();
+
+}
+
+
+function nextMonth() {
+
+    currentDate =
+        new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth() + 1,
+            1
+        );
+
+    renderCalendar();
+
+}
+
+
+function goToToday() {
+
+    currentDate =
+        new Date(2026, 8, 1);
+
+    renderCalendar();
+
+    showToast("Returned to September 2026");
+
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+function openEventModal(date = "") {
+
+    const modal =
+        document.getElementById("eventModal");
+
+    modal.classList.remove("hidden");
+
+    if (date) {
+
+        document.getElementById(
+            "eventDate"
+        ).value = date;
+
+    } else {
+
+        document.getElementById(
+            "eventDate"
+        ).value = formatDate(currentDate);
+
+    }
+
+    document
+        .getElementById("eventTitle")
+        .focus();
+
+}
+
+
+function closeEventModal() {
+
+    document
+        .getElementById("eventModal")
+        .classList.add("hidden");
+
+    document
+        .getElementById("eventForm")
+        .reset();
+
+}
+
+
+/* =====================================================
+   ADD EVENT
+===================================================== */
+
+document
+    .getElementById("eventForm")
+    .addEventListener("submit", function(e) {
+
+        e.preventDefault();
+
+
+        const title =
+            document
+                .getElementById("eventTitle")
+                .value
+                .trim();
+
+        const date =
+            document
+                .getElementById("eventDate")
+                .value;
+
+        const type =
+            document
+                .getElementById("eventType")
+                .value;
+
+        const time =
+            document
+                .getElementById("eventTime")
+                .value;
+
+        const description =
+            document
+                .getElementById("eventDescription")
+                .value
+                .trim();
+
+
+        if (!title || !date) {
+
+            showToast(
+                "Please fill in the required fields."
+            );
+
+            return;
+
+        }
+
+
+        const newEvent = {
+
+            id: Date.now(),
+
+            title,
+
+            date,
+
+            time,
+
+            type,
+
+            description
+
+        };
+
+
+        events.push(newEvent);
+
+
+        localStorage.setItem(
+            "talentSphereCalendarEvents",
+            JSON.stringify(events)
+        );
+
+
+        closeEventModal();
+
+        renderCalendar();
+
+        showToast(
+            "Event created successfully!"
+        );
+
+    });
+
+
+/* =====================================================
+   UPCOMING EVENTS
+===================================================== */
+
+function renderUpcomingEvents() {
+
+    const container =
+        document.getElementById("upcomingEvents");
+
+
+    const sorted =
+        [...events]
+            .sort(
+                (a, b) =>
+                    new Date(a.date) -
+                    new Date(b.date)
+            );
+
+
+    if (!sorted.length) {
+
+        container.innerHTML = `
+
+            <div class="p-8 text-center
+                        text-sm text-slate-500">
+
+                No upcoming events.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        sorted
+            .slice(0, 5)
+            .map(event => {
+
+                const date =
+                    new Date(
+                        event.date + "T00:00:00"
+                    );
+
+
+                const formatted =
+                    date.toLocaleDateString(
+                        "en-US",
+                        {
+                            month: "short",
+                            day: "numeric"
+                        }
+                    );
+
+
+                return `
+
+                    <div class="p-4 sm:p-5
+                                flex items-center
+                                gap-4">
+
+                        <div class="
+                            w-12 h-12 rounded-xl
+                            flex flex-col
+                            items-center
+                            justify-center
+                            bg-slate-100
+                            dark:bg-slate-800">
+
+                            <span class="text-[10px]
+                                         uppercase
+                                         text-slate-500">
+
+                                ${date.toLocaleDateString(
+                                    "en-US",
+                                    {month:"short"}
+                                )}
+
+                            </span>
+
+                            <span class="font-bold">
+
+                                ${date.getDate()}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="flex-1 min-w-0">
+
+                            <h4 class="text-sm
+                                       font-semibold truncate">
+
+                                ${event.title}
+
+                            </h4>
+
+                            <p class="text-xs
+                                      text-slate-500 mt-1">
+
+                                ${event.time
+                                    ? event.time + " • "
+                                    : ""
+                                }
+
+                                ${event.type}
+
+                            </p>
+
+                        </div>
+
+
+                        <span class="
+                            px-2.5 py-1 rounded-full
+                            text-[10px] font-semibold
+                            ${getEventColor(event.type)}">
+
+                            ${event.type}
+
+                        </span>
+
+                    </div>
+
+                `;
+
+            })
+            .join("");
+
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+function updateStats() {
+
+    document.getElementById(
+        "totalEvents"
+    ).textContent = events.length;
+
+
+    document.getElementById(
+        "meetingCount"
+    ).textContent =
+        events.filter(
+            event => event.type === "Meeting"
+        ).length;
+
+
+    document.getElementById(
+        "leaveCount"
+    ).textContent =
+        events.filter(
+            event => event.type === "Leave"
+        ).length;
+
+
+    document.getElementById(
+        "birthdayCount"
+    ).textContent =
+        events.filter(
+            event => event.type === "Birthday"
+        ).length;
+
+}
+
+
+/* =====================================================
+   CLOSE MODAL BY CLICKING OUTSIDE
+===================================================== */
+
+document
+    .getElementById("eventModal")
+    .addEventListener("click", function(e) {
+
+        if (e.target === this) {
+
+            closeEventModal();
+
+        }
+
+    });
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        lucide.createIcons();
+
+        renderCalendar();
+
+    }
+);
+
+</script>
+
+</body>
+</html>

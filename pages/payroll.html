@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Payroll | TalentSphere</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#2563eb"
+                    }
+                }
+            }
+        };
+    </script>
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside
+    class="sidebar fixed left-0 top-0 z-50 h-screen w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800">
+
+    <div class="flex h-full flex-col">
+
+        <!-- Logo -->
+        <div class="flex items-center justify-between px-6 py-5 border-b border-slate-200 dark:border-slate-800">
+
+            <a href="../index.html" class="flex items-center gap-3">
+                <div class="h-10 w-10 rounded-xl bg-blue-600 flex items-center justify-center">
+                    <i data-lucide="users" class="w-5 h-5 text-white"></i>
+                </div>
+
+                <div>
+                    <h1 class="font-bold text-lg">TalentSphere</h1>
+                    <p class="text-xs text-slate-500">HR Management</p>
+                </div>
+            </a>
+
+            <button
+                data-close-sidebar
+                class="md:hidden text-slate-500">
+                <i data-lucide="x"></i>
+            </button>
+
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
+
+            <a href="../index.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                Dashboard
+            </a>
+
+            <a href="employees.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                <i data-lucide="users" class="w-5 h-5"></i>
+                Employees
+            </a>
+
+            <a href="recruitment.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                <i data-lucide="briefcase-business" class="w-5 h-5"></i>
+                Recruitment
+            </a>
+
+            <a href="attendance.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                <i data-lucide="calendar-check" class="w-5 h-5"></i>
+                Attendance
+            </a>
+
+            <a href="leave.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                <i data-lucide="calendar-off" class="w-5 h-5"></i>
+                Leave
+            </a>
+
+            <a href="performance.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                <i data-lucide="trending-up" class="w-5 h-5"></i>
+                Performance
+            </a>
+
+            <!-- Active -->
+            <a href="payroll.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-600 text-white">
+                <i data-lucide="wallet" class="w-5 h-5"></i>
+                Payroll
+            </a>
+
+            <a href="reports.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+                Reports
+            </a>
+
+            <a href="calendar.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                <i data-lucide="calendar" class="w-5 h-5"></i>
+                Calendar
+            </a>
+
+            <a href="settings.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                <i data-lucide="settings" class="w-5 h-5"></i>
+                Settings
+            </a>
+
+        </nav>
+
+        <!-- Bottom -->
+        <div class="p-4 border-t border-slate-200 dark:border-slate-800">
+
+            <div class="flex items-center gap-3">
+
+                <div class="h-10 w-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
+                    <i data-lucide="user" class="w-5 h-5 text-blue-600"></i>
+                </div>
+
+                <div>
+                    <p class="font-medium text-sm">HR Admin</p>
+                    <p class="text-xs text-slate-500">Administrator</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</aside>
+
+
+<!-- ================= MOBILE OVERLAY ================= -->
+
+<div
+    class="sidebar-overlay fixed inset-0 z-40 hidden bg-black/50 md:hidden"
+    data-close-sidebar>
+</div>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="md:ml-64 min-h-screen">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-200 dark:border-slate-800">
+
+        <div class="flex items-center justify-between px-4 md:px-8 py-4">
+
+            <div class="flex items-center gap-3">
+
+                <button
+                    data-mobile-menu
+                    class="md:hidden p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <i data-lucide="menu"></i>
+                </button>
+
+                <div>
+                    <h2 class="text-xl md:text-2xl font-bold">
+                        Payroll Management
+                    </h2>
+
+                    <p class="text-sm text-slate-500">
+                        Manage employee salaries and payroll records
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="flex items-center gap-2">
+
+                <button
+                    id="themeToggle"
+                    class="p-2.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+                    title="Toggle theme">
+                    <i data-lucide="moon"></i>
+                </button>
+
+                <button
+                    id="exportPayrollBtn"
+                    class="hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <i data-lucide="download" class="w-4 h-4"></i>
+                    Export
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= CONTENT ================= -->
+
+    <div class="p-4 md:p-8 space-y-6">
+
+        <!-- Page Title -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+
+            <div>
+                <h1 class="text-2xl font-bold">
+                    Payroll Overview
+                </h1>
+
+                <p class="text-sm text-slate-500 mt-1">
+                    Track salary, deductions and payroll processing.
+                </p>
+            </div>
+
+            <button
+                id="generatePayrollBtn"
+                class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium">
+
+                <i data-lucide="plus" class="w-5 h-5"></i>
+
+                Generate Payroll
+
+            </button>
+
+        </div>
+
+
+        <!-- ================= STAT CARDS ================= -->
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+
+            <!-- Total Payroll -->
+            <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5">
+
+                <div class="flex items-center justify-between">
+
+                    <div>
+                        <p class="text-sm text-slate-500">
+                            Total Payroll
+                        </p>
+
+                        <h3 id="totalPayroll"
+                            class="text-2xl font-bold mt-2">
+                            ₹0
+                        </h3>
+                    </div>
+
+                    <div class="h-11 w-11 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
+                        <i data-lucide="wallet" class="text-blue-600"></i>
+                    </div>
+
+                </div>
+
+                <p class="text-xs text-slate-500 mt-3">
+                    Current month
+                </p>
+
+            </div>
+
+
+            <!-- Net Salary -->
+            <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5">
+
+                <div class="flex items-center justify-between">
+
+                    <div>
+                        <p class="text-sm text-slate-500">
+                            Net Salary
+                        </p>
+
+                        <h3 id="netPayroll"
+                            class="text-2xl font-bold mt-2">
+                            ₹0
+                        </h3>
+                    </div>
+
+                    <div class="h-11 w-11 rounded-lg bg-green-100 dark:bg-green-900/40 flex items-center justify-center">
+                        <i data-lucide="banknote" class="text-green-600"></i>
+                    </div>
+
+                </div>
+
+                <p class="text-xs text-slate-500 mt-3">
+                    After deductions
+                </p>
+
+            </div>
+
+
+            <!-- Deductions -->
+            <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5">
+
+                <div class="flex items-center justify-between">
+
+                    <div>
+                        <p class="text-sm text-slate-500">
+                            Deductions
+                        </p>
+
+                        <h3 id="totalDeductions"
+                            class="text-2xl font-bold mt-2">
+                            ₹0
+                        </h3>
+                    </div>
+
+                    <div class="h-11 w-11 rounded-lg bg-red-100 dark:bg-red-900/40 flex items-center justify-center">
+                        <i data-lucide="minus-circle" class="text-red-600"></i>
+                    </div>
+
+                </div>
+
+                <p class="text-xs text-slate-500 mt-3">
+                    Tax + other deductions
+                </p>
+
+            </div>
+
+
+            <!-- Processed -->
+            <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5">
+
+                <div class="flex items-center justify-between">
+
+                    <div>
+                        <p class="text-sm text-slate-500">
+                            Processed
+                        </p>
+
+                        <h3 id="processedPayroll"
+                            class="text-2xl font-bold mt-2">
+                            0
+                        </h3>
+                    </div>
+
+                    <div class="h-11 w-11 rounded-lg bg-purple-100 dark:bg-purple-900/40 flex items-center justify-center">
+                        <i data-lucide="check-circle" class="text-purple-600"></i>
+                    </div>
+
+                </div>
+
+                <p class="text-xs text-slate-500 mt-3">
+                    Payroll records
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= FILTERS ================= -->
+
+        <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-4">
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+
+                <!-- Search -->
+                <div class="relative">
+
+                    <i data-lucide="search"
+                       class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+
+                    <input
+                        type="text"
+                        id="payrollSearch"
+                        placeholder="Search employee..."
+                        class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 outline-none focus:ring-2 focus:ring-blue-500">
+
+                </div>
+
+
+                <!-- Department -->
+                <select
+                    id="departmentFilter"
+                    class="px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 outline-none">
+
+                    <option value="all">All Departments</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="Human Resources">Human Resources</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Design">Design</option>
+
+                </select>
+
+
+                <!-- Month -->
+                <input
+                    type="month"
+                    id="monthFilter"
+                    class="px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 outline-none">
+
+
+                <!-- Status -->
+                <select
+                    id="statusFilter"
+                    class="px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 outline-none">
+
+                    <option value="all">All Status</option>
+                    <option value="Processed">Processed</option>
+                    <option value="Pending">Pending</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= CHART + SUMMARY ================= -->
+
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+
+            <!-- Chart -->
+            <div class="xl:col-span-2 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5">
+
+                <div class="flex items-center justify-between mb-5">
+
+                    <div>
+                        <h3 class="font-semibold text-lg">
+                            Payroll Trend
+                        </h3>
+
+                        <p class="text-sm text-slate-500">
+                            Monthly payroll expenses
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="h-72">
+                    <canvas id="payrollChart"></canvas>
+                </div>
+
+            </div>
+
+
+            <!-- Summary -->
+            <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5">
+
+                <h3 class="font-semibold text-lg">
+                    Payroll Summary
+                </h3>
+
+                <div class="space-y-5 mt-6">
+
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-slate-500">
+                                Basic Salary
+                            </span>
+
+                            <span id="summaryBasic"
+                                  class="font-medium">
+                                ₹0
+                            </span>
+                        </div>
+
+                        <div class="h-2 rounded-full bg-slate-100 dark:bg-slate-800">
+                            <div id="basicProgress"
+                                 class="h-2 rounded-full bg-blue-600"
+                                 style="width:70%">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-slate-500">
+                                Allowances
+                            </span>
+
+                            <span id="summaryAllowance"
+                                  class="font-medium">
+                                ₹0
+                            </span>
+                        </div>
+
+                        <div class="h-2 rounded-full bg-slate-100 dark:bg-slate-800">
+                            <div id="allowanceProgress"
+                                 class="h-2 rounded-full bg-green-500"
+                                 style="width:20%">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-slate-500">
+                                Deductions
+                            </span>
+
+                            <span id="summaryDeduction"
+                                  class="font-medium">
+                                ₹0
+                            </span>
+                        </div>
+
+                        <div class="h-2 rounded-full bg-slate-100 dark:bg-slate-800">
+                            <div id="deductionProgress"
+                                 class="h-2 rounded-full bg-red-500"
+                                 style="width:10%">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= PAYROLL TABLE ================= -->
+
+        <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+
+            <div class="p-5 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+
+                <div>
+                    <h3 class="font-semibold text-lg">
+                        Payroll Records
+                    </h3>
+
+                    <p id="resultCount"
+                       class="text-sm text-slate-500">
+                        0 records
+                    </p>
+                </div>
+
+                <button
+                    id="clearFiltersBtn"
+                    class="text-sm px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    Clear Filters
+
+                </button>
+
+            </div>
+
+
+            <div class="overflow-x-auto">
+
+                <table class="w-full text-sm">
+
+                    <thead class="bg-slate-50 dark:bg-slate-950">
+
+                        <tr>
+
+                            <th class="text-left px-5 py-4 font-semibold">
+                                Employee
+                            </th>
+
+                            <th class="text-left px-5 py-4 font-semibold">
+                                Department
+                            </th>
+
+                            <th class="text-left px-5 py-4 font-semibold">
+                                Month
+                            </th>
+
+                            <th class="text-right px-5 py-4 font-semibold">
+                                Basic
+                            </th>
+
+                            <th class="text-right px-5 py-4 font-semibold">
+                                Allowance
+                            </th>
+
+                            <th class="text-right px-5 py-4 font-semibold">
+                                Deduction
+                            </th>
+
+                            <th class="text-right px-5 py-4 font-semibold">
+                                Net Salary
+                            </th>
+
+                            <th class="text-center px-5 py-4 font-semibold">
+                                Status
+                            </th>
+
+                            <th class="text-center px-5 py-4 font-semibold">
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="payrollTableBody"
+                           class="divide-y divide-slate-100 dark:divide-slate-800">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- Empty State -->
+            <div id="emptyState"
+                 class="hidden p-12 text-center">
+
+                <div class="mx-auto h-14 w-14 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+
+                    <i data-lucide="file-x"
+                       class="w-7 h-7 text-slate-400"></i>
+
+                </div>
+
+                <h3 class="font-semibold mt-4">
+                    No payroll records found
+                </h3>
+
+                <p class="text-sm text-slate-500 mt-1">
+                    Try changing your search or filters.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- ================= PAYROLL MODAL ================= -->
+
+<div
+    id="payrollModal"
+    class="fixed inset-0 z-[100] hidden bg-black/50 p-4">
+
+    <div class="flex min-h-full items-center justify-center">
+
+        <div class="w-full max-w-2xl bg-white dark:bg-slate-900 rounded-2xl shadow-xl">
+
+            <div class="flex items-center justify-between px-6 py-5 border-b border-slate-200 dark:border-slate-800">
+
+                <div>
+                    <h2 id="modalTitle"
+                        class="text-xl font-bold">
+                        Generate Payroll
+                    </h2>
+
+                    <p class="text-sm text-slate-500">
+                        Enter employee salary details
+                    </p>
+                </div>
+
+                <button
+                    id="closePayrollModal"
+                    class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    <i data-lucide="x"></i>
+
+                </button>
+
+            </div>
+
+
+            <form id="payrollForm"
+                  class="p-6 space-y-5">
+
+                <input type="hidden"
+                       id="editPayrollId">
+
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                    <!-- Employee -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">
+                            Employee Name
+                        </label>
+
+                        <input
+                            id="employeeName"
+                            type="text"
+                            required
+                            placeholder="Enter employee name"
+                            class="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950">
+                    </div>
+
+
+                    <!-- Employee ID -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">
+                            Employee ID
+                        </label>
+
+                        <input
+                            id="employeeId"
+                            type="text"
+                            required
+                            placeholder="EMP001"
+                            class="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950">
+                    </div>
+
+
+                    <!-- Department -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">
+                            Department
+                        </label>
+
+                        <select
+                            id="employeeDepartment"
+                            required
+                            class="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950">
+
+                            <option value="">Select department</option>
+                            <option>Engineering</option>
+                            <option>Human Resources</option>
+                            <option>Marketing</option>
+                            <option>Finance</option>
+                            <option>Sales</option>
+                            <option>Design</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Month -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">
+                            Payroll Month
+                        </label>
+
+                        <input
+                            id="payrollMonth"
+                            type="month"
+                            required
+                            class="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950">
+                    </div>
+
+
+                    <!-- Basic -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">
+                            Basic Salary
+                        </label>
+
+                        <input
+                            id="basicSalary"
+                            type="number"
+                            min="0"
+                            required
+                            placeholder="50000"
+                            class="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950">
+                    </div>
+
+
+                    <!-- Allowance -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">
+                            Allowances
+                        </label>
+
+                        <input
+                            id="allowance"
+                            type="number"
+                            min="0"
+                            value="0"
+                            class="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950">
+                    </div>
+
+
+                    <!-- Deduction -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">
+                            Deductions
+                        </label>
+
+                        <input
+                            id="deduction"
+                            type="number"
+                            min="0"
+                            value="0"
+                            class="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950">
+                    </div>
+
+
+                    <!-- Status -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">
+                            Status
+                        </label>
+
+                        <select
+                            id="payrollStatus"
+                            class="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950">
+
+                            <option value="Processed">
+                                Processed
+                            </option>
+
+                            <option value="Pending">
+                                Pending
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Salary Preview -->
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+
+                    <div class="flex items-center justify-between">
+
+                        <span class="text-sm text-slate-500">
+                            Net Salary
+                        </span>
+
+                        <strong id="netSalaryPreview"
+                                class="text-xl text-blue-600">
+                            ₹0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="flex justify-end gap-3 pt-2">
+
+                    <button
+                        type="button"
+                        id="cancelPayrollBtn"
+                        class="px-5 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                        Cancel
+
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium">
+
+                        Save Payroll
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= DETAILS MODAL ================= -->
+
+<div
+    id="detailsModal"
+    class="fixed inset-0 z-[100] hidden bg-black/50 p-4">
+
+    <div class="flex min-h-full items-center justify-center">
+
+        <div class="w-full max-w-lg bg-white dark:bg-slate-900 rounded-2xl shadow-xl">
+
+            <div class="flex items-center justify-between px-6 py-5 border-b border-slate-200 dark:border-slate-800">
+
+                <h2 class="text-xl font-bold">
+                    Salary Details
+                </h2>
+
+                <button
+                    id="closeDetailsModal"
+                    class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    <i data-lucide="x"></i>
+
+                </button>
+
+            </div>
+
+            <div id="salaryDetails"
+                 class="p-6">
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= TOAST ================= -->
+
+<div
+    id="toast"
+    class="fixed right-5 bottom-5 z-[200] hidden">
+
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-xl rounded-xl px-5 py-4 min-w-[280px]">
+
+        <div class="flex gap-3">
+
+            <div id="toastIcon"></div>
+
+            <div>
+                <p id="toastTitle"
+                   class="font-semibold">
+                    Success
+                </p>
+
+                <p id="toastMessage"
+                   class="text-sm text-slate-500 mt-1">
+                    Done
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= SCRIPTS ================= -->
+
+<script src="../js/app.js"></script>
+<script src="../js/theme.js"></script>
+<script src="../js/sidebar.js"></script>
+<script src="../js/charts.js"></script>
+<script src="../js/payroll.js"></script>
+
+</body>
+</html>

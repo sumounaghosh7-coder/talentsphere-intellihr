@@ -1,0 +1,864 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Employee Details | TalentSphere</title>
+
+    <link rel="stylesheet" href="../css/style.css">   <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        };
+    </script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        }
+
+        .glass {
+            backdrop-filter: blur(12px);
+        }
+
+        ::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+
+<div class="flex min-h-screen">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside id="sidebar"
+        class="fixed lg:static inset-y-0 left-0 z-50 w-64
+        bg-slate-900 text-white transform -translate-x-full
+        lg:translate-x-0 transition-transform duration-300">
+
+        <div class="flex items-center gap-3 px-6 py-6 border-b border-slate-700">
+            <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center">
+                <i data-lucide="users" class="w-6 h-6"></i>
+            </div>
+
+            <div>
+                <h1 class="text-xl font-bold">TalentSphere</h1>
+                <p class="text-xs text-slate-400">Smart HR Platform</p>
+            </div>
+        </div>
+
+        <nav class="p-4 space-y-1">
+
+            <a href="../index.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800">
+                <i data-lucide="layout-dashboard" class="w-5"></i>
+                Dashboard
+            </a>
+
+            <a href="employees.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-600">
+                <i data-lucide="users" class="w-5"></i>
+                Employees
+            </a>
+
+            <a href="recruitment.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800">
+                <i data-lucide="briefcase-business" class="w-5"></i>
+                Recruitment
+            </a>
+
+            <a href="attendance.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800">
+                <i data-lucide="calendar-check" class="w-5"></i>
+                Attendance
+            </a>
+
+            <a href="leave.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800">
+                <i data-lucide="calendar-off" class="w-5"></i>
+                Leave Management
+            </a>
+
+            <a href="performance.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800">
+                <i data-lucide="chart-no-axes-combined" class="w-5"></i>
+                Performance
+            </a>
+
+            <a href="payroll.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800">
+                <i data-lucide="wallet" class="w-5"></i>
+                Payroll
+            </a>
+
+            <a href="reports.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800">
+                <i data-lucide="file-bar-chart" class="w-5"></i>
+                Reports
+            </a>
+
+            <a href="calendar.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800">
+                <i data-lucide="calendar-days" class="w-5"></i>
+                Calendar
+            </a>
+
+            <a href="settings.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800">
+                <i data-lucide="settings" class="w-5"></i>
+                Settings
+            </a>
+
+        </nav>
+
+        <div class="absolute bottom-0 w-full p-4">
+            <div class="bg-slate-800 rounded-xl p-4">
+                <p class="text-sm font-medium">TalentSphere v1.0</p>
+                <p class="text-xs text-slate-400 mt-1">
+                    HR Management System
+                </p>
+            </div>
+        </div>
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+    <main class="flex-1 min-w-0">
+
+        <!-- TOP NAVBAR -->
+        <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90
+                       backdrop-blur border-b border-slate-200
+                       dark:border-slate-800">
+
+            <div class="flex items-center justify-between px-4 md:px-8 py-4">
+
+                <div class="flex items-center gap-4">
+
+                    <button id="menuBtn"
+                            class="lg:hidden p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                        <i data-lucide="menu"></i>
+                    </button>
+
+                    <div>
+                        <h2 class="text-xl font-bold">Employee Profile</h2>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">
+                            Employee details and analytics
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="flex items-center gap-2">
+
+                    <button id="themeBtn"
+                            class="p-2.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                        <i data-lucide="moon" id="themeIcon"></i>
+                    </button>
+
+                    <button class="p-2.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                        <i data-lucide="bell"></i>
+                    </button>
+
+                    <div class="hidden sm:flex items-center gap-3 ml-2">
+                        <div class="w-9 h-9 rounded-full bg-blue-100
+                                    dark:bg-blue-900 flex items-center justify-center
+                                    text-blue-700 dark:text-blue-300 font-semibold">
+                            HR
+                        </div>
+
+                        <div class="hidden md:block">
+                            <p class="text-sm font-semibold">HR Admin</p>
+                            <p class="text-xs text-slate-500">Administrator</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+
+        <!-- CONTENT -->
+        <section class="p-4 md:p-8">
+
+            <!-- BACK -->
+            <a href="employees.html"
+               class="inline-flex items-center gap-2 text-sm text-blue-600
+                      hover:text-blue-700 mb-6">
+                <i data-lucide="arrow-left" class="w-4"></i>
+                Back to Employees
+            </a>
+
+
+            <!-- ================= PROFILE HERO ================= -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl
+                        border border-slate-200 dark:border-slate-800
+                        shadow-sm overflow-hidden">
+
+                <div class="h-32 bg-gradient-to-r from-blue-600
+                            via-indigo-600 to-violet-600"></div>
+
+                <div class="px-6 md:px-8 pb-6">
+
+                    <div class="flex flex-col lg:flex-row
+                                lg:items-end lg:justify-between gap-5">
+
+                        <div class="flex flex-col sm:flex-row
+                                    items-start sm:items-end gap-4 -mt-12">
+
+                            <div id="profileAvatar"
+                                 class="w-24 h-24 rounded-2xl border-4
+                                        border-white dark:border-slate-900
+                                        bg-blue-100 dark:bg-blue-900
+                                        flex items-center justify-center
+                                        text-3xl font-bold text-blue-700
+                                        dark:text-blue-300 shadow-lg">
+                                AR
+                            </div>
+
+                            <div class="pb-1">
+
+                                <div class="flex flex-wrap items-center gap-3">
+
+                                    <h1 id="employeeName"
+                                        class="text-2xl md:text-3xl font-bold">
+                                        Ananya Roy
+                                    </h1>
+
+                                    <span id="employeeStatus"
+                                          class="px-3 py-1 text-xs font-semibold
+                                                 rounded-full bg-emerald-100
+                                                 text-emerald-700
+                                                 dark:bg-emerald-900/40
+                                                 dark:text-emerald-400">
+                                        Active
+                                    </span>
+
+                                </div>
+
+                                <p id="employeeRole"
+                                   class="text-slate-500 dark:text-slate-400 mt-1">
+                                    Software Engineer
+                                </p>
+
+                                <div class="flex flex-wrap gap-4 mt-2
+                                            text-sm text-slate-500
+                                            dark:text-slate-400">
+
+                                    <span class="flex items-center gap-1">
+                                        <i data-lucide="building-2" class="w-4"></i>
+                                        <span id="employeeDepartment">
+                                            Engineering
+                                        </span>
+                                    </span>
+
+                                    <span class="flex items-center gap-1">
+                                        <i data-lucide="badge" class="w-4"></i>
+                                        <span id="employeeId">
+                                            EMP001
+                                        </span>
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ACTION BUTTONS -->
+                        <div class="flex flex-wrap gap-3">
+
+                            <button onclick="editEmployee()"
+                                    class="flex items-center gap-2 px-4 py-2.5
+                                           rounded-lg border border-slate-300
+                                           dark:border-slate-700
+                                           hover:bg-slate-50
+                                           dark:hover:bg-slate-800">
+                                <i data-lucide="pencil" class="w-4"></i>
+                                Edit Profile
+                            </button>
+
+                            <button onclick="downloadReport()"
+                                    class="flex items-center gap-2 px-4 py-2.5
+                                           rounded-lg bg-blue-600 text-white
+                                           hover:bg-blue-700">
+                                <i data-lucide="download" class="w-4"></i>
+                                Download Report
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- ================= QUICK STATS ================= -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4
+                        gap-5 mt-6">
+
+                <!-- Attendance -->
+                <div class="bg-white dark:bg-slate-900 p-5 rounded-xl
+                            border border-slate-200 dark:border-slate-800">
+
+                    <div class="flex justify-between">
+
+                        <div>
+                            <p class="text-sm text-slate-500">
+                                Attendance Rate
+                            </p>
+
+                            <h3 class="text-2xl font-bold mt-2">96%</h3>
+                        </div>
+
+                        <div class="w-11 h-11 rounded-lg bg-blue-100
+                                    dark:bg-blue-900/40
+                                    flex items-center justify-center">
+                            <i data-lucide="calendar-check"
+                               class="text-blue-600 dark:text-blue-400"></i>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-4 h-2 bg-slate-200 dark:bg-slate-700 rounded-full">
+                        <div class="h-2 bg-blue-600 rounded-full" style="width:96%"></div>
+                    </div>
+                </div>
+
+
+                <!-- Leave -->
+                <div class="bg-white dark:bg-slate-900 p-5 rounded-xl
+                            border border-slate-200 dark:border-slate-800">
+
+                    <div class="flex justify-between">
+
+                        <div>
+                            <p class="text-sm text-slate-500">
+                                Leave Balance
+                            </p>
+
+                            <h3 class="text-2xl font-bold mt-2">12 Days</h3>
+                        </div>
+
+                        <div class="w-11 h-11 rounded-lg bg-purple-100
+                                    dark:bg-purple-900/40
+                                    flex items-center justify-center">
+                            <i data-lucide="calendar-off"
+                               class="text-purple-600 dark:text-purple-400"></i>
+                        </div>
+
+                    </div>
+
+                    <p class="text-xs text-slate-500 mt-4">
+                        18 used this year
+                    </p>
+                </div>
+
+
+                <!-- Performance -->
+                <div class="bg-white dark:bg-slate-900 p-5 rounded-xl
+                            border border-slate-200 dark:border-slate-800">
+
+                    <div class="flex justify-between">
+
+                        <div>
+                            <p class="text-sm text-slate-500">
+                                Performance
+                            </p>
+
+                            <h3 class="text-2xl font-bold mt-2">90%</h3>
+                        </div>
+
+                        <div class="w-11 h-11 rounded-lg bg-emerald-100
+                                    dark:bg-emerald-900/40
+                                    flex items-center justify-center">
+                            <i data-lucide="trending-up"
+                               class="text-emerald-600 dark:text-emerald-400"></i>
+                        </div>
+
+                    </div>
+
+                    <p class="text-xs text-emerald-600 mt-4">
+                        Excellent performance
+                    </p>
+                </div>
+
+
+                <!-- Tenure -->
+                <div class="bg-white dark:bg-slate-900 p-5 rounded-xl
+                            border border-slate-200 dark:border-slate-800">
+
+                    <div class="flex justify-between">
+
+                        <div>
+                            <p class="text-sm text-slate-500">
+                                Tenure
+                            </p>
+
+                            <h3 id="employeeTenure"
+                                class="text-2xl font-bold mt-2">
+                                1.7 Years
+                            </h3>
+                        </div>
+
+                        <div class="w-11 h-11 rounded-lg bg-orange-100
+                                    dark:bg-orange-900/40
+                                    flex items-center justify-center">
+                            <i data-lucide="clock-3"
+                               class="text-orange-600 dark:text-orange-400"></i>
+                        </div>
+
+                    </div>
+
+                    <p class="text-xs text-slate-500 mt-4">
+                        Since joining
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- ================= MAIN GRID ================= -->
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-6">
+
+                <!-- LEFT COLUMN -->
+                <div class="xl:col-span-2 space-y-6">
+
+                    <!-- Attendance Chart -->
+                    <div class="bg-white dark:bg-slate-900 rounded-xl
+                                border border-slate-200 dark:border-slate-800
+                                p-6">
+
+                        <div class="flex items-center justify-between mb-6">
+
+                            <div>
+                                <h2 class="text-lg font-bold">
+                                    Attendance Overview
+                                </h2>
+
+                                <p class="text-sm text-slate-500 mt-1">
+                                    Monthly attendance performance
+                                </p>
+                            </div>
+
+                            <span class="px-3 py-1 rounded-full
+                                         bg-blue-100 text-blue-700
+                                         dark:bg-blue-900/40
+                                         dark:text-blue-400 text-xs font-semibold">
+                                2026
+                            </span>
+
+                        </div>
+
+                        <div class="h-72">
+                            <canvas id="attendanceChart"></canvas>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Employment Information -->
+                    <div class="bg-white dark:bg-slate-900 rounded-xl
+                                border border-slate-200 dark:border-slate-800
+                                p-6">
+
+                        <h2 class="text-lg font-bold mb-5">
+                            Employment Information
+                        </h2>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase">
+                                    Employee ID
+                                </p>
+                                <p id="infoEmployeeId"
+                                   class="font-semibold mt-1">
+                                    EMP001
+                                </p>
+                            </div>
+
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase">
+                                    Department
+                                </p>
+                                <p id="infoDepartment"
+                                   class="font-semibold mt-1">
+                                    Engineering
+                                </p>
+                            </div>
+
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase">
+                                    Designation
+                                </p>
+                                <p id="infoDesignation"
+                                   class="font-semibold mt-1">
+                                    Software Engineer
+                                </p>
+                            </div>
+
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase">
+                                    Joining Date
+                                </p>
+                                <p id="infoJoiningDate"
+                                   class="font-semibold mt-1">
+                                    12 January 2025
+                                </p>
+                            </div>
+
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase">
+                                    Employment Type
+                                </p>
+                                <p class="font-semibold mt-1">
+                                    Full Time
+                                </p>
+                            </div>
+
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase">
+                                    Work Location
+                                </p>
+                                <p class="font-semibold mt-1">
+                                    Kolkata
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Performance -->
+                    <div class="bg-white dark:bg-slate-900 rounded-xl
+                                border border-slate-200 dark:border-slate-800
+                                p-6">
+
+                        <div class="flex items-center justify-between mb-6">
+
+                            <div>
+                                <h2 class="text-lg font-bold">
+                                    Performance Breakdown
+                                </h2>
+
+                                <p class="text-sm text-slate-500 mt-1">
+                                    Current performance indicators
+                                </p>
+                            </div>
+
+                            <span class="text-2xl font-bold text-blue-600">
+                                90%
+                            </span>
+
+                        </div>
+
+                        <div class="space-y-5">
+
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span>Productivity</span>
+                                    <span class="font-semibold">92%</span>
+                                </div>
+
+                                <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full">
+                                    <div class="h-2 bg-blue-600 rounded-full"
+                                         style="width:92%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span>Quality of Work</span>
+                                    <span class="font-semibold">94%</span>
+                                </div>
+
+                                <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full">
+                                    <div class="h-2 bg-emerald-500 rounded-full"
+                                         style="width:94%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span>Teamwork</span>
+                                    <span class="font-semibold">88%</span>
+                                </div>
+
+                                <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full">
+                                    <div class="h-2 bg-purple-500 rounded-full"
+                                         style="width:88%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span>Communication</span>
+                                    <span class="font-semibold">86%</span>
+                                </div>
+
+                                <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full">
+                                    <div class="h-2 bg-orange-500 rounded-full"
+                                         style="width:86%"></div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RIGHT COLUMN -->
+                <div class="space-y-6">
+
+                    <!-- Personal Information -->
+                    <div class="bg-white dark:bg-slate-900 rounded-xl
+                                border border-slate-200 dark:border-slate-800
+                                p-6">
+
+                        <h2 class="text-lg font-bold mb-5">
+                            Personal Information
+                        </h2>
+
+                        <div class="space-y-5">
+
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-lg bg-blue-100
+                                            dark:bg-blue-900/40
+                                            flex items-center justify-center">
+                                    <i data-lucide="mail"
+                                       class="w-4 text-blue-600"></i>
+                                </div>
+
+                                <div>
+                                    <p class="text-xs text-slate-500">
+                                        Email
+                                    </p>
+                                    <p class="text-sm font-medium">
+                                        ananya.roy@talentsphere.com
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-lg bg-purple-100
+                                            dark:bg-purple-900/40
+                                            flex items-center justify-center">
+                                    <i data-lucide="phone"
+                                       class="w-4 text-purple-600"></i>
+                                </div>
+
+                                <div>
+                                    <p class="text-xs text-slate-500">
+                                        Phone
+                                    </p>
+                                    <p class="text-sm font-medium">
+                                        +91 98765 43210
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-lg bg-orange-100
+                                            dark:bg-orange-900/40
+                                            flex items-center justify-center">
+                                    <i data-lucide="map-pin"
+                                       class="w-4 text-orange-600"></i>
+                                </div>
+
+                                <div>
+                                    <p class="text-xs text-slate-500">
+                                        Location
+                                    </p>
+                                    <p class="text-sm font-medium">
+                                        Kolkata, India
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Leave Balance -->
+                    <div class="bg-white dark:bg-slate-900 rounded-xl
+                                border border-slate-200 dark:border-slate-800
+                                p-6">
+
+                        <h2 class="text-lg font-bold mb-5">
+                            Leave Balance
+                        </h2>
+
+                        <div class="space-y-5">
+
+                            <div>
+                                <div class="flex justify-between text-sm">
+                                    <span>Annual Leave</span>
+                                    <span class="font-semibold">
+                                        8 / 20
+                                    </span>
+                                </div>
+
+                                <div class="mt-2 h-2 bg-slate-200
+                                            dark:bg-slate-700 rounded-full">
+                                    <div class="h-2 bg-blue-600 rounded-full"
+                                         style="width:40%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-sm">
+                                    <span>Sick Leave</span>
+                                    <span class="font-semibold">
+                                        4 / 10
+                                    </span>
+                                </div>
+
+                                <div class="mt-2 h-2 bg-slate-200
+                                            dark:bg-slate-700 rounded-full">
+                                    <div class="h-2 bg-orange-500 rounded-full"
+                                         style="width:40%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-sm">
+                                    <span>Casual Leave</span>
+                                    <span class="font-semibold">
+                                        6 / 12
+                                    </span>
+                                </div>
+
+                                <div class="mt-2 h-2 bg-slate-200
+                                            dark:bg-slate-700 rounded-full">
+                                    <div class="h-2 bg-purple-500 rounded-full"
+                                         style="width:50%"></div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Recent Activity -->
+                    <div class="bg-white dark:bg-slate-900 rounded-xl
+                                border border-slate-200 dark:border-slate-800
+                                p-6">
+
+                        <h2 class="text-lg font-bold mb-5">
+                            Recent Activity
+                        </h2>
+
+                        <div class="space-y-5">
+
+                            <div class="flex gap-3">
+
+                                <div class="w-8 h-8 rounded-full bg-emerald-100
+                                            dark:bg-emerald-900/40
+                                            flex items-center justify-center">
+                                    <i data-lucide="check"
+                                       class="w-4 text-emerald-600"></i>
+                                </div>
+
+                                <div>
+                                    <p class="text-sm font-medium">
+                                        Attendance marked
+                                    </p>
+                                    <p class="text-xs text-slate-500">
+                                        Today, 9:12 AM
+                                    </p>
+                                </div>
+
+                            </div>
+
+
+                            <div class="flex gap-3">
+
+                                <div class="w-8 h-8 rounded-full bg-blue-100
+                                            dark:bg-blue-900/40
+                                            flex items-center justify-center">
+                                    <i data-lucide="file-text"
+                                       class="w-4 text-blue-600"></i>
+                                </div>
+
+                                <div>
+                                    <p class="text-sm font-medium">
+                                        Performance review completed
+                                    </p>
+                                    <p class="text-xs text-slate-500">
+                                        2 days ago
+                                    </p>
+                                </div>
+
+                            </div>
+
+
+                            <div class="flex gap-3">
+
+                                <div class="w-8 h-8 rounded-full bg-purple-100
+                                            dark:bg-purple-900/40
+                                            flex items-center justify-center">
+                                    <i data-lucide="calendar"
+                                       class="w-4 text-purple-600"></i>
+                                </div>
+
+                                <div>
+                                    <p class="text-sm font-medium">
+                                        Leave request approved
+                                    </p>
+                                    <p class="text-xs text-slate-500">
+                                        5 days ago
+                                    </p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="border-t border-slate-200 dark:border-slate-800
+                       px-8 py-5 text-center text-sm text-slate-500">
+
+            © 2026 TalentSphere. Smart Human Resource Management Platform.
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<script src="../js/app.js"></script>
+<script src="../js/theme.js"></script>
+<script src="../js/sidebar.js"></script>
+<script src="../js/charts.js"></script>
+<script src="../js/employee-details.js"></script>
+
+</body>
+</html>

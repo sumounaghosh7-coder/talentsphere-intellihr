@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reports | TalentSphere</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: "class"
+        };
+    </script>
+
+    <style>
+        * {
+            scrollbar-width: thin;
+        }
+
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .sidebar-transition {
+            transition: transform 0.3s ease;
+        }
+
+        .card-transition {
+            transition: all 0.25s ease;
+        }
+
+        .card-transition:hover {
+            transform: translateY(-2px);
+        }
+
+        .modal-bg {
+            backdrop-filter: blur(5px);
+        }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+
+            body {
+                background: white !important;
+                color: black !important;
+            }
+
+            .print-card {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+
+<!-- ================= MOBILE OVERLAY ================= -->
+<div id="sidebarOverlay"
+     class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden"></div>
+
+
+<!-- ================= SIDEBAR ================= -->
+<aside id="sidebar"
+       class="sidebar-transition fixed left-0 top-0 z-40 h-screen w-64
+              bg-white dark:bg-slate-900 border-r border-slate-200
+              dark:border-slate-800 -translate-x-full lg:translate-x-0">
+
+    <div class="h-full flex flex-col">
+
+        <!-- Logo -->
+        <div class="h-20 flex items-center px-6 border-b border-slate-200 dark:border-slate-800">
+
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-500
+                        flex items-center justify-center text-white font-bold text-lg">
+                TS
+            </div>
+
+            <div class="ml-3">
+                <h1 class="font-bold text-lg">TalentSphere</h1>
+                <p class="text-xs text-slate-500 dark:text-slate-400">
+                    Smart HR Platform
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- Navigation -->
+        <nav class="flex-1 px-4 py-5 space-y-1 overflow-y-auto">
+
+            <p class="px-3 mb-3 text-xs font-semibold uppercase tracking-wider
+                      text-slate-400">
+                Main Menu
+            </p>
+
+            <a href="../index.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      text-slate-600 dark:text-slate-300
+                      hover:bg-slate-100 dark:hover:bg-slate-800">
+                <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                Dashboard
+            </a>
+
+            <a href="employees.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      text-slate-600 dark:text-slate-300
+                      hover:bg-slate-100 dark:hover:bg-slate-800">
+                <i data-lucide="users" class="w-5 h-5"></i>
+                Employees
+            </a>
+
+            <a href="employee-details.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      text-slate-600 dark:text-slate-300
+                      hover:bg-slate-100 dark:hover:bg-slate-800">
+                <i data-lucide="user-round" class="w-5 h-5"></i>
+                Employee Details
+            </a>
+
+            <a href="recruitment.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      text-slate-600 dark:text-slate-300
+                      hover:bg-slate-100 dark:hover:bg-slate-800">
+                <i data-lucide="briefcase-business" class="w-5 h-5"></i>
+                Recruitment
+            </a>
+
+            <a href="attendance.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      text-slate-600 dark:text-slate-300
+                      hover:bg-slate-100 dark:hover:bg-slate-800">
+                <i data-lucide="calendar-check" class="w-5 h-5"></i>
+                Attendance
+            </a>
+
+            <a href="leave.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      text-slate-600 dark:text-slate-300
+                      hover:bg-slate-100 dark:hover:bg-slate-800">
+                <i data-lucide="calendar-off" class="w-5 h-5"></i>
+                Leave Management
+            </a>
+
+            <a href="performance.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      text-slate-600 dark:text-slate-300
+                      hover:bg-slate-100 dark:hover:bg-slate-800">
+                <i data-lucide="chart-no-axes-combined" class="w-5 h-5"></i>
+                Performance
+            </a>
+
+            <a href="payroll.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      text-slate-600 dark:text-slate-300
+                      hover:bg-slate-100 dark:hover:bg-slate-800">
+                <i data-lucide="wallet" class="w-5 h-5"></i>
+                Payroll
+            </a>
+
+            <!-- Active -->
+            <a href="reports.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      bg-blue-50 dark:bg-blue-500/10
+                      text-blue-600 dark:text-blue-400 font-semibold">
+                <i data-lucide="file-chart-column" class="w-5 h-5"></i>
+                Reports
+            </a>
+
+            <a href="calendar.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      text-slate-600 dark:text-slate-300
+                      hover:bg-slate-100 dark:hover:bg-slate-800">
+                <i data-lucide="calendar-days" class="w-5 h-5"></i>
+                Calendar
+            </a>
+
+            <a href="settings.html"
+               class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                      text-slate-600 dark:text-slate-300
+                      hover:bg-slate-100 dark:hover:bg-slate-800">
+                <i data-lucide="settings" class="w-5 h-5"></i>
+                Settings
+            </a>
+
+        </nav>
+
+
+        <!-- Sidebar Bottom -->
+        <div class="p-4 border-t border-slate-200 dark:border-slate-800">
+
+            <div class="rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 p-4 text-white">
+
+                <div class="flex items-center gap-2 mb-2">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                    <span class="font-semibold text-sm">TalentSphere AI</span>
+                </div>
+
+                <p class="text-xs text-blue-100 mb-3">
+                    Generate smarter workforce insights.
+                </p>
+
+                <button onclick="showToast('AI Report Generator coming soon!')"
+                        class="w-full bg-white/20 hover:bg-white/30
+                               rounded-lg py-2 text-xs font-semibold">
+                    Explore AI
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+</aside>
+
+
+<!-- ================= MAIN ================= -->
+<div class="lg:ml-64 min-h-screen">
+
+    <!-- ================= TOP NAVBAR ================= -->
+    <header class="h-20 sticky top-0 z-20
+                   bg-white/90 dark:bg-slate-900/90 backdrop-blur
+                   border-b border-slate-200 dark:border-slate-800">
+
+        <div class="h-full px-4 sm:px-6 flex items-center justify-between">
+
+            <div class="flex items-center gap-4">
+
+                <button id="menuBtn"
+                        class="lg:hidden p-2 rounded-lg
+                               hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+
+                <div>
+                    <h2 class="text-xl font-bold">Reports & Analytics</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">
+                        Workforce insights and HR reports
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="flex items-center gap-2">
+
+                <!-- Search -->
+                <div class="hidden md:flex items-center
+                            bg-slate-100 dark:bg-slate-800
+                            rounded-lg px-3 py-2">
+
+                    <i data-lucide="search"
+                       class="w-4 h-4 text-slate-400"></i>
+
+                    <input id="globalSearch"
+                           type="text"
+                           placeholder="Search reports..."
+                           class="bg-transparent outline-none text-sm ml-2
+                                  w-40 lg:w-56">
+
+                </div>
+
+
+                <!-- Theme -->
+                <button id="themeBtn"
+                        class="p-2 rounded-lg
+                               hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    <i id="themeIcon"
+                       data-lucide="moon"
+                       class="w-5 h-5"></i>
+
+                </button>
+
+
+                <!-- Notification -->
+                <button onclick="showToast('No new notifications')"
+                        class="relative p-2 rounded-lg
+                               hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    <i data-lucide="bell" class="w-5 h-5"></i>
+
+                    <span class="absolute top-1 right-1 w-2 h-2
+                                 bg-red-500 rounded-full"></span>
+
+                </button>
+
+
+                <!-- Profile -->
+                <div class="hidden sm:flex items-center gap-3 ml-2">
+
+                    <div class="w-9 h-9 rounded-full
+                                bg-gradient-to-br from-blue-500 to-cyan-400
+                                flex items-center justify-center
+                                text-white font-semibold text-sm">
+                        SG
+                    </div>
+
+                    <div class="hidden md:block">
+                        <p class="text-sm font-semibold">HR Admin</p>
+                        <p class="text-xs text-slate-500">Administrator</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- ================= CONTENT ================= -->
+    <main class="p-4 sm:p-6">
+
+        <!-- Header -->
+        <div class="flex flex-col lg:flex-row lg:items-center
+                    lg:justify-between gap-4 mb-6">
+
+            <div>
+                <h1 class="text-2xl font-bold">HR Reports</h1>
+
+                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                    Monitor workforce performance, attendance, leave and recruitment data.
+                </p>
+            </div>
+
+
+            <div class="flex flex-wrap gap-2">
+
+                <select id="periodFilter"
+                        class="px-4 py-2.5 rounded-lg border
+                               border-slate-200 dark:border-slate-700
+                               bg-white dark:bg-slate-900
+                               text-sm outline-none">
+
+                    <option value="month">This Month</option>
+                    <option value="quarter">This Quarter</option>
+                    <option value="year">This Year</option>
+
+                </select>
+
+
+                <button onclick="printReport()"
+                        class="flex items-center gap-2 px-4 py-2.5
+                               rounded-lg bg-slate-900 text-white
+                               dark:bg-white dark:text-slate-900
+                               text-sm font-semibold hover:opacity-90">
+
+                    <i data-lucide="printer" class="w-4 h-4"></i>
+                    Print Report
+
+                </button>
+
+
+                <button onclick="exportReport()"
+                        class="flex items-center gap-2 px-4 py-2.5
+                               rounded-lg bg-blue-600 text-white
+                               text-sm font-semibold hover:bg-blue-700">
+
+                    <i data-lucide="download" class="w-4 h-4"></i>
+                    Export CSV
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= STAT CARDS ================= -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+
+            <div class="print-card card-transition bg-white dark:bg-slate-900
+                        border border-slate-200 dark:border-slate-800
+                        rounded-2xl p-5 shadow-sm">
+
+                <div class="flex items-start justify-between">
+
+                    <div>
+                        <p class="text-sm text-slate-500">Total Employees</p>
+                        <h3 id="employeeCount"
+                            class="text-3xl font-bold mt-2">
+                            248
+                        </h3>
+                    </div>
+
+                    <div class="w-11 h-11 rounded-xl bg-blue-50
+                                dark:bg-blue-500/10
+                                flex items-center justify-center">
+                        <i data-lucide="users"
+                           class="w-5 h-5 text-blue-600"></i>
+                    </div>
+
+                </div>
+
+                <p class="text-xs text-emerald-600 mt-3">
+                    +8.4% from last month
+                </p>
+
+            </div>
+
+
+            <div class="print-card card-transition bg-white dark:bg-slate-900
+                        border border-slate-200 dark:border-slate-800
+                        rounded-2xl p-5 shadow-sm">
+
+                <div class="flex items-start justify-between">
+
+                    <div>
+                        <p class="text-sm text-slate-500">Attendance Rate</p>
+                        <h3 id="attendanceRate"
+                            class="text-3xl font-bold mt-2">
+                            94.2%
+                        </h3>
+                    </div>
+
+                    <div class="w-11 h-11 rounded-xl bg-emerald-50
+                                dark:bg-emerald-500/10
+                                flex items-center justify-center">
+                        <i data-lucide="calendar-check"
+                           class="w-5 h-5 text-emerald-600"></i>
+                    </div>
+
+                </div>
+
+                <p class="text-xs text-emerald-600 mt-3">
+                    +2.1% from last month
+                </p>
+
+            </div>
+
+
+            <div class="print-card card-transition bg-white dark:bg-slate-900
+                        border border-slate-200 dark:border-slate-800
+                        rounded-2xl p-5 shadow-sm">
+
+                <div class="flex items-start justify-between">
+
+                    <div>
+                        <p class="text-sm text-slate-500">Leave Requests</p>
+                        <h3 id="leaveCount"
+                            class="text-3xl font-bold mt-2">
+                            24
+                        </h3>
+                    </div>
+
+                    <div class="w-11 h-11 rounded-xl bg-amber-50
+                                dark:bg-amber-500/10
+                                flex items-center justify-center">
+                        <i data-lucide="calendar-off"
+                           class="w-5 h-5 text-amber-600"></i>
+                    </div>
+
+                </div>
+
+                <p class="text-xs text-amber-600 mt-3">
+                    6 pending approvals
+                </p>
+
+            </div>
+
+
+            <div class="print-card card-transition bg-white dark:bg-slate-900
+                        border border-slate-200 dark:border-slate-800
+                        rounded-2xl p-5 shadow-sm">
+
+                <div class="flex items-start justify-between">
+
+                    <div>
+                        <p class="text-sm text-slate-500">Open Positions</p>
+                        <h3 id="positionCount"
+                            class="text-3xl font-bold mt-2">
+                            08
+                        </h3>
+                    </div>
+
+                    <div class="w-11 h-11 rounded-xl bg-purple-50
+                                dark:bg-purple-500/10
+                                flex items-center justify-center">
+                        <i data-lucide="briefcase"
+                           class="w-5 h-5 text-purple-600"></i>
+                    </div>
+
+                </div>
+
+                <p class="text-xs text-purple-600 mt-3">
+                    32 candidates in pipeline
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= CHART GRID ================= -->
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-6">
+
+            <!-- Workforce Growth -->
+            <div class="print-card bg-white dark:bg-slate-900
+                        border border-slate-200 dark:border-slate-800
+                        rounded-2xl p-5 shadow-sm">
+
+                <div class="flex items-center justify-between mb-5">
+
+                    <div>
+                        <h3 class="font-semibold">Workforce Growth</h3>
+
+                        <p class="text-xs text-slate-500 mt-1">
+                            Employee headcount trend
+                        </p>
+                    </div>
+
+                    <span class="px-2.5 py-1 rounded-full
+                                 bg-emerald-50 dark:bg-emerald-500/10
+                                 text-emerald-600 text-xs font-semibold">
+                        +12.5%
+                    </span>
+
+                </div>
+
+                <div class="h-72">
+                    <canvas id="workforceChart"></canvas>
+                </div>
+
+            </div>
+
+
+            <!-- Department Distribution -->
+            <div class="print-card bg-white dark:bg-slate-900
+                        border border-slate-200 dark:border-slate-800
+                        rounded-2xl p-5 shadow-sm">
+
+                <div class="mb-5">
+
+                    <h3 class="font-semibold">
+                        Department Distribution
+                    </h3>
+
+                    <p class="text-xs text-slate-500 mt-1">
+                        Employees by department
+                    </p>
+
+                </div>
+
+                <div class="h-72">
+                    <canvas id="departmentChart"></canvas>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= SECOND CHART ROW ================= -->
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-6">
+
+            <!-- Attendance -->
+            <div class="print-card bg-white dark:bg-slate-900
+                        border border-slate-200 dark:border-slate-800
+                        rounded-2xl p-5 shadow-sm">
+
+                <div class="mb-5">
+
+                    <h3 class="font-semibold">
+                        Attendance Overview
+                    </h3>
+
+                    <p class="text-xs text-slate-500 mt-1">
+                        Monthly attendance statistics
+                    </p>
+
+                </div>
+
+                <div class="h-72">
+                    <canvas id="attendanceChart"></canvas>
+                </div>
+
+            </div>
+
+
+            <!-- Recruitment -->
+            <div class="print-card bg-white dark:bg-slate-900
+                        border border-slate-200 dark:border-slate-800
+                        rounded-2xl p-5 shadow-sm">
+
+                <div class="mb-5">
+
+                    <h3 class="font-semibold">
+                        Recruitment Funnel
+                    </h3>
+
+                    <p class="text-xs text-slate-500 mt-1">
+                        Candidate pipeline overview
+                    </p>
+
+                </div>
+
+                <div class="space-y-4 pt-2">
+
+                    <div>
+
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Applications</span>
+                            <span class="font-semibold">128</span>
+                        </div>
+
+                        <div class="h-3 bg-slate-100 dark:bg-slate-800 rounded-full">
+                            <div class="h-3 bg-blue-500 rounded-full"
+                                 style="width:100%"></div>
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Screening</span>
+                            <span class="font-semibold">76</span>
+                        </div>
+
+                        <div class="h-3 bg-slate-100 dark:bg-slate-800 rounded-full">
+                            <div class="h-3 bg-cyan-500 rounded-full"
+                                 style="width:59%"></div>
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Interview</span>
+                            <span class="font-semibold">42</span>
+                        </div>
+
+                        <div class="h-3 bg-slate-100 dark:bg-slate-800 rounded-full">
+                            <div class="h-3 bg-violet-500 rounded-full"
+                                 style="width:33%"></div>
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Offer</span>
+                            <span class="font-semibold">18</span>
+                        </div>
+
+                        <div class="h-3 bg-slate-100 dark:bg-slate-800 rounded-full">
+                            <div class="h-3 bg-amber-500 rounded-full"
+                                 style="width:14%"></div>
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Hired</span>
+                            <span class="font-semibold">12</span>
+                        </div>
+
+                        <div class="h-3 bg-slate-100 dark:bg-slate-800 rounded-full">
+                            <div class="h-3 bg-emerald-500 rounded-full"
+                                 style="width:9%"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= REPORT TABLE ================= -->
+        <div class="print-card bg-white dark:bg-slate-900
+                    border border-slate-200 dark:border-slate-800
+                    rounded-2xl shadow-sm overflow-hidden">
+
+            <div class="p-5 border-b border-slate-200 dark:border-slate-800">
+
+                <div class="flex flex-col md:flex-row
+                            md:items-center md:justify-between gap-4">
+
+                    <div>
+
+                        <h3 class="font-semibold">
+                            Department Performance Report
+                        </h3>
+
+                        <p class="text-xs text-slate-500 mt-1">
+                            Workforce metrics by department
+                        </p>
+
+                    </div>
+
+                    <div class="flex gap-2">
+
+                        <select id="departmentFilter"
+                                onchange="filterReport()"
+                                class="px-3 py-2 rounded-lg border
+                                       border-slate-200 dark:border-slate-700
+                                       bg-white dark:bg-slate-900
+                                       text-sm outline-none">
+
+                            <option value="all">All Departments</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Human Resources">Human Resources</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Finance">Finance</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="overflow-x-auto">
+
+                <table class="w-full text-sm">
+
+                    <thead class="bg-slate-50 dark:bg-slate-800/50">
+
+                        <tr class="text-left">
+
+                            <th class="px-5 py-4 font-semibold">
+                                Department
+                            </th>
+
+                            <th class="px-5 py-4 font-semibold">
+                                Employees
+                            </th>
+
+                            <th class="px-5 py-4 font-semibold">
+                                Attendance
+                            </th>
+
+                            <th class="px-5 py-4 font-semibold">
+                                Performance
+                            </th>
+
+                            <th class="px-5 py-4 font-semibold">
+                                Leave Rate
+                            </th>
+
+                            <th class="px-5 py-4 font-semibold">
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="reportTable"
+                           class="divide-y divide-slate-100
+                                  dark:divide-slate-800">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= INSIGHTS ================= -->
+        <div class="mt-6">
+
+            <div class="flex items-center gap-2 mb-4">
+
+                <i data-lucide="lightbulb"
+                   class="w-5 h-5 text-amber-500"></i>
+
+                <h3 class="font-semibold">
+                    HR Insights
+                </h3>
+
+            </div>
+
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                <div class="bg-blue-50 dark:bg-blue-500/10
+                            border border-blue-100 dark:border-blue-500/20
+                            rounded-xl p-4">
+
+                    <div class="flex items-center gap-2 mb-2">
+
+                        <i data-lucide="trending-up"
+                           class="w-5 h-5 text-blue-600"></i>
+
+                        <h4 class="font-semibold text-sm">
+                            Workforce Growth
+                        </h4>
+
+                    </div>
+
+                    <p class="text-xs leading-5
+                              text-slate-600 dark:text-slate-300">
+                        Engineering continues to have the largest workforce,
+                        with steady hiring throughout the quarter.
+                    </p>
+
+                </div>
+
+
+                <div class="bg-emerald-50 dark:bg-emerald-500/10
+                            border border-emerald-100 dark:border-emerald-500/20
+                            rounded-xl p-4">
+
+                    <div class="flex items-center gap-2 mb-2">
+
+                        <i data-lucide="circle-check"
+                           class="w-5 h-5 text-emerald-600"></i>
+
+                        <h4 class="font-semibold text-sm">
+                            Attendance
+                        </h4>
+
+                    </div>
+
+                    <p class="text-xs leading-5
+                              text-slate-600 dark:text-slate-300">
+                        Overall attendance remains above 90%, indicating
+                        consistent workforce availability.
+                    </p>
+
+                </div>
+
+
+                <div class="bg-purple-50 dark:bg-purple-500/10
+                            border border-purple-100 dark:border-purple-500/20
+                            rounded-xl p-4">
+
+                    <div class="flex items-center gap-2 mb-2">
+
+                        <i data-lucide="users-round"
+                           class="w-5 h-5 text-purple-600"></i>
+
+                        <h4 class="font-semibold text-sm">
+                            Recruitment
+                        </h4>
+
+                    </div>
+
+                    <p class="text-xs leading-5
+                              text-slate-600 dark:text-slate-300">
+                        Recruitment pipeline shows strong candidate activity
+                        across technical and business roles.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Footer -->
+        <footer class="mt-8 pt-6 border-t border-slate-200
+                       dark:border-slate-800 text-center">
+
+            <p class="text-xs text-slate-500">
+                © 2026 TalentSphere. Smart Human Resource Management Platform.
+            </p>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- ================= TOAST ================= -->
+<div id="toast"
+     class="fixed bottom-5 right-5 z-50 hidden">
+
+    <div class="bg-slate-900 dark:bg-white
+                text-white dark:text-slate-900
+                px-4 py-3 rounded-xl shadow-xl
+                flex items-center gap-3">
+
+        <i data-lucide="circle-check"
+           class="w-5 h-5 text-emerald-400 dark:text-emerald-600"></i>
+
+        <span id="toastMessage" class="text-sm"></span>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   THEME
+===================================================== */
+
+const themeBtn = document.getElementById("themeBtn");
+const themeIcon = document.getElementById("themeIcon");
+
+function updateThemeIcon() {
+
+    const isDark = document.documentElement.classList.contains("dark");
+
+    themeIcon.setAttribute(
+        "data-lucide",
+        isDark ? "sun" : "moon"
+    );
+
+    lucide.createIcons();
+}
+
+if (localStorage.getItem("talentSphereTheme") === "dark") {
+    document.documentElement.classList.add("dark");
+}
+
+updateThemeIcon();
+
+themeBtn.addEventListener("click", () => {
+
+    document.documentElement.classList.toggle("dark");
+
+    const isDark =
+        document.documentElement.classList.contains("dark");
+
+    localStorage.setItem(
+        "talentSphereTheme",
+        isDark ? "dark" : "light"
+    );
+
+    updateThemeIcon();
+});
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+const sidebar = document.getElementById("sidebar");
+const sidebarOverlay = document.getElementById("sidebarOverlay");
+const menuBtn = document.getElementById("menuBtn");
+
+function openSidebar() {
+
+    sidebar.classList.remove("-translate-x-full");
+    sidebarOverlay.classList.remove("hidden");
+
+}
+
+function closeSidebar() {
+
+    sidebar.classList.add("-translate-x-full");
+    sidebarOverlay.classList.add("hidden");
+
+}
+
+menuBtn.addEventListener("click", openSidebar);
+sidebarOverlay.addEventListener("click", closeSidebar);
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer;
+
+function showToast(message) {
+
+    const toast = document.getElementById("toast");
+    const toastMessage = document.getElementById("toastMessage");
+
+    toastMessage.textContent = message;
+
+    toast.classList.remove("hidden");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+        toast.classList.add("hidden");
+    }, 3000);
+
+}
+
+
+/* =====================================================
+   DEPARTMENT DATA
+===================================================== */
+
+const departmentData = [
+
+    {
+        department: "Engineering",
+        employees: 92,
+        attendance: 96.4,
+        performance: 91,
+        leaveRate: 4.2,
+        status: "Excellent"
+    },
+
+    {
+        department: "Human Resources",
+        employees: 28,
+        attendance: 94.8,
+        performance: 88,
+        leaveRate: 5.1,
+        status: "Good"
+    },
+
+    {
+        department: "Marketing",
+        employees: 46,
+        attendance: 92.7,
+        performance: 85,
+        leaveRate: 6.4,
+        status: "Good"
+    },
+
+    {
+        department: "Finance",
+        employees: 35,
+        attendance: 95.2,
+        performance: 89,
+        leaveRate: 4.8,
+        status: "Excellent"
+    }
+
+];
+
+
+/* =====================================================
+   REPORT TABLE
+===================================================== */
+
+function renderReportTable(data = departmentData) {
+
+    const table = document.getElementById("reportTable");
+
+    if (data.length === 0) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="6"
+                    class="px-5 py-10 text-center
+                           text-slate-500">
+                    No department data found.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    table.innerHTML = data.map(item => {
+
+        const statusClass =
+            item.status === "Excellent"
+            ? "bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600"
+            : "bg-blue-50 dark:bg-blue-500/10 text-blue-600";
+
+
+        return `
+
+            <tr class="hover:bg-slate-50
+                       dark:hover:bg-slate-800/40">
+
+                <td class="px-5 py-4">
+
+                    <div class="font-semibold">
+                        ${item.department}
+                    </div>
+
+                </td>
+
+
+                <td class="px-5 py-4">
+                    ${item.employees}
+                </td>
+
+
+                <td class="px-5 py-4">
+
+                    <div class="flex items-center gap-3">
+
+                        <span>
+                            ${item.attendance}%
+                        </span>
+
+                        <div class="w-20 h-1.5
+                                    bg-slate-200 dark:bg-slate-700
+                                    rounded-full">
+
+                            <div class="h-1.5 bg-emerald-500
+                                        rounded-full"
+                                 style="width:${item.attendance}%">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </td>
+
+
+                <td class="px-5 py-4">
+
+                    <div class="flex items-center gap-3">
+
+                        <span>
+                            ${item.performance}%
+                        </span>
+
+                        <div class="w-20 h-1.5
+                                    bg-slate-200 dark:bg-slate-700
+                                    rounded-full">
+
+                            <div class="h-1.5 bg-blue-500
+                                        rounded-full"
+                                 style="width:${item.performance}%">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </td>
+
+
+                <td class="px-5 py-4">
+                    ${item.leaveRate}%
+                </td>
+
+
+                <td class="px-5 py-4">
+
+                    <span class="px-2.5 py-1 rounded-full
+                                 text-xs font-semibold
+                                 ${statusClass}">
+
+                        ${item.status}
+
+                    </span>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }).join("");
+
+}
+
+
+/* =====================================================
+   FILTER
+===================================================== */
+
+function filterReport() {
+
+    const value =
+        document.getElementById("departmentFilter").value;
+
+    if (value === "all") {
+
+        renderReportTable(departmentData);
+
+    } else {
+
+        const filtered =
+            departmentData.filter(
+                item => item.department === value
+            );
+
+        renderReportTable(filtered);
+
+    }
+
+}
+
+
+/* =====================================================
+   WORKFORCE CHART
+===================================================== */
+
+let workforceChart;
+let departmentChart;
+let attendanceChart;
+
+
+function createCharts() {
+
+    const isDark =
+        document.documentElement.classList.contains("dark");
+
+    const textColor =
+        isDark ? "#cbd5e1" : "#64748b";
+
+    const gridColor =
+        isDark ? "#1e293b" : "#e2e8f0";
+
+
+    /* Workforce */
+
+    const workforceCtx =
+        document.getElementById("workforceChart");
+
+    workforceChart =
+        new Chart(workforceCtx, {
+
+            type: "line",
+
+            data: {
+
+                labels: [
+                    "Apr",
+                    "May",
+                    "Jun",
+                    "Jul",
+                    "Aug",
+                    "Sep"
+                ],
+
+                datasets: [{
+
+                    label: "Employees",
+
+                    data: [
+                        211,
+                        218,
+                        224,
+                        231,
+                        240,
+                        248
+                    ],
+
+                    borderColor: "#2563eb",
+
+                    backgroundColor:
+                        "rgba(37,99,235,0.10)",
+
+                    fill: true,
+
+                    tension: 0.4,
+
+                    pointRadius: 4,
+
+                    pointBackgroundColor: "#2563eb"
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                plugins: {
+
+                    legend: {
+                        display: false
+                    }
+
+                },
+
+                scales: {
+
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: textColor
+                        }
+                    },
+
+                    y: {
+                        beginAtZero: false,
+                        grid: {
+                            color: gridColor
+                        },
+                        ticks: {
+                            color: textColor
+                        }
+                    }
+
+                }
+
+            }
+
+        });
+
+
+    /* Department */
+
+    const departmentCtx =
+        document.getElementById("departmentChart");
+
+    departmentChart =
+        new Chart(departmentCtx, {
+
+            type: "doughnut",
+
+            data: {
+
+                labels: [
+                    "Engineering",
+                    "Marketing",
+                    "HR",
+                    "Finance"
+                ],
+
+                datasets: [{
+
+                    data: [
+                        92,
+                        46,
+                        28,
+                        35
+                    ],
+
+                    backgroundColor: [
+                        "#2563eb",
+                        "#06b6d4",
+                        "#8b5cf6",
+                        "#f59e0b"
+                    ],
+
+                    borderWidth: 0
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                cutout: "68%",
+
+                plugins: {
+
+                    legend: {
+
+                        position: "bottom",
+
+                        labels: {
+                            color: textColor,
+                            padding: 20
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+
+    /* Attendance */
+
+    const attendanceCtx =
+        document.getElementById("attendanceChart");
+
+    attendanceChart =
+        new Chart(attendanceCtx, {
+
+            type: "bar",
+
+            data: {
+
+                labels: [
+                    "Present",
+                    "Late",
+                    "Absent",
+                    "On Leave"
+                ],
+
+                datasets: [{
+
+                    label: "Employees",
+
+                    data: [
+                        221,
+                        12,
+                        7,
+                        8
+                    ],
+
+                    backgroundColor: [
+                        "#10b981",
+                        "#f59e0b",
+                        "#ef4444",
+                        "#8b5cf6"
+                    ],
+
+                    borderRadius: 7
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                plugins: {
+
+                    legend: {
+                        display: false
+                    }
+
+                },
+
+                scales: {
+
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: textColor
+                        }
+                    },
+
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: gridColor
+                        },
+                        ticks: {
+                            color: textColor
+                        }
+                    }
+
+                }
+
+            }
+
+        });
+
+}
+
+
+/* =====================================================
+   DESTROY + RECREATE CHARTS ON THEME CHANGE
+===================================================== */
+
+themeBtn.addEventListener("click", () => {
+
+    setTimeout(() => {
+
+        if (workforceChart) workforceChart.destroy();
+        if (departmentChart) departmentChart.destroy();
+        if (attendanceChart) attendanceChart.destroy();
+
+        createCharts();
+
+    }, 100);
+
+});
+
+
+/* =====================================================
+   EXPORT CSV
+===================================================== */
+
+function exportReport() {
+
+    const headers = [
+        "Department",
+        "Employees",
+        "Attendance Rate",
+        "Performance",
+        "Leave Rate",
+        "Status"
+    ];
+
+    const rows =
+        departmentData.map(item => [
+
+            item.department,
+            item.employees,
+            item.attendance + "%",
+            item.performance + "%",
+            item.leaveRate + "%",
+            item.status
+
+        ]);
+
+
+    const csv = [
+
+        headers.join(","),
+
+        ...rows.map(row =>
+            row.map(value =>
+                `"${String(value).replace(/"/g, '""')}"`
+            ).join(",")
+        )
+
+    ].join("\n");
+
+
+    const blob =
+        new Blob([csv], {
+            type: "text/csv;charset=utf-8;"
+        });
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+
+    link.download =
+        "talentSphere-hr-report.csv";
+
+    link.click();
+
+    URL.revokeObjectURL(url);
+
+    showToast("HR report exported successfully!");
+
+}
+
+
+/* =====================================================
+   PRINT
+===================================================== */
+
+function printReport() {
+
+    showToast("Preparing report for printing...");
+
+    setTimeout(() => {
+        window.print();
+    }, 500);
+
+}
+
+
+/* =====================================================
+   PERIOD FILTER
+===================================================== */
+
+document
+    .getElementById("periodFilter")
+    .addEventListener("change", function () {
+
+        const period = this.value;
+
+        if (period === "month") {
+            showToast("Showing monthly HR report");
+        }
+
+        if (period === "quarter") {
+            showToast("Showing quarterly HR report");
+        }
+
+        if (period === "year") {
+            showToast("Showing yearly HR report");
+        }
+
+    });
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+document
+    .getElementById("globalSearch")
+    .addEventListener("input", function () {
+
+        const search =
+            this.value.toLowerCase().trim();
+
+        if (!search) {
+
+            renderReportTable(departmentData);
+            return;
+
+        }
+
+
+        const filtered =
+            departmentData.filter(item =>
+                item.department
+                    .toLowerCase()
+                    .includes(search)
+            );
+
+
+        renderReportTable(filtered);
+
+    });
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    lucide.createIcons();
+
+    renderReportTable();
+
+    createCharts();
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,3384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Performance Management | TalentSphere</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#4f46e5"
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        body {
+            font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+
+<div class="flex min-h-screen">
+
+    <!-- =========================================================
+         SIDEBAR
+    ========================================================== -->
+
+    <aside id="sidebar"
+           class="fixed md:static z-50 inset-y-0 left-0 w-64
+                  bg-white dark:bg-slate-900
+                  border-r border-slate-200 dark:border-slate-800
+                  transform -translate-x-full md:translate-x-0
+                  transition-transform duration-300">
+
+        <div class="h-full flex flex-col">
+
+            <!-- Logo -->
+            <div class="h-16 flex items-center px-6
+                        border-b border-slate-200 dark:border-slate-800">
+
+                <div class="w-9 h-9 rounded-xl bg-indigo-600
+                            flex items-center justify-center">
+
+                    <i data-lucide="users"
+                       class="w-5 h-5 text-white"></i>
+
+                </div>
+
+                <div class="ml-3">
+
+                    <h1 class="font-bold text-lg">
+                        TalentSphere
+                    </h1>
+
+                    <p class="text-[10px] text-slate-500 dark:text-slate-400">
+                        HR MANAGEMENT
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Navigation -->
+            <nav class="flex-1 p-4 space-y-1 overflow-y-auto scrollbar-hide">
+
+                <p class="px-3 pt-2 pb-2 text-xs font-semibold
+                          uppercase text-slate-400">
+                    Main
+                </p>
+
+                <a href="../index.html"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                          hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    <i data-lucide="layout-dashboard"
+                       class="w-5 h-5"></i>
+
+                    <span>Dashboard</span>
+
+                </a>
+
+
+                <a href="employees.html"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                          hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    <i data-lucide="users-round"
+                       class="w-5 h-5"></i>
+
+                    <span>Employees</span>
+
+                </a>
+
+
+                <a href="recruitment.html"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                          hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    <i data-lucide="user-plus"
+                       class="w-5 h-5"></i>
+
+                    <span>Recruitment</span>
+
+                </a>
+
+
+                <a href="attendance.html"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                          hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    <i data-lucide="clock-3"
+                       class="w-5 h-5"></i>
+
+                    <span>Attendance</span>
+
+                </a>
+
+
+                <a href="leave.html"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                          hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    <i data-lucide="calendar-days"
+                       class="w-5 h-5"></i>
+
+                    <span>Leave Management</span>
+
+                </a>
+
+
+                <!-- ACTIVE -->
+                <a href="performance.html"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                          bg-indigo-50 text-indigo-600
+                          dark:bg-indigo-500/10 dark:text-indigo-400">
+
+                    <i data-lucide="chart-no-axes-combined"
+                       class="w-5 h-5"></i>
+
+                    <span class="font-medium">
+                        Performance
+                    </span>
+
+                </a>
+
+
+                <a href="payroll.html"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                          hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    <i data-lucide="wallet-cards"
+                       class="w-5 h-5"></i>
+
+                    <span>Payroll</span>
+
+                </a>
+
+
+                <p class="px-3 pt-6 pb-2 text-xs font-semibold
+                          uppercase text-slate-400">
+                    Analytics
+                </p>
+
+
+                <a href="reports.html"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                          hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    <i data-lucide="file-bar-chart"
+                       class="w-5 h-5"></i>
+
+                    <span>Reports</span>
+
+                </a>
+
+
+                <a href="calendar.html"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                          hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    <i data-lucide="calendar"
+                       class="w-5 h-5"></i>
+
+                    <span>Calendar</span>
+
+                </a>
+
+
+                <p class="px-3 pt-6 pb-2 text-xs font-semibold
+                          uppercase text-slate-400">
+                    System
+                </p>
+
+
+                <a href="settings.html"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                          hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    <i data-lucide="settings"
+                       class="w-5 h-5"></i>
+
+                    <span>Settings</span>
+
+                </a>
+
+            </nav>
+
+
+            <!-- User -->
+            <div class="p-4 border-t border-slate-200 dark:border-slate-800">
+
+                <div class="flex items-center gap-3">
+
+                    <div class="w-10 h-10 rounded-full
+                                bg-indigo-100 dark:bg-indigo-500/20
+                                flex items-center justify-center
+                                text-indigo-600 dark:text-indigo-400
+                                font-semibold">
+                        SG
+                    </div>
+
+                    <div>
+
+                        <p class="font-medium">
+                            HR Admin
+                        </p>
+
+                        <p class="text-xs text-slate-500">
+                            Administrator
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- Mobile Overlay -->
+    <div id="sidebarOverlay"
+         class="fixed inset-0 bg-black/50 z-40 hidden md:hidden">
+    </div>
+
+
+    <!-- =========================================================
+         MAIN
+    ========================================================== -->
+
+    <main class="flex-1 min-w-0">
+
+        <!-- Navbar -->
+        <header class="h-16 bg-white dark:bg-slate-900
+                       border-b border-slate-200 dark:border-slate-800
+                       flex items-center justify-between px-4 md:px-6">
+
+            <div class="flex items-center gap-3">
+
+                <button id="menuBtn"
+                        class="md:hidden p-2 rounded-lg
+                               hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    <i data-lucide="menu"
+                       class="w-5 h-5"></i>
+
+                </button>
+
+
+                <div class="relative hidden sm:block">
+
+                    <i data-lucide="search"
+                       class="absolute left-3 top-1/2
+                              -translate-y-1/2
+                              w-4 h-4 text-slate-400"></i>
+
+                    <input id="globalSearch"
+                           type="text"
+                           placeholder="Search..."
+                           class="w-64 lg:w-80 pl-10 pr-4 py-2 rounded-lg
+                                  bg-slate-100 dark:bg-slate-800
+                                  border border-transparent
+                                  focus:border-indigo-500
+                                  focus:ring-2 focus:ring-indigo-500/20
+                                  outline-none text-sm">
+
+                </div>
+
+            </div>
+
+
+            <div class="flex items-center gap-2">
+
+                <!-- Theme -->
+                <button id="themeBtn"
+                        class="p-2.5 rounded-lg
+                               hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    <i data-lucide="moon"
+                       class="w-5 h-5"></i>
+
+                </button>
+
+
+                <!-- Notification -->
+                <button class="relative p-2.5 rounded-lg
+                               hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    <i data-lucide="bell"
+                       class="w-5 h-5"></i>
+
+                    <span class="absolute top-1.5 right-1.5
+                                 w-2 h-2 rounded-full bg-red-500">
+                    </span>
+
+                </button>
+
+
+                <!-- Profile -->
+                <div class="hidden sm:flex items-center gap-3 ml-2 pl-3
+                            border-l border-slate-200 dark:border-slate-700">
+
+                    <div class="w-9 h-9 rounded-full bg-indigo-600
+                                flex items-center justify-center
+                                text-white text-sm font-semibold">
+                        SG
+                    </div>
+
+                    <div class="hidden lg:block">
+
+                        <p class="text-sm font-semibold">
+                            HR Admin
+                        </p>
+
+                        <p class="text-xs text-slate-500">
+                            Administrator
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             PAGE CONTENT
+        ====================================================== -->
+
+        <section class="p-4 md:p-6 lg:p-8">
+
+            <!-- Header -->
+            <div class="flex flex-col md:flex-row
+                        md:items-center justify-between
+                        gap-4 mb-6">
+
+                <div>
+
+                    <p class="text-sm text-slate-500 mb-1">
+                        HR Analytics
+                    </p>
+
+                    <h2 class="text-2xl md:text-3xl font-bold">
+                        Performance Management
+                    </h2>
+
+                    <p class="text-sm text-slate-500 mt-1">
+                        Track employee performance, KPIs and goals.
+                    </p>
+
+                </div>
+
+
+                <button id="addReviewBtn"
+                        class="inline-flex items-center justify-center
+                               gap-2 px-4 py-2.5 rounded-lg
+                               bg-indigo-600 text-white
+                               hover:bg-indigo-700 transition">
+
+                    <i data-lucide="plus"
+                       class="w-5 h-5"></i>
+
+                    Add Performance Review
+
+                </button>
+
+            </div>
+
+
+            <!-- =================================================
+                 KPI CARDS
+            ================================================== -->
+
+            <div class="grid grid-cols-1 sm:grid-cols-2
+                        xl:grid-cols-4 gap-4 mb-6">
+
+                <!-- Average Score -->
+                <div class="bg-white dark:bg-slate-900
+                            rounded-xl p-5
+                            border border-slate-200
+                            dark:border-slate-800">
+
+                    <div class="flex items-center justify-between">
+
+                        <div>
+
+                            <p class="text-sm text-slate-500">
+                                Average Score
+                            </p>
+
+                            <h3 id="averageScore"
+                                class="text-2xl font-bold mt-1">
+                                0.0
+                            </h3>
+
+                        </div>
+
+
+                        <div class="w-11 h-11 rounded-lg
+                                    bg-indigo-100
+                                    dark:bg-indigo-500/10
+                                    text-indigo-600
+                                    flex items-center justify-center">
+
+                            <i data-lucide="star"
+                               class="w-5 h-5"></i>
+
+                        </div>
+
+                    </div>
+
+                    <p class="text-xs text-indigo-600 mt-3">
+                        Out of 5.0
+                    </p>
+
+                </div>
+
+
+                <!-- High Performers -->
+                <div class="bg-white dark:bg-slate-900
+                            rounded-xl p-5
+                            border border-slate-200
+                            dark:border-slate-800">
+
+                    <div class="flex items-center justify-between">
+
+                        <div>
+
+                            <p class="text-sm text-slate-500">
+                                High Performers
+                            </p>
+
+                            <h3 id="highPerformers"
+                                class="text-2xl font-bold mt-1">
+                                0
+                            </h3>
+
+                        </div>
+
+
+                        <div class="w-11 h-11 rounded-lg
+                                    bg-emerald-100
+                                    dark:bg-emerald-500/10
+                                    text-emerald-600
+                                    flex items-center justify-center">
+
+                            <i data-lucide="trending-up"
+                               class="w-5 h-5"></i>
+
+                        </div>
+
+                    </div>
+
+                    <p class="text-xs text-emerald-600 mt-3">
+                        Score ≥ 4.5
+                    </p>
+
+                </div>
+
+
+                <!-- Reviews -->
+                <div class="bg-white dark:bg-slate-900
+                            rounded-xl p-5
+                            border border-slate-200
+                            dark:border-slate-800">
+
+                    <div class="flex items-center justify-between">
+
+                        <div>
+
+                            <p class="text-sm text-slate-500">
+                                Reviews Completed
+                            </p>
+
+                            <h3 id="reviewsCompleted"
+                                class="text-2xl font-bold mt-1">
+                                0
+                            </h3>
+
+                        </div>
+
+
+                        <div class="w-11 h-11 rounded-lg
+                                    bg-blue-100
+                                    dark:bg-blue-500/10
+                                    text-blue-600
+                                    flex items-center justify-center">
+
+                            <i data-lucide="clipboard-check"
+                               class="w-5 h-5"></i>
+
+                        </div>
+
+                    </div>
+
+                    <p class="text-xs text-blue-600 mt-3">
+                        Current review cycle
+                    </p>
+
+                </div>
+
+
+                <!-- Goals -->
+                <div class="bg-white dark:bg-slate-900
+                            rounded-xl p-5
+                            border border-slate-200
+                            dark:border-slate-800">
+
+                    <div class="flex items-center justify-between">
+
+                        <div>
+
+                            <p class="text-sm text-slate-500">
+                                Goals Achieved
+                            </p>
+
+                            <h3 id="goalsAchieved"
+                                class="text-2xl font-bold mt-1">
+                                0%
+                            </h3>
+
+                        </div>
+
+
+                        <div class="w-11 h-11 rounded-lg
+                                    bg-orange-100
+                                    dark:bg-orange-500/10
+                                    text-orange-600
+                                    flex items-center justify-center">
+
+                            <i data-lucide="target"
+                               class="w-5 h-5"></i>
+
+                        </div>
+
+                    </div>
+
+                    <p class="text-xs text-orange-600 mt-3">
+                        Organization average
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 CHARTS
+            ================================================== -->
+
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-6">
+
+                <!-- Performance Trend -->
+                <div class="bg-white dark:bg-slate-900
+                            rounded-xl p-5
+                            border border-slate-200
+                            dark:border-slate-800">
+
+                    <div class="flex items-center justify-between mb-5">
+
+                        <div>
+
+                            <h3 class="font-semibold text-lg">
+                                Performance Trend
+                            </h3>
+
+                            <p class="text-sm text-slate-500">
+                                Average organizational score
+                            </p>
+
+                        </div>
+
+                        <select id="trendPeriod"
+                                class="text-xs px-2.5 py-2 rounded-lg
+                                       bg-slate-50 dark:bg-slate-800
+                                       border border-slate-200
+                                       dark:border-slate-700">
+
+                            <option value="2026">2026</option>
+                            <option value="2025">2025</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="h-72">
+                        <canvas id="performanceTrendChart"></canvas>
+                    </div>
+
+                </div>
+
+
+                <!-- Department Comparison -->
+                <div class="bg-white dark:bg-slate-900
+                            rounded-xl p-5
+                            border border-slate-200
+                            dark:border-slate-800">
+
+                    <div class="mb-5">
+
+                        <h3 class="font-semibold text-lg">
+                            Department Performance
+                        </h3>
+
+                        <p class="text-sm text-slate-500">
+                            Average score by department
+                        </p>
+
+                    </div>
+
+                    <div class="h-72">
+                        <canvas id="departmentChart"></canvas>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FILTERS
+            ================================================== -->
+
+            <div class="bg-white dark:bg-slate-900
+                        rounded-xl p-4 mb-6
+                        border border-slate-200
+                        dark:border-slate-800">
+
+                <div class="grid grid-cols-1 md:grid-cols-2
+                            lg:grid-cols-5 gap-3">
+
+                    <div class="relative lg:col-span-2">
+
+                        <i data-lucide="search"
+                           class="absolute left-3 top-1/2
+                                  -translate-y-1/2
+                                  w-4 h-4 text-slate-400"></i>
+
+                        <input id="searchInput"
+                               type="text"
+                               placeholder="Search employee or ID..."
+                               class="w-full pl-10 pr-4 py-2.5
+                                      rounded-lg bg-slate-50
+                                      dark:bg-slate-800
+                                      border border-slate-200
+                                      dark:border-slate-700
+                                      outline-none
+                                      focus:border-indigo-500
+                                      text-sm">
+
+                    </div>
+
+
+                    <select id="departmentFilter"
+                            class="px-3 py-2.5 rounded-lg
+                                   bg-slate-50 dark:bg-slate-800
+                                   border border-slate-200
+                                   dark:border-slate-700
+                                   outline-none text-sm">
+
+                        <option value="">
+                            All Departments
+                        </option>
+
+                        <option>Engineering</option>
+                        <option>Human Resources</option>
+                        <option>Marketing</option>
+                        <option>Finance</option>
+                        <option>Operations</option>
+
+                    </select>
+
+
+                    <select id="ratingFilter"
+                            class="px-3 py-2.5 rounded-lg
+                                   bg-slate-50 dark:bg-slate-800
+                                   border border-slate-200
+                                   dark:border-slate-700
+                                   outline-none text-sm">
+
+                        <option value="">
+                            All Ratings
+                        </option>
+
+                        <option value="excellent">
+                            Excellent
+                        </option>
+
+                        <option value="good">
+                            Good
+                        </option>
+
+                        <option value="average">
+                            Average
+                        </option>
+
+                        <option value="low">
+                            Needs Improvement
+                        </option>
+
+                    </select>
+
+
+                    <select id="reviewFilter"
+                            class="px-3 py-2.5 rounded-lg
+                                   bg-slate-50 dark:bg-slate-800
+                                   border border-slate-200
+                                   dark:border-slate-700
+                                   outline-none text-sm">
+
+                        <option value="">
+                            All Reviews
+                        </option>
+
+                        <option value="Completed">
+                            Completed
+                        </option>
+
+                        <option value="Pending">
+                            Pending
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 EMPLOYEE PERFORMANCE TABLE
+            ================================================== -->
+
+            <div class="bg-white dark:bg-slate-900
+                        rounded-xl
+                        border border-slate-200
+                        dark:border-slate-800 mb-6">
+
+                <div class="p-5 border-b
+                            border-slate-200
+                            dark:border-slate-800
+                            flex flex-col sm:flex-row
+                            sm:items-center
+                            justify-between gap-3">
+
+                    <div>
+
+                        <h3 class="font-semibold text-lg">
+                            Employee Performance
+                        </h3>
+
+                        <p class="text-sm text-slate-500">
+                            Individual performance overview
+                        </p>
+
+                    </div>
+
+
+                    <button id="exportBtn"
+                            class="inline-flex items-center
+                                   justify-center gap-2
+                                   px-3 py-2 rounded-lg
+                                   border border-slate-200
+                                   dark:border-slate-700
+                                   hover:bg-slate-50
+                                   dark:hover:bg-slate-800
+                                   text-sm">
+
+                        <i data-lucide="download"
+                           class="w-4 h-4"></i>
+
+                        Export CSV
+
+                    </button>
+
+                </div>
+
+
+                <div class="overflow-x-auto">
+
+                    <table class="w-full text-sm">
+
+                        <thead class="bg-slate-50
+                                      dark:bg-slate-800/60">
+
+                            <tr>
+
+                                <th class="text-left px-5 py-3
+                                           font-semibold">
+                                    Employee
+                                </th>
+
+                                <th class="text-left px-5 py-3
+                                           font-semibold">
+                                    Department
+                                </th>
+
+                                <th class="text-left px-5 py-3
+                                           font-semibold">
+                                    KPI Score
+                                </th>
+
+                                <th class="text-left px-5 py-3
+                                           font-semibold">
+                                    Goals
+                                </th>
+
+                                <th class="text-left px-5 py-3
+                                           font-semibold">
+                                    Rating
+                                </th>
+
+                                <th class="text-left px-5 py-3
+                                           font-semibold">
+                                    Review
+                                </th>
+
+                                <th class="text-right px-5 py-3
+                                           font-semibold">
+                                    Action
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="performanceTable"
+                               class="divide-y
+                                      divide-slate-200
+                                      dark:divide-slate-800">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <div id="emptyState"
+                     class="hidden p-12 text-center">
+
+                    <div class="w-14 h-14 mx-auto
+                                rounded-full bg-slate-100
+                                dark:bg-slate-800
+                                flex items-center justify-center">
+
+                        <i data-lucide="search-x"
+                           class="w-7 h-7 text-slate-400"></i>
+
+                    </div>
+
+                    <h3 class="font-semibold mt-4">
+                        No employees found
+                    </h3>
+
+                    <p class="text-sm text-slate-500 mt-1">
+                        Try changing your search or filters.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 GOALS SECTION
+            ================================================== -->
+
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+
+                <!-- Top Goals -->
+                <div class="bg-white dark:bg-slate-900
+                            rounded-xl p-5
+                            border border-slate-200
+                            dark:border-slate-800">
+
+                    <div class="flex items-center
+                                justify-between mb-5">
+
+                        <div>
+
+                            <h3 class="font-semibold text-lg">
+                                Current Goals
+                            </h3>
+
+                            <p class="text-sm text-slate-500">
+                                Employee goal progress
+                            </p>
+
+                        </div>
+
+                        <button id="addGoalBtn"
+                                class="p-2 rounded-lg
+                                       hover:bg-slate-100
+                                       dark:hover:bg-slate-800">
+
+                            <i data-lucide="plus"
+                               class="w-5 h-5"></i>
+
+                        </button>
+
+                    </div>
+
+
+                    <div id="goalsContainer"
+                         class="space-y-4">
+                    </div>
+
+                </div>
+
+
+                <!-- Recent Reviews -->
+                <div class="bg-white dark:bg-slate-900
+                            rounded-xl p-5
+                            border border-slate-200
+                            dark:border-slate-800">
+
+                    <div class="mb-5">
+
+                        <h3 class="font-semibold text-lg">
+                            Recent Reviews
+                        </h3>
+
+                        <p class="text-sm text-slate-500">
+                            Latest performance feedback
+                        </p>
+
+                    </div>
+
+
+                    <div id="recentReviews"
+                         class="space-y-4">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Footer -->
+        <footer class="px-6 py-5 text-center text-xs
+                       text-slate-500
+                       border-t border-slate-200
+                       dark:border-slate-800">
+
+            © 2026 TalentSphere.
+            Smart Human Resource Management Platform.
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- =============================================================
+     REVIEW MODAL
+============================================================== -->
+
+<div id="reviewModal"
+     class="fixed inset-0 z-[60] hidden
+            items-center justify-center
+            bg-black/50 p-4">
+
+    <div class="w-full max-w-2xl
+                bg-white dark:bg-slate-900
+                rounded-2xl shadow-2xl
+                max-h-[90vh] overflow-y-auto">
+
+        <!-- Modal Header -->
+        <div class="flex items-center
+                    justify-between p-5
+                    border-b border-slate-200
+                    dark:border-slate-800">
+
+            <div>
+
+                <h3 class="text-lg font-bold">
+                    Add Performance Review
+                </h3>
+
+                <p class="text-sm text-slate-500">
+                    Record an employee's performance review.
+                </p>
+
+            </div>
+
+
+            <button id="closeModal"
+                    class="p-2 rounded-lg
+                           hover:bg-slate-100
+                           dark:hover:bg-slate-800">
+
+                <i data-lucide="x"
+                   class="w-5 h-5"></i>
+
+            </button>
+
+        </div>
+
+
+        <!-- Form -->
+        <form id="reviewForm"
+              class="p-5 space-y-5">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                <!-- Employee -->
+                <div>
+
+                    <label class="block text-sm
+                                  font-medium mb-2">
+
+                        Employee
+
+                    </label>
+
+                    <select id="employee"
+                            required
+                            class="w-full px-3 py-2.5
+                                   rounded-lg
+                                   bg-slate-50
+                                   dark:bg-slate-800
+                                   border border-slate-200
+                                   dark:border-slate-700
+                                   outline-none
+                                   focus:border-indigo-500">
+
+                        <option value="">
+                            Select Employee
+                        </option>
+
+                        <option value="Ananya Roy|EMP001|Engineering">
+                            Ananya Roy — EMP001
+                        </option>
+
+                        <option value="Rahul Das|EMP002|Human Resources">
+                            Rahul Das — EMP002
+                        </option>
+
+                        <option value="Priya Sen|EMP003|Marketing">
+                            Priya Sen — EMP003
+                        </option>
+
+                        <option value="Arjun Mehta|EMP004|Engineering">
+                            Arjun Mehta — EMP004
+                        </option>
+
+                        <option value="Sneha Roy|EMP005|Finance">
+                            Sneha Roy — EMP005
+                        </option>
+
+                        <option value="Kunal Bose|EMP006|Engineering">
+                            Kunal Bose — EMP006
+                        </option>
+
+                        <option value="Riya Das|EMP007|Marketing">
+                            Riya Das — EMP007
+                        </option>
+
+                        <option value="Amit Sen|EMP008|Finance">
+                            Amit Sen — EMP008
+                        </option>
+
+                        <option value="Nisha Roy|EMP009|Human Resources">
+                            Nisha Roy — EMP009
+                        </option>
+
+                        <option value="Aditya Sharma|EMP010|Engineering">
+                            Aditya Sharma — EMP010
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Score -->
+                <div>
+
+                    <label class="block text-sm
+                                  font-medium mb-2">
+
+                        KPI Score
+
+                    </label>
+
+                    <select id="score"
+                            required
+                            class="w-full px-3 py-2.5
+                                   rounded-lg
+                                   bg-slate-50
+                                   dark:bg-slate-800
+                                   border border-slate-200
+                                   dark:border-slate-700
+                                   outline-none">
+
+                        <option value="">
+                            Select Score
+                        </option>
+
+                        <option value="5">
+                            5.0 — Outstanding
+                        </option>
+
+                        <option value="4.5">
+                            4.5 — Excellent
+                        </option>
+
+                        <option value="4">
+                            4.0 — Very Good
+                        </option>
+
+                        <option value="3.5">
+                            3.5 — Good
+                        </option>
+
+                        <option value="3">
+                            3.0 — Average
+                        </option>
+
+                        <option value="2.5">
+                            2.5 — Needs Improvement
+                        </option>
+
+                        <option value="2">
+                            2.0 — Poor
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Goal -->
+                <div>
+
+                    <label class="block text-sm
+                                  font-medium mb-2">
+
+                        Goal Completion (%)
+
+                    </label>
+
+                    <input id="goalCompletion"
+                           type="number"
+                           min="0"
+                           max="100"
+                           required
+                           placeholder="e.g. 85"
+                           class="w-full px-3 py-2.5
+                                  rounded-lg
+                                  bg-slate-50
+                                  dark:bg-slate-800
+                                  border border-slate-200
+                                  dark:border-slate-700
+                                  outline-none">
+
+                </div>
+
+
+                <!-- Review Date -->
+                <div>
+
+                    <label class="block text-sm
+                                  font-medium mb-2">
+
+                        Review Date
+
+                    </label>
+
+                    <input id="reviewDate"
+                           type="date"
+                           required
+                           class="w-full px-3 py-2.5
+                                  rounded-lg
+                                  bg-slate-50
+                                  dark:bg-slate-800
+                                  border border-slate-200
+                                  dark:border-slate-700
+                                  outline-none">
+
+                </div>
+
+            </div>
+
+
+            <!-- Feedback -->
+            <div>
+
+                <label class="block text-sm
+                              font-medium mb-2">
+
+                    Manager Feedback
+
+                </label>
+
+                <textarea id="feedback"
+                          rows="4"
+                          required
+                          placeholder="Enter performance feedback..."
+                          class="w-full px-3 py-2.5
+                                 rounded-lg
+                                 bg-slate-50
+                                 dark:bg-slate-800
+                                 border border-slate-200
+                                 dark:border-slate-700
+                                 outline-none resize-none">
+                </textarea>
+
+            </div>
+
+
+            <!-- Buttons -->
+            <div class="flex justify-end gap-3 pt-2">
+
+                <button type="button"
+                        id="cancelModal"
+                        class="px-4 py-2.5 rounded-lg
+                               border border-slate-200
+                               dark:border-slate-700
+                               hover:bg-slate-50
+                               dark:hover:bg-slate-800">
+
+                    Cancel
+
+                </button>
+
+
+                <button type="submit"
+                        class="px-5 py-2.5 rounded-lg
+                               bg-indigo-600 text-white
+                               hover:bg-indigo-700">
+
+                    Save Review
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =============================================================
+     GOAL MODAL
+============================================================== -->
+
+<div id="goalModal"
+     class="fixed inset-0 z-[60] hidden
+            items-center justify-center
+            bg-black/50 p-4">
+
+    <div class="w-full max-w-lg
+                bg-white dark:bg-slate-900
+                rounded-2xl shadow-2xl">
+
+        <div class="flex items-center
+                    justify-between p-5
+                    border-b border-slate-200
+                    dark:border-slate-800">
+
+            <div>
+
+                <h3 class="font-bold text-lg">
+                    Add Goal
+                </h3>
+
+                <p class="text-sm text-slate-500">
+                    Create a performance goal.
+                </p>
+
+            </div>
+
+
+            <button id="closeGoalModal"
+                    class="p-2 rounded-lg
+                           hover:bg-slate-100
+                           dark:hover:bg-slate-800">
+
+                <i data-lucide="x"
+                   class="w-5 h-5"></i>
+
+            </button>
+
+        </div>
+
+
+        <form id="goalForm"
+              class="p-5 space-y-4">
+
+            <div>
+
+                <label class="block text-sm
+                              font-medium mb-2">
+                    Goal Title
+                </label>
+
+                <input id="goalTitle"
+                       required
+                       placeholder="e.g. Complete React certification"
+                       class="w-full px-3 py-2.5
+                              rounded-lg
+                              bg-slate-50
+                              dark:bg-slate-800
+                              border border-slate-200
+                              dark:border-slate-700
+                              outline-none">
+
+            </div>
+
+
+            <div>
+
+                <label class="block text-sm
+                              font-medium mb-2">
+                    Employee
+                </label>
+
+                <select id="goalEmployee"
+                        required
+                        class="w-full px-3 py-2.5
+                               rounded-lg
+                               bg-slate-50
+                               dark:bg-slate-800
+                               border border-slate-200
+                               dark:border-slate-700
+                               outline-none">
+
+                    <option value="">
+                        Select Employee
+                    </option>
+
+                    <option>Ananya Roy</option>
+                    <option>Rahul Das</option>
+                    <option>Priya Sen</option>
+                    <option>Arjun Mehta</option>
+                    <option>Sneha Roy</option>
+                    <option>Kunal Bose</option>
+                    <option>Riya Das</option>
+                    <option>Amit Sen</option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label class="block text-sm
+                              font-medium mb-2">
+
+                    Progress (%)
+
+                </label>
+
+                <input id="goalProgress"
+                       type="number"
+                       min="0"
+                       max="100"
+                       value="0"
+                       required
+                       class="w-full px-3 py-2.5
+                              rounded-lg
+                              bg-slate-50
+                              dark:bg-slate-800
+                              border border-slate-200
+                              dark:border-slate-700
+                              outline-none">
+
+            </div>
+
+
+            <div class="flex justify-end gap-3 pt-2">
+
+                <button type="button"
+                        id="cancelGoalModal"
+                        class="px-4 py-2.5 rounded-lg
+                               border border-slate-200
+                               dark:border-slate-700">
+
+                    Cancel
+
+                </button>
+
+                <button type="submit"
+                        class="px-5 py-2.5 rounded-lg
+                               bg-indigo-600 text-white">
+
+                    Add Goal
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- Toast -->
+<div id="toast"
+     class="fixed right-5 bottom-5 z-[100] hidden">
+
+    <div class="flex items-center gap-3
+                bg-slate-900 text-white
+                px-4 py-3 rounded-xl shadow-xl">
+
+        <i id="toastIcon"
+           data-lucide="check-circle"
+           class="w-5 h-5"></i>
+
+        <span id="toastMessage"
+              class="text-sm">
+            Success
+        </span>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /* ============================================================
+       THEME
+    ============================================================ */
+
+    const savedTheme =
+        localStorage.getItem("talentSphereTheme");
+
+    if (savedTheme === "dark") {
+        document.documentElement.classList.add("dark");
+    }
+
+
+    const themeBtn =
+        document.getElementById("themeBtn");
+
+
+    themeBtn.addEventListener("click", () => {
+
+        document.documentElement.classList.toggle("dark");
+
+        const isDark =
+            document.documentElement.classList.contains("dark");
+
+        localStorage.setItem(
+            "talentSphereTheme",
+            isDark ? "dark" : "light"
+        );
+
+        updateCharts();
+
+    });
+
+
+    /* ============================================================
+       SIDEBAR
+    ============================================================ */
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+    const sidebarOverlay =
+        document.getElementById("sidebarOverlay");
+
+    const menuBtn =
+        document.getElementById("menuBtn");
+
+
+    menuBtn.addEventListener("click", () => {
+
+        sidebar.classList.remove("-translate-x-full");
+        sidebarOverlay.classList.remove("hidden");
+
+    });
+
+
+    sidebarOverlay.addEventListener("click", () => {
+
+        sidebar.classList.add("-translate-x-full");
+        sidebarOverlay.classList.add("hidden");
+
+    });
+
+
+    /* ============================================================
+       PERFORMANCE DATA
+    ============================================================ */
+
+    const defaultPerformance = [
+
+        {
+            id: 1,
+            name: "Ananya Roy",
+            employeeId: "EMP001",
+            department: "Engineering",
+            score: 4.8,
+            goals: 94,
+            review: "Completed",
+            date: "2026-09-05",
+            feedback: "Consistently delivers high-quality technical work."
+        },
+
+        {
+            id: 2,
+            name: "Rahul Das",
+            employeeId: "EMP002",
+            department: "Human Resources",
+            score: 4.3,
+            goals: 87,
+            review: "Completed",
+            date: "2026-09-06",
+            feedback: "Strong employee engagement and communication."
+        },
+
+        {
+            id: 3,
+            name: "Priya Sen",
+            employeeId: "EMP003",
+            department: "Marketing",
+            score: 4.6,
+            goals: 91,
+            review: "Completed",
+            date: "2026-09-08",
+            feedback: "Excellent campaign planning and execution."
+        },
+
+        {
+            id: 4,
+            name: "Arjun Mehta",
+            employeeId: "EMP004",
+            department: "Engineering",
+            score: 3.9,
+            goals: 78,
+            review: "Completed",
+            date: "2026-09-09",
+            feedback: "Good progress with opportunities for improvement."
+        },
+
+        {
+            id: 5,
+            name: "Sneha Roy",
+            employeeId: "EMP005",
+            department: "Finance",
+            score: 4.1,
+            goals: 84,
+            review: "Completed",
+            date: "2026-09-10",
+            feedback: "Reliable financial reporting and analysis."
+        },
+
+        {
+            id: 6,
+            name: "Kunal Bose",
+            employeeId: "EMP006",
+            department: "Engineering",
+            score: 4.7,
+            goals: 96,
+            review: "Completed",
+            date: "2026-09-11",
+            feedback: "Outstanding technical ownership."
+        },
+
+        {
+            id: 7,
+            name: "Riya Das",
+            employeeId: "EMP007",
+            department: "Marketing",
+            score: 3.6,
+            goals: 72,
+            review: "Pending",
+            date: "2026-09-12",
+            feedback: "Review awaiting manager completion."
+        },
+
+        {
+            id: 8,
+            name: "Amit Sen",
+            employeeId: "EMP008",
+            department: "Finance",
+            score: 4.5,
+            goals: 89,
+            review: "Completed",
+            date: "2026-09-13",
+            feedback: "Strong analytical skills and accuracy."
+        },
+
+        {
+            id: 9,
+            name: "Nisha Roy",
+            employeeId: "EMP009",
+            department: "Human Resources",
+            score: 4.0,
+            goals: 81,
+            review: "Pending",
+            date: "2026-09-14",
+            feedback: "Performance review scheduled."
+        },
+
+        {
+            id: 10,
+            name: "Aditya Sharma",
+            employeeId: "EMP010",
+            department: "Engineering",
+            score: 3.2,
+            goals: 65,
+            review: "Pending",
+            date: "2026-09-15",
+            feedback: "Requires additional support to achieve goals."
+        }
+
+    ];
+
+
+    let performanceData =
+        JSON.parse(
+            localStorage.getItem("talentSpherePerformance")
+        ) || defaultPerformance;
+
+
+    /* ============================================================
+       GOAL DATA
+    ============================================================ */
+
+    const defaultGoals = [
+
+        {
+            id: 1,
+            title: "Complete cloud certification",
+            employee: "Ananya Roy",
+            progress: 90
+        },
+
+        {
+            id: 2,
+            title: "Improve campaign conversion",
+            employee: "Priya Sen",
+            progress: 76
+        },
+
+        {
+            id: 3,
+            title: "Automate monthly reports",
+            employee: "Sneha Roy",
+            progress: 65
+        },
+
+        {
+            id: 4,
+            title: "Improve employee engagement",
+            employee: "Rahul Das",
+            progress: 84
+        }
+
+    ];
+
+
+    let goals =
+        JSON.parse(
+            localStorage.getItem("talentSphereGoals")
+        ) || defaultGoals;
+
+
+    function savePerformance() {
+
+        localStorage.setItem(
+            "talentSpherePerformance",
+            JSON.stringify(performanceData)
+        );
+
+    }
+
+
+    function saveGoals() {
+
+        localStorage.setItem(
+            "talentSphereGoals",
+            JSON.stringify(goals)
+        );
+
+    }
+
+
+    /* ============================================================
+       ELEMENTS
+    ============================================================ */
+
+    const table =
+        document.getElementById("performanceTable");
+
+    const emptyState =
+        document.getElementById("emptyState");
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const departmentFilter =
+        document.getElementById("departmentFilter");
+
+    const ratingFilter =
+        document.getElementById("ratingFilter");
+
+    const reviewFilter =
+        document.getElementById("reviewFilter");
+
+
+    /* ============================================================
+       RATING
+    ============================================================ */
+
+    function getRating(score) {
+
+        if (score >= 4.5) return "Excellent";
+
+        if (score >= 4) return "Good";
+
+        if (score >= 3) return "Average";
+
+        return "Needs Improvement";
+
+    }
+
+
+    function ratingBadge(score) {
+
+        const rating =
+            getRating(score);
+
+
+        let classes = "";
+
+        if (rating === "Excellent") {
+
+            classes =
+                "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400";
+
+        } else if (rating === "Good") {
+
+            classes =
+                "bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400";
+
+        } else if (rating === "Average") {
+
+            classes =
+                "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400";
+
+        } else {
+
+            classes =
+                "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400";
+
+        }
+
+
+        return `
+            <span class="inline-flex items-center
+                         px-2.5 py-1 rounded-full
+                         text-xs font-medium ${classes}">
+                ${rating}
+            </span>
+        `;
+
+    }
+
+
+    /* ============================================================
+       REVIEW BADGE
+    ============================================================ */
+
+    function reviewBadge(review) {
+
+        if (review === "Completed") {
+
+            return `
+                <span class="inline-flex items-center
+                             gap-1 px-2.5 py-1
+                             rounded-full text-xs
+                             font-medium
+                             bg-emerald-100 text-emerald-700
+                             dark:bg-emerald-500/10
+                             dark:text-emerald-400">
+
+                    <i data-lucide="check"
+                       class="w-3 h-3"></i>
+
+                    Completed
+
+                </span>
+            `;
+
+        }
+
+
+        return `
+            <span class="inline-flex items-center
+                         gap-1 px-2.5 py-1
+                         rounded-full text-xs
+                         font-medium
+                         bg-amber-100 text-amber-700
+                         dark:bg-amber-500/10
+                         dark:text-amber-400">
+
+                <i data-lucide="clock-3"
+                   class="w-3 h-3"></i>
+
+                Pending
+
+            </span>
+        `;
+
+    }
+
+
+    /* ============================================================
+       RENDER PERFORMANCE TABLE
+    ============================================================ */
+
+    function renderPerformance() {
+
+        const search =
+            searchInput.value
+                .toLowerCase()
+                .trim();
+
+        const department =
+            departmentFilter.value;
+
+        const rating =
+            ratingFilter.value;
+
+        const review =
+            reviewFilter.value;
+
+
+        const filtered =
+            performanceData.filter(item => {
+
+                const matchesSearch =
+                    item.name.toLowerCase().includes(search) ||
+                    item.employeeId.toLowerCase().includes(search);
+
+
+                const matchesDepartment =
+                    !department ||
+                    item.department === department;
+
+
+                const currentRating =
+                    getRating(item.score);
+
+
+                const matchesRating =
+                    !rating ||
+                    (
+                        rating === "excellent" &&
+                        currentRating === "Excellent"
+                    ) ||
+                    (
+                        rating === "good" &&
+                        currentRating === "Good"
+                    ) ||
+                    (
+                        rating === "average" &&
+                        currentRating === "Average"
+                    ) ||
+                    (
+                        rating === "low" &&
+                        currentRating === "Needs Improvement"
+                    );
+
+
+                const matchesReview =
+                    !review ||
+                    item.review === review;
+
+
+                return (
+                    matchesSearch &&
+                    matchesDepartment &&
+                    matchesRating &&
+                    matchesReview
+                );
+
+            });
+
+
+        table.innerHTML = "";
+
+
+        if (!filtered.length) {
+
+            emptyState.classList.remove("hidden");
+
+        } else {
+
+            emptyState.classList.add("hidden");
+
+
+            filtered.forEach(item => {
+
+                const initials =
+                    item.name
+                        .split(" ")
+                        .map(x => x[0])
+                        .join("")
+                        .slice(0, 2)
+                        .toUpperCase();
+
+
+                const row =
+                    document.createElement("tr");
+
+
+                row.className =
+                    "hover:bg-slate-50 dark:hover:bg-slate-800/50";
+
+
+                row.innerHTML = `
+
+                    <!-- Employee -->
+
+                    <td class="px-5 py-4">
+
+                        <div class="flex items-center gap-3">
+
+                            <div class="w-9 h-9 rounded-full
+                                        bg-indigo-100
+                                        dark:bg-indigo-500/10
+                                        text-indigo-600
+                                        dark:text-indigo-400
+                                        flex items-center justify-center
+                                        text-xs font-semibold">
+
+                                ${initials}
+
+                            </div>
+
+                            <div>
+
+                                <p class="font-medium">
+                                    ${item.name}
+                                </p>
+
+                                <p class="text-xs text-slate-500">
+                                    ${item.employeeId}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+
+                    <!-- Department -->
+
+                    <td class="px-5 py-4">
+                        ${item.department}
+                    </td>
+
+
+                    <!-- KPI -->
+
+                    <td class="px-5 py-4">
+
+                        <div class="flex items-center gap-3
+                                    min-w-[150px]">
+
+                            <div class="flex-1 h-2
+                                        bg-slate-100
+                                        dark:bg-slate-800
+                                        rounded-full">
+
+                                <div class="h-2 rounded-full
+                                            bg-indigo-500"
+                                     style="width:${item.score * 20}%">
+                                </div>
+
+                            </div>
+
+                            <span class="font-semibold
+                                         text-sm">
+                                ${item.score.toFixed(1)}
+                            </span>
+
+                        </div>
+
+                    </td>
+
+
+                    <!-- Goals -->
+
+                    <td class="px-5 py-4">
+
+                        <div class="flex items-center gap-2">
+
+                            <div class="w-20 h-2
+                                        bg-slate-100
+                                        dark:bg-slate-800
+                                        rounded-full">
+
+                                <div class="h-2 rounded-full
+                                            bg-emerald-500"
+                                     style="width:${item.goals}%">
+                                </div>
+
+                            </div>
+
+                            <span class="text-xs font-medium">
+                                ${item.goals}%
+                            </span>
+
+                        </div>
+
+                    </td>
+
+
+                    <!-- Rating -->
+
+                    <td class="px-5 py-4">
+
+                        ${ratingBadge(item.score)}
+
+                    </td>
+
+
+                    <!-- Review -->
+
+                    <td class="px-5 py-4">
+
+                        ${reviewBadge(item.review)}
+
+                    </td>
+
+
+                    <!-- Actions -->
+
+                    <td class="px-5 py-4">
+
+                        <div class="flex justify-end gap-1">
+
+                            <button
+                                onclick="viewPerformance(${item.id})"
+                                title="View Review"
+                                class="p-2 rounded-lg
+                                       hover:bg-slate-100
+                                       dark:hover:bg-slate-800
+                                       text-slate-500">
+
+                                <i data-lucide="eye"
+                                   class="w-4 h-4"></i>
+
+                            </button>
+
+
+                            <button
+                                onclick="deletePerformance(${item.id})"
+                                title="Delete"
+                                class="p-2 rounded-lg
+                                       hover:bg-red-50
+                                       dark:hover:bg-red-500/10
+                                       text-slate-500
+                                       hover:text-red-600">
+
+                                <i data-lucide="trash-2"
+                                   class="w-4 h-4"></i>
+
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                `;
+
+
+                table.appendChild(row);
+
+            });
+
+        }
+
+
+        updateStats();
+        renderGoals();
+        renderRecentReviews();
+
+        lucide.createIcons();
+
+    }
+
+
+    /* ============================================================
+       STATS
+    ============================================================ */
+
+    function updateStats() {
+
+        if (!performanceData.length) {
+
+            document.getElementById("averageScore")
+                .textContent = "0.0";
+
+            document.getElementById("highPerformers")
+                .textContent = "0";
+
+            document.getElementById("reviewsCompleted")
+                .textContent = "0";
+
+            document.getElementById("goalsAchieved")
+                .textContent = "0%";
+
+            return;
+
+        }
+
+
+        const totalScore =
+            performanceData.reduce(
+                (sum, item) => sum + Number(item.score),
+                0
+            );
+
+
+        const average =
+            totalScore / performanceData.length;
+
+
+        const high =
+            performanceData.filter(
+                item => Number(item.score) >= 4.5
+            ).length;
+
+
+        const completed =
+            performanceData.filter(
+                item => item.review === "Completed"
+            ).length;
+
+
+        const goalAverage =
+            performanceData.reduce(
+                (sum, item) => sum + Number(item.goals),
+                0
+            ) / performanceData.length;
+
+
+        document.getElementById("averageScore")
+            .textContent =
+            average.toFixed(1);
+
+
+        document.getElementById("highPerformers")
+            .textContent =
+            high;
+
+
+        document.getElementById("reviewsCompleted")
+            .textContent =
+            completed;
+
+
+        document.getElementById("goalsAchieved")
+            .textContent =
+            Math.round(goalAverage) + "%";
+
+    }
+
+
+    /* ============================================================
+       VIEW PERFORMANCE
+    ============================================================ */
+
+    function viewPerformance(id) {
+
+        const item =
+            performanceData.find(
+                x => x.id === id
+            );
+
+        if (!item) return;
+
+
+        alert(
+
+            `Employee: ${item.name}\n` +
+            `Employee ID: ${item.employeeId}\n` +
+            `Department: ${item.department}\n` +
+            `KPI Score: ${item.score}/5\n` +
+            `Goal Completion: ${item.goals}%\n` +
+            `Rating: ${getRating(item.score)}\n` +
+            `Review: ${item.review}\n` +
+            `Date: ${item.date}\n\n` +
+            `Feedback:\n${item.feedback}`
+
+        );
+
+    }
+
+
+    /* ============================================================
+       DELETE PERFORMANCE
+    ============================================================ */
+
+    function deletePerformance(id) {
+
+        const item =
+            performanceData.find(
+                x => x.id === id
+            );
+
+        if (!item) return;
+
+
+        if (
+            !confirm(
+                `Delete performance review for ${item.name}?`
+            )
+        ) {
+            return;
+        }
+
+
+        performanceData =
+            performanceData.filter(
+                x => x.id !== id
+            );
+
+
+        savePerformance();
+
+        renderPerformance();
+
+        updateCharts();
+
+        showToast(
+            "Performance review deleted."
+        );
+
+    }
+
+
+    /* ============================================================
+       FILTER EVENTS
+    ============================================================ */
+
+    searchInput.addEventListener(
+        "input",
+        renderPerformance
+    );
+
+    departmentFilter.addEventListener(
+        "change",
+        renderPerformance
+    );
+
+    ratingFilter.addEventListener(
+        "change",
+        renderPerformance
+    );
+
+    reviewFilter.addEventListener(
+        "change",
+        renderPerformance
+    );
+
+
+    /* ============================================================
+       GLOBAL SEARCH
+    ============================================================ */
+
+    document.getElementById("globalSearch")
+        .addEventListener("input", event => {
+
+            searchInput.value =
+                event.target.value;
+
+            renderPerformance();
+
+        });
+
+
+    /* ============================================================
+       REVIEW MODAL
+    ============================================================ */
+
+    const reviewModal =
+        document.getElementById("reviewModal");
+
+    document.getElementById("addReviewBtn")
+        .addEventListener("click", () => {
+
+            reviewModal.classList.remove("hidden");
+            reviewModal.classList.add("flex");
+
+        });
+
+
+    function closeReviewModal() {
+
+        reviewModal.classList.add("hidden");
+        reviewModal.classList.remove("flex");
+
+        document.getElementById("reviewForm").reset();
+
+    }
+
+
+    document.getElementById("closeModal")
+        .addEventListener(
+            "click",
+            closeReviewModal
+        );
+
+
+    document.getElementById("cancelModal")
+        .addEventListener(
+            "click",
+            closeReviewModal
+        );
+
+
+    reviewModal.addEventListener(
+        "click",
+        event => {
+
+            if (event.target === reviewModal) {
+                closeReviewModal();
+            }
+
+        }
+    );
+
+
+    /* ============================================================
+       ADD REVIEW
+    ============================================================ */
+
+    document.getElementById("reviewForm")
+        .addEventListener(
+            "submit",
+            event => {
+
+                event.preventDefault();
+
+
+                const employeeValue =
+                    document.getElementById("employee").value;
+
+
+                const score =
+                    Number(
+                        document.getElementById("score").value
+                    );
+
+
+                const goalsValue =
+                    Number(
+                        document.getElementById("goalCompletion").value
+                    );
+
+
+                const date =
+                    document.getElementById("reviewDate").value;
+
+
+                const feedback =
+                    document.getElementById("feedback")
+                        .value
+                        .trim();
+
+
+                if (!employeeValue ||
+                    !score ||
+                    !date ||
+                    !feedback) {
+
+                    showToast(
+                        "Please complete all fields.",
+                        true
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    goalsValue < 0 ||
+                    goalsValue > 100
+                ) {
+
+                    showToast(
+                        "Goal completion must be between 0 and 100.",
+                        true
+                    );
+
+                    return;
+
+                }
+
+
+                const [
+                    name,
+                    employeeId,
+                    department
+                ] =
+                    employeeValue.split("|");
+
+
+                const newReview = {
+
+                    id: Date.now(),
+
+                    name,
+
+                    employeeId,
+
+                    department,
+
+                    score,
+
+                    goals: goalsValue,
+
+                    review: "Completed",
+
+                    date,
+
+                    feedback
+
+                };
+
+
+                performanceData.unshift(
+                    newReview
+                );
+
+
+                savePerformance();
+
+                closeReviewModal();
+
+                renderPerformance();
+
+                updateCharts();
+
+                showToast(
+                    "Performance review added successfully."
+                );
+
+            }
+        );
+
+
+    /* ============================================================
+       GOALS
+    ============================================================ */
+
+    function renderGoals() {
+
+        const container =
+            document.getElementById("goalsContainer");
+
+
+        container.innerHTML = "";
+
+
+        if (!goals.length) {
+
+            container.innerHTML = `
+
+                <div class="text-center py-8
+                            text-slate-500 text-sm">
+
+                    No goals available.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        goals.slice(0, 5).forEach(goal => {
+
+            let progressColor =
+                "bg-indigo-500";
+
+
+            if (goal.progress >= 80) {
+
+                progressColor =
+                    "bg-emerald-500";
+
+            } else if (goal.progress < 50) {
+
+                progressColor =
+                    "bg-amber-500";
+
+            }
+
+
+            const item =
+                document.createElement("div");
+
+
+            item.className =
+                "border border-slate-200 dark:border-slate-700 rounded-xl p-4";
+
+
+            item.innerHTML = `
+
+                <div class="flex items-start
+                            justify-between gap-3">
+
+                    <div>
+
+                        <p class="font-medium">
+                            ${goal.title}
+                        </p>
+
+                        <p class="text-xs text-slate-500 mt-1">
+                            ${goal.employee}
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        onclick="deleteGoal(${goal.id})"
+                        class="p-1.5 rounded-lg
+                               text-slate-400
+                               hover:text-red-500">
+
+                        <i data-lucide="x"
+                           class="w-4 h-4"></i>
+
+                    </button>
+
+                </div>
+
+
+                <div class="flex items-center gap-3 mt-4">
+
+                    <div class="flex-1 h-2
+                                bg-slate-100
+                                dark:bg-slate-800
+                                rounded-full">
+
+                        <div class="h-2 rounded-full
+                                    ${progressColor}"
+                             style="width:${goal.progress}%">
+                        </div>
+
+                    </div>
+
+                    <span class="text-xs font-semibold">
+                        ${goal.progress}%
+                    </span>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(item);
+
+        });
+
+
+        lucide.createIcons();
+
+    }
+
+
+    function deleteGoal(id) {
+
+        goals =
+            goals.filter(
+                goal => goal.id !== id
+            );
+
+
+        saveGoals();
+
+        renderGoals();
+
+        showToast(
+            "Goal removed."
+        );
+
+    }
+
+
+    /* ============================================================
+       GOAL MODAL
+    ============================================================ */
+
+    const goalModal =
+        document.getElementById("goalModal");
+
+
+    document.getElementById("addGoalBtn")
+        .addEventListener(
+            "click",
+            () => {
+
+                goalModal.classList.remove("hidden");
+                goalModal.classList.add("flex");
+
+            }
+        );
+
+
+    function closeGoalModal() {
+
+        goalModal.classList.add("hidden");
+        goalModal.classList.remove("flex");
+
+        document.getElementById("goalForm").reset();
+
+    }
+
+
+    document.getElementById("closeGoalModal")
+        .addEventListener(
+            "click",
+            closeGoalModal
+        );
+
+
+    document.getElementById("cancelGoalModal")
+        .addEventListener(
+            "click",
+            closeGoalModal
+        );
+
+
+    goalModal.addEventListener(
+        "click",
+        event => {
+
+            if (event.target === goalModal) {
+                closeGoalModal();
+            }
+
+        }
+    );
+
+
+    document.getElementById("goalForm")
+        .addEventListener(
+            "submit",
+            event => {
+
+                event.preventDefault();
+
+
+                const title =
+                    document.getElementById("goalTitle")
+                        .value
+                        .trim();
+
+
+                const employee =
+                    document.getElementById("goalEmployee")
+                        .value;
+
+
+                const progress =
+                    Number(
+                        document.getElementById("goalProgress")
+                            .value
+                    );
+
+
+                if (!title || !employee) {
+
+                    showToast(
+                        "Please complete all fields.",
+                        true
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    progress < 0 ||
+                    progress > 100
+                ) {
+
+                    showToast(
+                        "Progress must be between 0 and 100.",
+                        true
+                    );
+
+                    return;
+
+                }
+
+
+                goals.unshift({
+
+                    id: Date.now(),
+
+                    title,
+
+                    employee,
+
+                    progress
+
+                });
+
+
+                saveGoals();
+
+                closeGoalModal();
+
+                renderGoals();
+
+                showToast(
+                    "New goal added successfully."
+                );
+
+            }
+        );
+
+
+    /* ============================================================
+       RECENT REVIEWS
+    ============================================================ */
+
+    function renderRecentReviews() {
+
+        const container =
+            document.getElementById("recentReviews");
+
+
+        const reviews =
+            [...performanceData]
+                .sort(
+                    (a, b) =>
+                        new Date(b.date) -
+                        new Date(a.date)
+                )
+                .slice(0, 4);
+
+
+        container.innerHTML = "";
+
+
+        reviews.forEach(item => {
+
+            const initials =
+                item.name
+                    .split(" ")
+                    .map(x => x[0])
+                    .join("")
+                    .slice(0, 2);
+
+
+            const review =
+                document.createElement("div");
+
+
+            review.className =
+                "flex items-start gap-3";
+
+
+            review.innerHTML = `
+
+                <div class="w-9 h-9 rounded-full
+                            bg-indigo-100
+                            dark:bg-indigo-500/10
+                            text-indigo-600
+                            dark:text-indigo-400
+                            flex items-center justify-center
+                            text-xs font-semibold
+                            flex-shrink-0">
+
+                    ${initials}
+
+                </div>
+
+
+                <div class="flex-1 min-w-0">
+
+                    <div class="flex items-center
+                                justify-between gap-2">
+
+                        <p class="font-medium text-sm">
+                            ${item.name}
+                        </p>
+
+                        <span class="text-xs text-slate-400">
+                            ${item.date}
+                        </span>
+
+                    </div>
+
+
+                    <p class="text-xs text-slate-500 mt-1
+                              line-clamp-2">
+
+                        ${item.feedback}
+
+                    </p>
+
+
+                    <div class="flex items-center gap-2 mt-2">
+
+                        <span class="text-xs font-semibold">
+                            ${item.score}/5
+                        </span>
+
+                        ${ratingBadge(item.score)}
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(review);
+
+        });
+
+
+        lucide.createIcons();
+
+    }
+
+
+    /* ============================================================
+       CHARTS
+    ============================================================ */
+
+    let trendChart;
+    let departmentChart;
+
+
+    function updateCharts() {
+
+        const isDark =
+            document.documentElement
+                .classList
+                .contains("dark");
+
+
+        const textColor =
+            isDark
+                ? "#cbd5e1"
+                : "#475569";
+
+
+        const gridColor =
+            isDark
+                ? "#1e293b"
+                : "#e2e8f0";
+
+
+        /* ---------------- Trend Chart ---------------- */
+
+        const trendCanvas =
+            document.getElementById(
+                "performanceTrendChart"
+            );
+
+
+        if (trendChart) {
+            trendChart.destroy();
+        }
+
+
+        trendChart =
+            new Chart(
+                trendCanvas,
+                {
+
+                    type: "line",
+
+                    data: {
+
+                        labels: [
+                            "Jan",
+                            "Feb",
+                            "Mar",
+                            "Apr",
+                            "May",
+                            "Jun",
+                            "Jul",
+                            "Aug",
+                            "Sep"
+                        ],
+
+                        datasets: [
+
+                            {
+
+                                label:
+                                    "Average Score",
+
+                                data: [
+                                    3.7,
+                                    3.8,
+                                    4.0,
+                                    4.1,
+                                    4.0,
+                                    4.2,
+                                    4.3,
+                                    4.2,
+                                    4.3
+                                ],
+
+                                borderColor:
+                                    "#6366f1",
+
+                                backgroundColor:
+                                    "rgba(99,102,241,0.1)",
+
+                                fill: true,
+
+                                tension: 0.4,
+
+                                pointRadius: 4,
+
+                                pointBackgroundColor:
+                                    "#6366f1"
+
+                            }
+
+                        ]
+
+                    },
+
+                    options: {
+
+                        responsive: true,
+
+                        maintainAspectRatio: false,
+
+                        plugins: {
+
+                            legend: {
+                                display: false
+                            }
+
+                        },
+
+                        scales: {
+
+                            y: {
+
+                                min: 0,
+
+                                max: 5,
+
+                                ticks: {
+                                    color: textColor
+                                },
+
+                                grid: {
+                                    color: gridColor
+                                }
+
+                            },
+
+                            x: {
+
+                                ticks: {
+                                    color: textColor
+                                },
+
+                                grid: {
+                                    display: false
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+        /* ---------------- Department Chart ---------------- */
+
+        const departments = [
+
+            "Engineering",
+            "Human Resources",
+            "Marketing",
+            "Finance",
+            "Operations"
+
+        ];
+
+
+        const departmentScores =
+            departments.map(department => {
+
+                const employees =
+                    performanceData.filter(
+                        item =>
+                            item.department === department
+                    );
+
+
+                if (!employees.length) {
+                    return 0;
+                }
+
+
+                return (
+                    employees.reduce(
+                        (sum, item) =>
+                            sum + Number(item.score),
+                        0
+                    ) / employees.length
+                ).toFixed(1);
+
+            });
+
+
+        const departmentCanvas =
+            document.getElementById(
+                "departmentChart"
+            );
+
+
+        if (departmentChart) {
+            departmentChart.destroy();
+        }
+
+
+        departmentChart =
+            new Chart(
+                departmentCanvas,
+                {
+
+                    type: "bar",
+
+                    data: {
+
+                        labels: departments,
+
+                        datasets: [
+
+                            {
+
+                                label:
+                                    "Average Score",
+
+                                data:
+                                    departmentScores,
+
+                                backgroundColor:
+                                    "#6366f1",
+
+                                borderRadius: 7,
+
+                                maxBarThickness: 38
+
+                            }
+
+                        ]
+
+                    },
+
+                    options: {
+
+                        responsive: true,
+
+                        maintainAspectRatio: false,
+
+                        plugins: {
+
+                            legend: {
+                                display: false
+                            }
+
+                        },
+
+                        scales: {
+
+                            y: {
+
+                                min: 0,
+
+                                max: 5,
+
+                                ticks: {
+                                    color: textColor
+                                },
+
+                                grid: {
+                                    color: gridColor
+                                }
+
+                            },
+
+                            x: {
+
+                                ticks: {
+                                    color: textColor
+                                },
+
+                                grid: {
+                                    display: false
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            );
+
+    }
+
+
+    document.getElementById("trendPeriod")
+        .addEventListener(
+            "change",
+            updateCharts
+        );
+
+
+    /* ============================================================
+       EXPORT CSV
+    ============================================================ */
+
+    document.getElementById("exportBtn")
+        .addEventListener(
+            "click",
+            () => {
+
+                if (!performanceData.length) {
+
+                    showToast(
+                        "No performance data available.",
+                        true
+                    );
+
+                    return;
+
+                }
+
+
+                const headers = [
+
+                    "Employee",
+                    "Employee ID",
+                    "Department",
+                    "KPI Score",
+                    "Goal Completion",
+                    "Rating",
+                    "Review Status",
+                    "Review Date",
+                    "Feedback"
+
+                ];
+
+
+                const rows =
+                    performanceData.map(item => [
+
+                        item.name,
+                        item.employeeId,
+                        item.department,
+                        item.score,
+                        item.goals + "%",
+                        getRating(item.score),
+                        item.review,
+                        item.date,
+                        item.feedback
+
+                    ]);
+
+
+                const csv = [
+
+                    headers,
+
+                    ...rows
+
+                ].map(row =>
+
+                    row.map(value =>
+
+                        `"${String(value)
+                            .replace(/"/g, '""')}"`
+
+                    ).join(",")
+
+                ).join("\n");
+
+
+                const blob =
+                    new Blob(
+                        [csv],
+                        {
+                            type:
+                                "text/csv;charset=utf-8;"
+                        }
+                    );
+
+
+                const url =
+                    URL.createObjectURL(blob);
+
+
+                const link =
+                    document.createElement("a");
+
+
+                link.href = url;
+
+                link.download =
+                    "talentSphere-performance.csv";
+
+
+                document.body.appendChild(link);
+
+                link.click();
+
+                document.body.removeChild(link);
+
+                URL.revokeObjectURL(url);
+
+
+                showToast(
+                    "Performance report exported."
+                );
+
+            }
+        );
+
+
+    /* ============================================================
+       TOAST
+    ============================================================ */
+
+    let toastTimer;
+
+
+    function showToast(
+        message,
+        error = false
+    ) {
+
+        const toast =
+            document.getElementById("toast");
+
+
+        const toastMessage =
+            document.getElementById("toastMessage");
+
+
+        const toastIcon =
+            document.getElementById("toastIcon");
+
+
+        toastMessage.textContent =
+            message;
+
+
+        toastIcon.setAttribute(
+            "data-lucide",
+            error
+                ? "circle-alert"
+                : "check-circle"
+        );
+
+
+        toast.classList.remove("hidden");
+
+        lucide.createIcons();
+
+
+        clearTimeout(toastTimer);
+
+
+        toastTimer =
+            setTimeout(
+                () => {
+                    toast.classList.add("hidden");
+                },
+                3000
+            );
+
+    }
+
+
+    /* ============================================================
+       INITIALIZE
+    ============================================================ */
+
+    lucide.createIcons();
+
+    renderPerformance();
+
+    renderGoals();
+
+    renderRecentReviews();
+
+    updateStats();
+
+    updateCharts();
+
+</script>
+
+</body>
+</html>

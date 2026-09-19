@@ -1,0 +1,2039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Recruitment | TalentSphere</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        };
+    </script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        }
+
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 10px;
+        }
+
+        .candidate-card {
+            transition: all 0.2s ease;
+        }
+
+        .candidate-card:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body class="bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+
+<div class="flex min-h-screen">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside id="sidebar"
+        class="fixed lg:static inset-y-0 left-0 z-50 w-64
+        bg-slate-900 text-white transform -translate-x-full
+        lg:translate-x-0 transition-transform duration-300">
+
+        <!-- Logo -->
+
+        <div class="flex items-center gap-3 px-6 py-6 border-b border-slate-700">
+
+            <div class="w-10 h-10 rounded-xl bg-blue-600
+                        flex items-center justify-center">
+
+                <i data-lucide="users" class="w-6 h-6"></i>
+
+            </div>
+
+            <div>
+                <h1 class="text-xl font-bold">TalentSphere</h1>
+                <p class="text-xs text-slate-400">
+                    Smart HR Platform
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- Navigation -->
+
+        <nav class="p-4 space-y-1">
+
+            <a href="../index.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg
+                      hover:bg-slate-800">
+
+                <i data-lucide="layout-dashboard" class="w-5"></i>
+                Dashboard
+
+            </a>
+
+
+            <a href="employees.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg
+                      hover:bg-slate-800">
+
+                <i data-lucide="users" class="w-5"></i>
+                Employees
+
+            </a>
+
+
+            <a href="recruitment.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg
+                      bg-blue-600">
+
+                <i data-lucide="briefcase-business" class="w-5"></i>
+                Recruitment
+
+            </a>
+
+
+            <a href="attendance.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg
+                      hover:bg-slate-800">
+
+                <i data-lucide="calendar-check" class="w-5"></i>
+                Attendance
+
+            </a>
+
+
+            <a href="leave.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg
+                      hover:bg-slate-800">
+
+                <i data-lucide="calendar-off" class="w-5"></i>
+                Leave Management
+
+            </a>
+
+
+            <a href="performance.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg
+                      hover:bg-slate-800">
+
+                <i data-lucide="chart-no-axes-combined" class="w-5"></i>
+                Performance
+
+            </a>
+
+
+            <a href="payroll.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg
+                      hover:bg-slate-800">
+
+                <i data-lucide="wallet" class="w-5"></i>
+                Payroll
+
+            </a>
+
+
+            <a href="reports.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg
+                      hover:bg-slate-800">
+
+                <i data-lucide="file-bar-chart" class="w-5"></i>
+                Reports
+
+            </a>
+
+
+            <a href="calendar.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg
+                      hover:bg-slate-800">
+
+                <i data-lucide="calendar-days" class="w-5"></i>
+                Calendar
+
+            </a>
+
+
+            <a href="settings.html"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg
+                      hover:bg-slate-800">
+
+                <i data-lucide="settings" class="w-5"></i>
+                Settings
+
+            </a>
+
+        </nav>
+
+
+        <!-- Version -->
+
+        <div class="absolute bottom-0 w-full p-4">
+
+            <div class="bg-slate-800 rounded-xl p-4">
+
+                <p class="text-sm font-medium">
+                    TalentSphere v1.0
+                </p>
+
+                <p class="text-xs text-slate-400 mt-1">
+                    HR Management System
+                </p>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="flex-1 min-w-0">
+
+        <!-- ================= TOP NAVBAR ================= -->
+
+        <header class="sticky top-0 z-40
+                       bg-white/90 dark:bg-slate-900/90
+                       backdrop-blur border-b
+                       border-slate-200 dark:border-slate-800">
+
+            <div class="flex items-center justify-between
+                        px-4 md:px-8 py-4">
+
+                <div class="flex items-center gap-4">
+
+                    <button id="menuBtn"
+                            class="lg:hidden p-2 rounded-lg
+                                   hover:bg-slate-100
+                                   dark:hover:bg-slate-800">
+
+                        <i data-lucide="menu"></i>
+
+                    </button>
+
+
+                    <div>
+
+                        <h2 class="text-xl font-bold">
+                            Recruitment
+                        </h2>
+
+                        <p class="text-sm text-slate-500
+                                  dark:text-slate-400">
+
+                            Manage jobs and candidate pipeline
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="flex items-center gap-2">
+
+                    <button id="themeBtn"
+                            class="p-2.5 rounded-lg
+                                   hover:bg-slate-100
+                                   dark:hover:bg-slate-800">
+
+                        <i data-lucide="moon" id="themeIcon"></i>
+
+                    </button>
+
+
+                    <button class="p-2.5 rounded-lg
+                                   hover:bg-slate-100
+                                   dark:hover:bg-slate-800">
+
+                        <i data-lucide="bell"></i>
+
+                    </button>
+
+
+                    <div class="hidden sm:flex items-center gap-3 ml-2">
+
+                        <div class="w-9 h-9 rounded-full
+                                    bg-blue-100 dark:bg-blue-900
+                                    flex items-center justify-center
+                                    text-blue-700
+                                    dark:text-blue-300
+                                    font-semibold">
+
+                            HR
+
+                        </div>
+
+                        <div class="hidden md:block">
+
+                            <p class="text-sm font-semibold">
+                                HR Admin
+                            </p>
+
+                            <p class="text-xs text-slate-500">
+                                Administrator
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= CONTENT ================= -->
+
+        <section class="p-4 md:p-8">
+
+            <!-- Page Header -->
+
+            <div class="flex flex-col md:flex-row
+                        md:items-center md:justify-between
+                        gap-4 mb-6">
+
+                <div>
+
+                    <h1 class="text-2xl font-bold">
+                        Recruitment Management
+                    </h1>
+
+                    <p class="text-sm text-slate-500 mt-1">
+                        Track open positions and candidates
+                    </p>
+
+                </div>
+
+
+                <button id="addJobBtn"
+                        class="inline-flex items-center
+                               justify-center gap-2
+                               px-5 py-2.5 rounded-lg
+                               bg-blue-600 text-white
+                               hover:bg-blue-700
+                               shadow-sm">
+
+                    <i data-lucide="plus" class="w-5"></i>
+
+                    Add Job Opening
+
+                </button>
+
+            </div>
+
+
+            <!-- ================= STATISTICS ================= -->
+
+            <div class="grid grid-cols-1 sm:grid-cols-2
+                        xl:grid-cols-4 gap-5">
+
+                <!-- Open Positions -->
+
+                <div class="bg-white dark:bg-slate-900
+                            border border-slate-200
+                            dark:border-slate-800
+                            rounded-xl p-5">
+
+                    <div class="flex justify-between">
+
+                        <div>
+
+                            <p class="text-sm text-slate-500">
+                                Open Positions
+                            </p>
+
+                            <h3 id="openPositions"
+                                class="text-3xl font-bold mt-2">
+                                8
+                            </h3>
+
+                        </div>
+
+                        <div class="w-11 h-11 rounded-lg
+                                    bg-blue-100 dark:bg-blue-900/40
+                                    flex items-center justify-center">
+
+                            <i data-lucide="briefcase"
+                               class="text-blue-600"></i>
+
+                        </div>
+
+                    </div>
+
+                    <p class="text-xs text-blue-600 mt-3">
+                        Active job openings
+                    </p>
+
+                </div>
+
+
+                <!-- Applications -->
+
+                <div class="bg-white dark:bg-slate-900
+                            border border-slate-200
+                            dark:border-slate-800
+                            rounded-xl p-5">
+
+                    <div class="flex justify-between">
+
+                        <div>
+
+                            <p class="text-sm text-slate-500">
+                                Applications
+                            </p>
+
+                            <h3 class="text-3xl font-bold mt-2">
+                                126
+                            </h3>
+
+                        </div>
+
+                        <div class="w-11 h-11 rounded-lg
+                                    bg-purple-100
+                                    dark:bg-purple-900/40
+                                    flex items-center justify-center">
+
+                            <i data-lucide="file-user"
+                               class="text-purple-600"></i>
+
+                        </div>
+
+                    </div>
+
+                    <p class="text-xs text-purple-600 mt-3">
+                        This month
+                    </p>
+
+                </div>
+
+
+                <!-- Interviews -->
+
+                <div class="bg-white dark:bg-slate-900
+                            border border-slate-200
+                            dark:border-slate-800
+                            rounded-xl p-5">
+
+                    <div class="flex justify-between">
+
+                        <div>
+
+                            <p class="text-sm text-slate-500">
+                                Interviews
+                            </p>
+
+                            <h3 class="text-3xl font-bold mt-2">
+                                32
+                            </h3>
+
+                        </div>
+
+                        <div class="w-11 h-11 rounded-lg
+                                    bg-orange-100
+                                    dark:bg-orange-900/40
+                                    flex items-center justify-center">
+
+                            <i data-lucide="calendar-clock"
+                               class="text-orange-600"></i>
+
+                        </div>
+
+                    </div>
+
+                    <p class="text-xs text-orange-600 mt-3">
+                        Scheduled interviews
+                    </p>
+
+                </div>
+
+
+                <!-- Hired -->
+
+                <div class="bg-white dark:bg-slate-900
+                            border border-slate-200
+                            dark:border-slate-800
+                            rounded-xl p-5">
+
+                    <div class="flex justify-between">
+
+                        <div>
+
+                            <p class="text-sm text-slate-500">
+                                Hired
+                            </p>
+
+                            <h3 class="text-3xl font-bold mt-2">
+                                14
+                            </h3>
+
+                        </div>
+
+                        <div class="w-11 h-11 rounded-lg
+                                    bg-emerald-100
+                                    dark:bg-emerald-900/40
+                                    flex items-center justify-center">
+
+                            <i data-lucide="user-check"
+                               class="text-emerald-600"></i>
+
+                        </div>
+
+                    </div>
+
+                    <p class="text-xs text-emerald-600 mt-3">
+                        Successful hires
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= JOB OPENINGS ================= -->
+
+            <div class="bg-white dark:bg-slate-900
+                        border border-slate-200
+                        dark:border-slate-800
+                        rounded-xl mt-6">
+
+                <div class="p-6 border-b border-slate-200
+                            dark:border-slate-800">
+
+                    <div class="flex flex-col lg:flex-row
+                                lg:items-center
+                                lg:justify-between gap-4">
+
+                        <div>
+
+                            <h2 class="text-lg font-bold">
+                                Job Openings
+                            </h2>
+
+                            <p class="text-sm text-slate-500 mt-1">
+                                Current recruitment requirements
+                            </p>
+
+                        </div>
+
+
+                        <div class="flex flex-col sm:flex-row gap-3">
+
+                            <!-- Search -->
+
+                            <div class="relative">
+
+                                <i data-lucide="search"
+                                   class="absolute left-3 top-1/2
+                                          -translate-y-1/2
+                                          w-4 text-slate-400"></i>
+
+                                <input
+                                    id="jobSearch"
+                                    type="text"
+                                    placeholder="Search jobs..."
+                                    class="w-full sm:w-64 pl-9 pr-4 py-2.5
+                                           rounded-lg border
+                                           border-slate-300
+                                           dark:border-slate-700
+                                           bg-white dark:bg-slate-800
+                                           outline-none
+                                           focus:ring-2
+                                           focus:ring-blue-500">
+
+                            </div>
+
+
+                            <!-- Department -->
+
+                            <select id="departmentFilter"
+                                    class="px-4 py-2.5 rounded-lg
+                                           border border-slate-300
+                                           dark:border-slate-700
+                                           bg-white dark:bg-slate-800
+                                           outline-none">
+
+                                <option value="all">
+                                    All Departments
+                                </option>
+
+                                <option value="Engineering">
+                                    Engineering
+                                </option>
+
+                                <option value="Marketing">
+                                    Marketing
+                                </option>
+
+                                <option value="Finance">
+                                    Finance
+                                </option>
+
+                                <option value="Human Resources">
+                                    Human Resources
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Job Table -->
+
+                <div class="overflow-x-auto">
+
+                    <table class="w-full min-w-[800px]">
+
+                        <thead class="bg-slate-50
+                                     dark:bg-slate-800/50">
+
+                            <tr>
+
+                                <th class="text-left px-6 py-4
+                                           text-xs uppercase
+                                           text-slate-500">
+                                    Position
+                                </th>
+
+                                <th class="text-left px-6 py-4
+                                           text-xs uppercase
+                                           text-slate-500">
+                                    Department
+                                </th>
+
+                                <th class="text-left px-6 py-4
+                                           text-xs uppercase
+                                           text-slate-500">
+                                    Type
+                                </th>
+
+                                <th class="text-left px-6 py-4
+                                           text-xs uppercase
+                                           text-slate-500">
+                                    Applications
+                                </th>
+
+                                <th class="text-left px-6 py-4
+                                           text-xs uppercase
+                                           text-slate-500">
+                                    Deadline
+                                </th>
+
+                                <th class="text-left px-6 py-4
+                                           text-xs uppercase
+                                           text-slate-500">
+                                    Status
+                                </th>
+
+                                <th class="text-right px-6 py-4
+                                           text-xs uppercase
+                                           text-slate-500">
+                                    Action
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="jobsTable"
+                               class="divide-y
+                                      divide-slate-200
+                                      dark:divide-slate-800">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= CANDIDATE PIPELINE ================= -->
+
+            <div class="mt-8">
+
+                <div class="flex flex-col md:flex-row
+                            md:items-center
+                            md:justify-between gap-3 mb-5">
+
+                    <div>
+
+                        <h2 class="text-xl font-bold">
+                            Candidate Pipeline
+                        </h2>
+
+                        <p class="text-sm text-slate-500">
+                            Track candidates through recruitment stages
+                        </p>
+
+                    </div>
+
+
+                    <select id="candidateJobFilter"
+                            class="px-4 py-2.5 rounded-lg
+                                   border border-slate-300
+                                   dark:border-slate-700
+                                   bg-white dark:bg-slate-900">
+
+                        <option value="all">
+                            All Job Positions
+                        </option>
+
+                        <option>
+                            Software Engineer
+                        </option>
+
+                        <option>
+                            Data Analyst
+                        </option>
+
+                        <option>
+                            HR Executive
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Pipeline -->
+
+                <div class="grid grid-cols-1 md:grid-cols-2
+                            xl:grid-cols-4 gap-5">
+
+                    <!-- Applied -->
+
+                    <div class="bg-slate-50 dark:bg-slate-900/60
+                                rounded-xl p-4
+                                border border-slate-200
+                                dark:border-slate-800">
+
+                        <div class="flex items-center
+                                    justify-between mb-4">
+
+                            <div class="flex items-center gap-2">
+
+                                <div class="w-2.5 h-2.5 rounded-full
+                                            bg-blue-500"></div>
+
+                                <h3 class="font-semibold">
+                                    Applied
+                                </h3>
+
+                            </div>
+
+                            <span id="appliedCount"
+                                  class="text-xs font-semibold
+                                         bg-blue-100
+                                         text-blue-700
+                                         dark:bg-blue-900/40
+                                         dark:text-blue-400
+                                         px-2 py-1 rounded-full">
+                                3
+                            </span>
+
+                        </div>
+
+
+                        <div id="appliedColumn"
+                             class="space-y-3">
+                        </div>
+
+                    </div>
+
+
+                    <!-- Screening -->
+
+                    <div class="bg-slate-50 dark:bg-slate-900/60
+                                rounded-xl p-4
+                                border border-slate-200
+                                dark:border-slate-800">
+
+                        <div class="flex items-center
+                                    justify-between mb-4">
+
+                            <div class="flex items-center gap-2">
+
+                                <div class="w-2.5 h-2.5 rounded-full
+                                            bg-purple-500"></div>
+
+                                <h3 class="font-semibold">
+                                    Screening
+                                </h3>
+
+                            </div>
+
+                            <span id="screeningCount"
+                                  class="text-xs font-semibold
+                                         bg-purple-100
+                                         text-purple-700
+                                         dark:bg-purple-900/40
+                                         dark:text-purple-400
+                                         px-2 py-1 rounded-full">
+                                3
+                            </span>
+
+                        </div>
+
+
+                        <div id="screeningColumn"
+                             class="space-y-3">
+                        </div>
+
+                    </div>
+
+
+                    <!-- Interview -->
+
+                    <div class="bg-slate-50 dark:bg-slate-900/60
+                                rounded-xl p-4
+                                border border-slate-200
+                                dark:border-slate-800">
+
+                        <div class="flex items-center
+                                    justify-between mb-4">
+
+                            <div class="flex items-center gap-2">
+
+                                <div class="w-2.5 h-2.5 rounded-full
+                                            bg-orange-500"></div>
+
+                                <h3 class="font-semibold">
+                                    Interview
+                                </h3>
+
+                            </div>
+
+                            <span id="interviewCount"
+                                  class="text-xs font-semibold
+                                         bg-orange-100
+                                         text-orange-700
+                                         dark:bg-orange-900/40
+                                         dark:text-orange-400
+                                         px-2 py-1 rounded-full">
+                                3
+                            </span>
+
+                        </div>
+
+
+                        <div id="interviewColumn"
+                             class="space-y-3">
+                        </div>
+
+                    </div>
+
+
+                    <!-- Hired -->
+
+                    <div class="bg-slate-50 dark:bg-slate-900/60
+                                rounded-xl p-4
+                                border border-slate-200
+                                dark:border-slate-800">
+
+                        <div class="flex items-center
+                                    justify-between mb-4">
+
+                            <div class="flex items-center gap-2">
+
+                                <div class="w-2.5 h-2.5 rounded-full
+                                            bg-emerald-500"></div>
+
+                                <h3 class="font-semibold">
+                                    Hired
+                                </h3>
+
+                            </div>
+
+                            <span id="hiredCount"
+                                  class="text-xs font-semibold
+                                         bg-emerald-100
+                                         text-emerald-700
+                                         dark:bg-emerald-900/40
+                                         dark:text-emerald-400
+                                         px-2 py-1 rounded-full">
+                                2
+                            </span>
+
+                        </div>
+
+
+                        <div id="hiredColumn"
+                             class="space-y-3">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <footer class="border-t border-slate-200
+                       dark:border-slate-800
+                       px-8 py-5 text-center
+                       text-sm text-slate-500">
+
+            © 2026 TalentSphere.
+            Smart Human Resource Management Platform.
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- ADD JOB MODAL -->
+<!-- ========================================================= -->
+
+<div id="jobModal"
+     class="fixed inset-0 z-[100] hidden
+            bg-black/50 backdrop-blur-sm
+            items-center justify-center p-4">
+
+    <div class="w-full max-w-2xl
+                bg-white dark:bg-slate-900
+                rounded-2xl shadow-2xl
+                max-h-[90vh] overflow-y-auto">
+
+        <!-- Modal Header -->
+
+        <div class="flex items-center justify-between
+                    p-6 border-b
+                    border-slate-200
+                    dark:border-slate-800">
+
+            <div>
+
+                <h2 class="text-xl font-bold">
+                    Add Job Opening
+                </h2>
+
+                <p class="text-sm text-slate-500 mt-1">
+                    Create a new recruitment requirement
+                </p>
+
+            </div>
+
+
+            <button id="closeModal"
+                    class="p-2 rounded-lg
+                           hover:bg-slate-100
+                           dark:hover:bg-slate-800">
+
+                <i data-lucide="x"></i>
+
+            </button>
+
+        </div>
+
+
+        <!-- Form -->
+
+        <form id="jobForm" class="p-6 space-y-5">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                <!-- Job Title -->
+
+                <div>
+
+                    <label class="block text-sm font-medium mb-2">
+                        Job Title
+                    </label>
+
+                    <input
+                        id="jobTitle"
+                        required
+                        type="text"
+                        placeholder="e.g. Machine Learning Engineer"
+                        class="w-full px-4 py-2.5 rounded-lg
+                               border border-slate-300
+                               dark:border-slate-700
+                               bg-white dark:bg-slate-800
+                               outline-none focus:ring-2
+                               focus:ring-blue-500">
+
+                </div>
+
+
+                <!-- Department -->
+
+                <div>
+
+                    <label class="block text-sm font-medium mb-2">
+                        Department
+                    </label>
+
+                    <select
+                        id="jobDepartment"
+                        required
+                        class="w-full px-4 py-2.5 rounded-lg
+                               border border-slate-300
+                               dark:border-slate-700
+                               bg-white dark:bg-slate-800
+                               outline-none">
+
+                        <option value="">
+                            Select department
+                        </option>
+
+                        <option>
+                            Engineering
+                        </option>
+
+                        <option>
+                            Marketing
+                        </option>
+
+                        <option>
+                            Finance
+                        </option>
+
+                        <option>
+                            Human Resources
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Employment Type -->
+
+                <div>
+
+                    <label class="block text-sm font-medium mb-2">
+                        Employment Type
+                    </label>
+
+                    <select
+                        id="jobType"
+                        required
+                        class="w-full px-4 py-2.5 rounded-lg
+                               border border-slate-300
+                               dark:border-slate-700
+                               bg-white dark:bg-slate-800
+                               outline-none">
+
+                        <option>
+                            Full Time
+                        </option>
+
+                        <option>
+                            Part Time
+                        </option>
+
+                        <option>
+                            Internship
+                        </option>
+
+                        <option>
+                            Contract
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Deadline -->
+
+                <div>
+
+                    <label class="block text-sm font-medium mb-2">
+                        Application Deadline
+                    </label>
+
+                    <input
+                        id="jobDeadline"
+                        required
+                        type="date"
+                        class="w-full px-4 py-2.5 rounded-lg
+                               border border-slate-300
+                               dark:border-slate-700
+                               bg-white dark:bg-slate-800
+                               outline-none">
+
+                </div>
+
+            </div>
+
+
+            <!-- Description -->
+
+            <div>
+
+                <label class="block text-sm font-medium mb-2">
+                    Job Description
+                </label>
+
+                <textarea
+                    id="jobDescription"
+                    rows="4"
+                    placeholder="Enter job responsibilities and requirements..."
+                    class="w-full px-4 py-2.5 rounded-lg
+                           border border-slate-300
+                           dark:border-slate-700
+                           bg-white dark:bg-slate-800
+                           outline-none focus:ring-2
+                           focus:ring-blue-500"></textarea>
+
+            </div>
+
+
+            <!-- Buttons -->
+
+            <div class="flex justify-end gap-3 pt-3">
+
+                <button
+                    type="button"
+                    id="cancelModal"
+                    class="px-5 py-2.5 rounded-lg
+                           border border-slate-300
+                           dark:border-slate-700
+                           hover:bg-slate-50
+                           dark:hover:bg-slate-800">
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="px-5 py-2.5 rounded-lg
+                           bg-blue-600 text-white
+                           hover:bg-blue-700">
+
+                    Create Job
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /* =========================================================
+       ICONS
+    ========================================================= */
+
+    lucide.createIcons();
+
+
+    /* =========================================================
+       DARK MODE
+    ========================================================= */
+
+    const themeBtn =
+        document.getElementById("themeBtn");
+
+    const themeIcon =
+        document.getElementById("themeIcon");
+
+
+    if (
+        localStorage.getItem("talentSphereTheme") === "dark"
+    ) {
+
+        document.documentElement.classList.add("dark");
+
+    }
+
+
+    function updateThemeIcon() {
+
+        if (
+            document.documentElement.classList.contains("dark")
+        ) {
+
+            themeIcon.setAttribute(
+                "data-lucide",
+                "sun"
+            );
+
+        } else {
+
+            themeIcon.setAttribute(
+                "data-lucide",
+                "moon"
+            );
+
+        }
+
+        lucide.createIcons();
+    }
+
+
+    updateThemeIcon();
+
+
+    themeBtn.addEventListener("click", () => {
+
+        document.documentElement.classList.toggle("dark");
+
+        const dark =
+            document.documentElement
+                .classList
+                .contains("dark");
+
+        localStorage.setItem(
+            "talentSphereTheme",
+            dark ? "dark" : "light"
+        );
+
+        updateThemeIcon();
+
+    });
+
+
+    /* =========================================================
+       MOBILE SIDEBAR
+    ========================================================= */
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+    const menuBtn =
+        document.getElementById("menuBtn");
+
+
+    menuBtn.addEventListener("click", () => {
+
+        sidebar.classList.toggle(
+            "-translate-x-full"
+        );
+
+    });
+
+
+    /* =========================================================
+       JOB DATA
+    ========================================================= */
+
+    const defaultJobs = [
+
+        {
+            id: "JOB001",
+            title: "Software Engineer",
+            department: "Engineering",
+            type: "Full Time",
+            applications: 42,
+            deadline: "2026-10-15",
+            status: "Open"
+        },
+
+        {
+            id: "JOB002",
+            title: "Data Analyst",
+            department: "Engineering",
+            type: "Full Time",
+            applications: 28,
+            deadline: "2026-10-20",
+            status: "Open"
+        },
+
+        {
+            id: "JOB003",
+            title: "HR Executive",
+            department: "Human Resources",
+            type: "Full Time",
+            applications: 19,
+            deadline: "2026-10-10",
+            status: "Open"
+        },
+
+        {
+            id: "JOB004",
+            title: "Marketing Analyst",
+            department: "Marketing",
+            type: "Full Time",
+            applications: 17,
+            deadline: "2026-10-25",
+            status: "Open"
+        },
+
+        {
+            id: "JOB005",
+            title: "Financial Analyst",
+            department: "Finance",
+            type: "Full Time",
+            applications: 20,
+            deadline: "2026-10-30",
+            status: "Open"
+        }
+
+    ];
+
+
+    let jobs =
+        JSON.parse(
+            localStorage.getItem("talentSphereJobs")
+        ) || defaultJobs;
+
+
+    /* =========================================================
+       RENDER JOBS
+    ========================================================= */
+
+    function renderJobs() {
+
+        const table =
+            document.getElementById("jobsTable");
+
+        const search =
+            document.getElementById("jobSearch")
+                .value
+                .toLowerCase();
+
+        const department =
+            document.getElementById(
+                "departmentFilter"
+            ).value;
+
+
+        const filteredJobs =
+            jobs.filter(job => {
+
+                const matchesSearch =
+                    job.title
+                        .toLowerCase()
+                        .includes(search);
+
+                const matchesDepartment =
+                    department === "all" ||
+                    job.department === department;
+
+                return matchesSearch &&
+                       matchesDepartment;
+
+            });
+
+
+        table.innerHTML = "";
+
+
+        if (filteredJobs.length === 0) {
+
+            table.innerHTML = `
+                <tr>
+                    <td colspan="7"
+                        class="text-center py-10
+                               text-slate-500">
+
+                        No job openings found.
+
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+
+        filteredJobs.forEach(job => {
+
+            const row =
+                document.createElement("tr");
+
+            row.className =
+                "hover:bg-slate-50 dark:hover:bg-slate-800/40";
+
+
+            const formattedDate =
+                new Date(job.deadline)
+                    .toLocaleDateString(
+                        "en-IN",
+                        {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric"
+                        }
+                    );
+
+
+            row.innerHTML = `
+
+                <td class="px-6 py-4">
+
+                    <div class="flex items-center gap-3">
+
+                        <div class="w-10 h-10 rounded-lg
+                                    bg-blue-100
+                                    dark:bg-blue-900/40
+                                    flex items-center justify-center">
+
+                            <i data-lucide="briefcase"
+                               class="w-5 text-blue-600">
+                            </i>
+
+                        </div>
+
+                        <div>
+
+                            <p class="font-semibold">
+                                ${job.title}
+                            </p>
+
+                            <p class="text-xs text-slate-500">
+                                ${job.id}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </td>
+
+
+                <td class="px-6 py-4 text-sm">
+                    ${job.department}
+                </td>
+
+
+                <td class="px-6 py-4">
+
+                    <span class="px-2.5 py-1
+                                 rounded-full
+                                 bg-slate-100
+                                 dark:bg-slate-800
+                                 text-xs font-medium">
+
+                        ${job.type}
+
+                    </span>
+
+                </td>
+
+
+                <td class="px-6 py-4">
+
+                    <span class="font-semibold">
+                        ${job.applications}
+                    </span>
+
+                </td>
+
+
+                <td class="px-6 py-4 text-sm">
+                    ${formattedDate}
+                </td>
+
+
+                <td class="px-6 py-4">
+
+                    <span class="px-2.5 py-1
+                                 rounded-full
+                                 bg-emerald-100
+                                 text-emerald-700
+                                 dark:bg-emerald-900/40
+                                 dark:text-emerald-400
+                                 text-xs font-semibold">
+
+                        ${job.status}
+
+                    </span>
+
+                </td>
+
+
+                <td class="px-6 py-4 text-right">
+
+                    <button
+                        onclick="deleteJob('${job.id}')"
+                        class="p-2 rounded-lg
+                               text-red-500
+                               hover:bg-red-50
+                               dark:hover:bg-red-900/20">
+
+                        <i data-lucide="trash-2"
+                           class="w-4">
+                        </i>
+
+                    </button>
+
+                </td>
+
+            `;
+
+            table.appendChild(row);
+
+        });
+
+
+        lucide.createIcons();
+
+        updateOpenPositions();
+
+    }
+
+
+    /* =========================================================
+       UPDATE POSITION COUNT
+    ========================================================= */
+
+    function updateOpenPositions() {
+
+        document.getElementById(
+            "openPositions"
+        ).textContent = jobs.length;
+
+    }
+
+
+    /* =========================================================
+       DELETE JOB
+    ========================================================= */
+
+    function deleteJob(id) {
+
+        const confirmDelete =
+            confirm(
+                "Are you sure you want to delete this job opening?"
+            );
+
+
+        if (!confirmDelete) return;
+
+
+        jobs =
+            jobs.filter(job => job.id !== id);
+
+
+        localStorage.setItem(
+            "talentSphereJobs",
+            JSON.stringify(jobs)
+        );
+
+
+        renderJobs();
+
+    }
+
+
+    /* =========================================================
+       SEARCH + FILTER
+    ========================================================= */
+
+    document
+        .getElementById("jobSearch")
+        .addEventListener(
+            "input",
+            renderJobs
+        );
+
+
+    document
+        .getElementById("departmentFilter")
+        .addEventListener(
+            "change",
+            renderJobs
+        );
+
+
+    /* =========================================================
+       ADD JOB MODAL
+    ========================================================= */
+
+    const modal =
+        document.getElementById("jobModal");
+
+    const addJobBtn =
+        document.getElementById("addJobBtn");
+
+    const closeModal =
+        document.getElementById("closeModal");
+
+    const cancelModal =
+        document.getElementById("cancelModal");
+
+
+    function openModal() {
+
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+
+    }
+
+
+    function hideModal() {
+
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+
+    }
+
+
+    addJobBtn.addEventListener(
+        "click",
+        openModal
+    );
+
+
+    closeModal.addEventListener(
+        "click",
+        hideModal
+    );
+
+
+    cancelModal.addEventListener(
+        "click",
+        hideModal
+    );
+
+
+    modal.addEventListener(
+        "click",
+        event => {
+
+            if (event.target === modal) {
+                hideModal();
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       ADD NEW JOB
+    ========================================================= */
+
+    document
+        .getElementById("jobForm")
+        .addEventListener(
+            "submit",
+            event => {
+
+                event.preventDefault();
+
+
+                const title =
+                    document.getElementById(
+                        "jobTitle"
+                    ).value.trim();
+
+
+                const department =
+                    document.getElementById(
+                        "jobDepartment"
+                    ).value;
+
+
+                const type =
+                    document.getElementById(
+                        "jobType"
+                    ).value;
+
+
+                const deadline =
+                    document.getElementById(
+                        "jobDeadline"
+                    ).value;
+
+
+                const newJob = {
+
+                    id:
+                        "JOB" +
+                        String(
+                            jobs.length + 1
+                        ).padStart(3, "0"),
+
+                    title,
+
+                    department,
+
+                    type,
+
+                    applications: 0,
+
+                    deadline,
+
+                    status: "Open"
+
+                };
+
+
+                jobs.push(newJob);
+
+
+                localStorage.setItem(
+                    "talentSphereJobs",
+                    JSON.stringify(jobs)
+                );
+
+
+                document
+                    .getElementById("jobForm")
+                    .reset();
+
+
+                hideModal();
+
+                renderJobs();
+
+            }
+        );
+
+
+    /* =========================================================
+       CANDIDATE DATA
+    ========================================================= */
+
+    const candidates = [
+
+        {
+            id: 1,
+            name: "Rahul Sharma",
+            role: "Software Engineer",
+            experience: "2 Years",
+            initials: "RS",
+            stage: "Applied"
+        },
+
+        {
+            id: 2,
+            name: "Priya Mehta",
+            role: "Data Analyst",
+            experience: "1.5 Years",
+            initials: "PM",
+            stage: "Applied"
+        },
+
+        {
+            id: 3,
+            name: "Arjun Kapoor",
+            role: "HR Executive",
+            experience: "3 Years",
+            initials: "AK",
+            stage: "Applied"
+        },
+
+        {
+            id: 4,
+            name: "Sneha Das",
+            role: "Software Engineer",
+            experience: "2.5 Years",
+            initials: "SD",
+            stage: "Screening"
+        },
+
+        {
+            id: 5,
+            name: "Amit Roy",
+            role: "Data Analyst",
+            experience: "2 Years",
+            initials: "AR",
+            stage: "Screening"
+        },
+
+        {
+            id: 6,
+            name: "Riya Sen",
+            role: "HR Executive",
+            experience: "1 Year",
+            initials: "RS",
+            stage: "Screening"
+        },
+
+        {
+            id: 7,
+            name: "Kunal Bose",
+            role: "Software Engineer",
+            experience: "4 Years",
+            initials: "KB",
+            stage: "Interview"
+        },
+
+        {
+            id: 8,
+            name: "Nisha Roy",
+            role: "Data Analyst",
+            experience: "2 Years",
+            initials: "NR",
+            stage: "Interview"
+        },
+
+        {
+            id: 9,
+            name: "Aditya Sen",
+            role: "HR Executive",
+            experience: "3 Years",
+            initials: "AS",
+            stage: "Interview"
+        },
+
+        {
+            id: 10,
+            name: "Ankit Das",
+            role: "Software Engineer",
+            experience: "3 Years",
+            initials: "AD",
+            stage: "Hired"
+        },
+
+        {
+            id: 11,
+            name: "Moumita Roy",
+            role: "Data Analyst",
+            experience: "2 Years",
+            initials: "MR",
+            stage: "Hired"
+        }
+
+    ];
+
+
+    /* =========================================================
+       RENDER CANDIDATES
+    ========================================================= */
+
+    function renderCandidates() {
+
+        const columns = {
+
+            Applied:
+                document.getElementById(
+                    "appliedColumn"
+                ),
+
+            Screening:
+                document.getElementById(
+                    "screeningColumn"
+                ),
+
+            Interview:
+                document.getElementById(
+                    "interviewColumn"
+                ),
+
+            Hired:
+                document.getElementById(
+                    "hiredColumn"
+                )
+
+        };
+
+
+        Object.values(columns).forEach(
+            column => column.innerHTML = ""
+        );
+
+
+        const selectedJob =
+            document.getElementById(
+                "candidateJobFilter"
+            ).value;
+
+
+        const filtered =
+            candidates.filter(candidate => {
+
+                return (
+                    selectedJob === "all" ||
+                    candidate.role === selectedJob
+                );
+
+            });
+
+
+        const counts = {
+            Applied: 0,
+            Screening: 0,
+            Interview: 0,
+            Hired: 0
+        };
+
+
+        filtered.forEach(candidate => {
+
+            counts[candidate.stage]++;
+
+
+            const card =
+                document.createElement("div");
+
+
+            card.className =
+                "candidate-card bg-white dark:bg-slate-900 " +
+                "border border-slate-200 dark:border-slate-800 " +
+                "rounded-xl p-4 shadow-sm";
+
+
+            card.innerHTML = `
+
+                <div class="flex items-start
+                            justify-between gap-2">
+
+                    <div class="flex items-center gap-3">
+
+                        <div class="w-10 h-10 rounded-full
+                                    bg-blue-100
+                                    dark:bg-blue-900/40
+                                    flex items-center
+                                    justify-center
+                                    text-sm font-bold
+                                    text-blue-700
+                                    dark:text-blue-400">
+
+                            ${candidate.initials}
+
+                        </div>
+
+                        <div>
+
+                            <p class="font-semibold text-sm">
+                                ${candidate.name}
+                            </p>
+
+                            <p class="text-xs text-slate-500">
+                                ${candidate.role}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        onclick="viewCandidate('${candidate.name}')"
+                        class="text-slate-400
+                               hover:text-blue-600">
+
+                        <i data-lucide="more-horizontal"
+                           class="w-5">
+                        </i>
+
+                    </button>
+
+                </div>
+
+
+                <div class="flex items-center
+                            justify-between mt-4">
+
+                    <span class="text-xs text-slate-500">
+
+                        ${candidate.experience}
+
+                    </span>
+
+
+                    <button
+                        onclick="viewCandidate('${candidate.name}')"
+                        class="text-xs font-medium
+                               text-blue-600
+                               hover:text-blue-700">
+
+                        View Profile
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+            columns[candidate.stage]
+                .appendChild(card);
+
+        });
+
+
+        document.getElementById(
+            "appliedCount"
+        ).textContent = counts.Applied;
+
+
+        document.getElementById(
+            "screeningCount"
+        ).textContent = counts.Screening;
+
+
+        document.getElementById(
+            "interviewCount"
+        ).textContent = counts.Interview;
+
+
+        document.getElementById(
+            "hiredCount"
+        ).textContent = counts.Hired;
+
+
+        lucide.createIcons();
+
+    }
+
+
+    /* =========================================================
+       CANDIDATE FILTER
+    ========================================================= */
+
+    document
+        .getElementById("candidateJobFilter")
+        .addEventListener(
+            "change",
+            renderCandidates
+        );
+
+
+    /* =========================================================
+       VIEW CANDIDATE
+    ========================================================= */
+
+    function viewCandidate(name) {
+
+        alert(
+            `Candidate Profile\n\n${name}\n\n` +
+            "Candidate details module will be connected here."
+        );
+
+    }
+
+
+    /* =========================================================
+       INITIAL RENDER
+    ========================================================= */
+
+    renderJobs();
+
+    renderCandidates();
+
+</script>
+
+</body>
+</html>

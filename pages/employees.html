@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Employees | TalentSphere</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Dark Mode -->
+    <script>
+        tailwind.config = {
+            darkMode: "class"
+        };
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #94a3b8 transparent;
+        }
+
+        body {
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+                BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        .sidebar-transition {
+            transition: transform 0.3s ease;
+        }
+
+        .modal-backdrop {
+            backdrop-filter: blur(5px);
+        }
+
+        .table-row {
+            transition: background-color 0.2s ease;
+        }
+
+        .table-row:hover {
+            background-color: rgba(59, 130, 246, 0.04);
+        }
+
+        .dark .table-row:hover {
+            background-color: rgba(59, 130, 246, 0.08);
+        }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+
+            .print-area {
+                display: block !important;
+            }
+
+            body {
+                background: white !important;
+                color: black !important;
+            }
+
+            aside {
+                display: none !important;
+            }
+
+            main {
+                margin-left: 0 !important;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+<body class="bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+
+    <!-- =========================================================
+         MOBILE OVERLAY
+    ========================================================== -->
+    <div
+        id="sidebarOverlay"
+        class="fixed inset-0 z-40 hidden bg-black/50 lg:hidden"
+        onclick="closeSidebar()">
+    </div>
+
+    <!-- =========================================================
+         SIDEBAR
+    ========================================================== -->
+    <aside
+        id="sidebar"
+        class="sidebar-transition fixed left-0 top-0 z-50 flex h-screen w-72 -translate-x-full flex-col border-r border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900 lg:translate-x-0">
+
+        <!-- Logo -->
+        <div class="flex h-20 items-center border-b border-slate-200 px-6 dark:border-slate-800">
+
+            <div class="flex items-center gap-3">
+
+                <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-500/20">
+                    <i data-lucide="users-round" class="h-6 w-6"></i>
+                </div>
+
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">
+                        Talent<span class="text-blue-600">Sphere</span>
+                    </h1>
+
+                    <p class="text-[11px] font-medium uppercase tracking-wider text-slate-400">
+                        HR Management
+                    </p>
+                </div>
+
+            </div>
+
+            <button
+                onclick="closeSidebar()"
+                class="ml-auto rounded-lg p-2 text-slate-500 hover:bg-slate-100 lg:hidden dark:hover:bg-slate-800">
+                <i data-lucide="x" class="h-5 w-5"></i>
+            </button>
+
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 overflow-y-auto px-4 py-5">
+
+            <p class="mb-3 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                Main
+            </p>
+
+            <div class="space-y-1">
+
+                <a href="../index.html"
+                   class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                    <i data-lucide="layout-dashboard" class="h-5 w-5"></i>
+                    Dashboard
+                </a>
+
+                <a href="employees.html"
+                   class="flex items-center gap-3 rounded-xl bg-blue-50 px-3 py-3 text-sm font-semibold text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">
+                    <i data-lucide="users" class="h-5 w-5"></i>
+                    Employees
+                </a>
+
+                <a href="recruitment.html"
+                   class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                    <i data-lucide="briefcase-business" class="h-5 w-5"></i>
+                    Recruitment
+                </a>
+
+                <a href="attendance.html"
+                   class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                    <i data-lucide="clock-3" class="h-5 w-5"></i>
+                    Attendance
+                </a>
+
+                <a href="leave.html"
+                   class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                    <i data-lucide="calendar-off" class="h-5 w-5"></i>
+                    Leave
+                </a>
+
+                <a href="performance.html"
+                   class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                    <i data-lucide="chart-no-axes-combined" class="h-5 w-5"></i>
+                    Performance
+                </a>
+
+                <a href="payroll.html"
+                   class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                    <i data-lucide="wallet-cards" class="h-5 w-5"></i>
+                    Payroll
+                </a>
+
+            </div>
+
+            <p class="mb-3 mt-8 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                Analytics
+            </p>
+
+            <div class="space-y-1">
+
+                <a href="reports.html"
+                   class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                    <i data-lucide="file-bar-chart-2" class="h-5 w-5"></i>
+                    Reports
+                </a>
+
+                <a href="calendar.html"
+                   class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                    <i data-lucide="calendar-days" class="h-5 w-5"></i>
+                    Calendar
+                </a>
+
+            </div>
+
+            <p class="mb-3 mt-8 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                System
+            </p>
+
+            <a href="settings.html"
+               class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                <i data-lucide="settings" class="h-5 w-5"></i>
+                Settings
+            </a>
+
+        </nav>
+
+        <!-- Sidebar Bottom -->
+        <div class="border-t border-slate-200 p-4 dark:border-slate-800">
+
+            <div class="flex items-center gap-3 rounded-xl bg-slate-50 p-3 dark:bg-slate-800/60">
+
+                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 text-sm font-bold text-white">
+                    SG
+                </div>
+
+                <div class="min-w-0 flex-1">
+                    <p class="truncate text-sm font-semibold">
+                        HR Administrator
+                    </p>
+
+                    <p class="truncate text-xs text-slate-500">
+                        admin@talentsphere.com
+                    </p>
+                </div>
+
+                <i data-lucide="more-horizontal" class="h-5 w-5 text-slate-400"></i>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================================================
+         MAIN CONTENT
+    ========================================================== -->
+
+    <main class="min-h-screen lg:ml-72">
+
+        <!-- Top Navbar -->
+        <header class="sticky top-0 z-30 flex h-20 items-center border-b border-slate-200 bg-white/90 px-4 backdrop-blur md:px-6 dark:border-slate-800 dark:bg-slate-900/90">
+
+            <div class="flex w-full items-center gap-4">
+
+                <!-- Mobile menu -->
+                <button
+                    onclick="openSidebar()"
+                    class="rounded-xl p-2 text-slate-600 hover:bg-slate-100 lg:hidden dark:text-slate-300 dark:hover:bg-slate-800">
+                    <i data-lucide="menu" class="h-6 w-6"></i>
+                </button>
+
+                <!-- Search -->
+                <div class="relative hidden max-w-md flex-1 md:block">
+
+                    <i data-lucide="search"
+                       class="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400">
+                    </i>
+
+                    <input
+                        id="globalSearch"
+                        type="text"
+                        placeholder="Search employees..."
+                        class="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-10 pr-4 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                    >
+
+                </div>
+
+                <div class="ml-auto flex items-center gap-2">
+
+                    <!-- Theme -->
+                    <button
+                        onclick="toggleTheme()"
+                        class="rounded-xl p-2.5 text-slate-500 transition hover:bg-slate-100 hover:text-blue-600 dark:text-slate-300 dark:hover:bg-slate-800">
+
+                        <i id="themeIcon" data-lucide="moon" class="h-5 w-5"></i>
+
+                    </button>
+
+                    <!-- Notification -->
+                    <button
+                        class="relative rounded-xl p-2.5 text-slate-500 transition hover:bg-slate-100 hover:text-blue-600 dark:text-slate-300 dark:hover:bg-slate-800">
+
+                        <i data-lucide="bell" class="h-5 w-5"></i>
+
+                        <span class="absolute right-2 top-2 h-2 w-2 rounded-full bg-red-500"></span>
+
+                    </button>
+
+                    <!-- Profile -->
+                    <div class="ml-1 hidden items-center gap-3 border-l border-slate-200 pl-4 sm:flex dark:border-slate-700">
+
+                        <div class="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 text-xs font-bold text-white">
+                            SG
+                        </div>
+
+                        <div class="hidden xl:block">
+                            <p class="text-sm font-semibold">Sumouna Ghosh</p>
+                            <p class="text-xs text-slate-500">HR Administrator</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- Page Content -->
+        <div class="p-4 md:p-6 lg:p-8">
+
+            <!-- Page Header -->
+            <div class="mb-7 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+
+                <div>
+
+                    <div class="mb-2 flex items-center gap-2 text-sm text-slate-500">
+                        <span>TalentSphere</span>
+                        <i data-lucide="chevron-right" class="h-4 w-4"></i>
+                        <span class="text-blue-600">Employees</span>
+                    </div>
+
+                    <h2 class="text-2xl font-bold tracking-tight md:text-3xl">
+                        Employee Management
+                    </h2>
+
+                    <p class="mt-1 text-sm text-slate-500">
+                        Manage your workforce, employee information and departments.
+                    </p>
+
+                </div>
+
+                <div class="flex gap-2">
+
+                    <button
+                        onclick="exportEmployees()"
+                        class="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800">
+
+                        <i data-lucide="download" class="h-4 w-4"></i>
+                        Export CSV
+
+                    </button>
+
+                    <button
+                        onclick="openEmployeeModal()"
+                        class="flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-700">
+
+                        <i data-lucide="user-plus" class="h-4 w-4"></i>
+                        Add Employee
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================================
+                 STAT CARDS
+            ====================================================== -->
+
+            <div class="mb-7 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+
+                <!-- Total -->
+                <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+
+                    <div class="flex items-start justify-between">
+
+                        <div>
+                            <p class="text-sm font-medium text-slate-500">
+                                Total Employees
+                            </p>
+
+                            <h3 id="totalEmployees"
+                                class="mt-2 text-3xl font-bold">
+                                0
+                            </h3>
+
+                            <p class="mt-2 text-xs text-slate-500">
+                                Across all departments
+                            </p>
+                        </div>
+
+                        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">
+                            <i data-lucide="users" class="h-5 w-5"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Active -->
+                <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+
+                    <div class="flex items-start justify-between">
+
+                        <div>
+                            <p class="text-sm font-medium text-slate-500">
+                                Active Employees
+                            </p>
+
+                            <h3 id="activeEmployees"
+                                class="mt-2 text-3xl font-bold">
+                                0
+                            </h3>
+
+                            <p class="mt-2 text-xs text-emerald-600">
+                                Currently working
+                            </p>
+                        </div>
+
+                        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400">
+                            <i data-lucide="user-check" class="h-5 w-5"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Leave -->
+                <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+
+                    <div class="flex items-start justify-between">
+
+                        <div>
+                            <p class="text-sm font-medium text-slate-500">
+                                On Leave
+                            </p>
+
+                            <h3 id="leaveEmployees"
+                                class="mt-2 text-3xl font-bold">
+                                0
+                            </h3>
+
+                            <p class="mt-2 text-xs text-amber-600">
+                                Currently unavailable
+                            </p>
+                        </div>
+
+                        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400">
+                            <i data-lucide="user-round-minus" class="h-5 w-5"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Departments -->
+                <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+
+                    <div class="flex items-start justify-between">
+
+                        <div>
+                            <p class="text-sm font-medium text-slate-500">
+                                Departments
+                            </p>
+
+                            <h3 id="departmentCount"
+                                class="mt-2 text-3xl font-bold">
+                                0
+                            </h3>
+
+                            <p class="mt-2 text-xs text-purple-600">
+                                Active departments
+                            </p>
+                        </div>
+
+                        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400">
+                            <i data-lucide="building-2" class="h-5 w-5"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================================
+                 EMPLOYEE TABLE CARD
+            ====================================================== -->
+
+            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
+
+                <!-- Filters -->
+                <div class="border-b border-slate-200 p-4 md:p-5 dark:border-slate-800">
+
+                    <div class="flex flex-col gap-3 xl:flex-row xl:items-center">
+
+                        <!-- Search -->
+                        <div class="relative flex-1">
+
+                            <i data-lucide="search"
+                               class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400">
+                            </i>
+
+                            <input
+                                id="employeeSearch"
+                                type="text"
+                                placeholder="Search by name, ID or designation..."
+                                class="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-9 pr-4 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-800"
+                            >
+
+                        </div>
+
+
+                        <!-- Department -->
+                        <select
+                            id="departmentFilter"
+                            class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800">
+
+                            <option value="all">All Departments</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Human Resources">Human Resources</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Sales">Sales</option>
+                            <option value="Operations">Operations</option>
+
+                        </select>
+
+
+                        <!-- Status -->
+                        <select
+                            id="statusFilter"
+                            class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800">
+
+                            <option value="all">All Status</option>
+                            <option value="Active">Active</option>
+                            <option value="On Leave">On Leave</option>
+                            <option value="Inactive">Inactive</option>
+
+                        </select>
+
+
+                        <!-- Clear -->
+                        <button
+                            onclick="clearFilters()"
+                            class="flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-medium hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800">
+
+                            <i data-lucide="rotate-ccw" class="h-4 w-4"></i>
+                            Reset
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Table -->
+                <div class="overflow-x-auto">
+
+                    <table class="w-full min-w-[900px] text-left">
+
+                        <thead class="bg-slate-50 text-xs uppercase tracking-wider text-slate-500 dark:bg-slate-800/50">
+
+                            <tr>
+
+                                <th class="px-5 py-4 font-semibold">
+                                    Employee
+                                </th>
+
+                                <th class="px-5 py-4 font-semibold">
+                                    Department
+                                </th>
+
+                                <th class="px-5 py-4 font-semibold">
+                                    Designation
+                                </th>
+
+                                <th class="px-5 py-4 font-semibold">
+                                    Joining Date
+                                </th>
+
+                                <th class="px-5 py-4 font-semibold">
+                                    Status
+                                </th>
+
+                                <th class="px-5 py-4 text-right font-semibold">
+                                    Action
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="employeeTableBody"
+                               class="divide-y divide-slate-100 dark:divide-slate-800">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- Empty State -->
+                <div id="emptyState"
+                     class="hidden px-6 py-16 text-center">
+
+                    <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800">
+                        <i data-lucide="users-round" class="h-7 w-7 text-slate-400"></i>
+                    </div>
+
+                    <h3 class="font-semibold">
+                        No employees found
+                    </h3>
+
+                    <p class="mt-1 text-sm text-slate-500">
+                        Try changing your search or filters.
+                    </p>
+
+                </div>
+
+
+                <!-- Footer -->
+                <div class="flex flex-col gap-2 border-t border-slate-200 px-5 py-4 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between dark:border-slate-800">
+
+                    <p id="resultCount">
+                        Showing 0 employees
+                    </p>
+
+                    <p>
+                        TalentSphere HR Management
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Footer -->
+        <footer class="border-t border-slate-200 px-6 py-5 text-center text-xs text-slate-500 dark:border-slate-800">
+            © 2026 TalentSphere. Smart HR Management Platform.
+        </footer>
+
+    </main>
+
+
+    <!-- =========================================================
+         ADD / EDIT EMPLOYEE MODAL
+    ========================================================== -->
+
+    <div
+        id="employeeModal"
+        class="modal-backdrop fixed inset-0 z-[100] hidden items-center justify-center bg-black/50 p-4">
+
+        <div class="w-full max-w-2xl overflow-hidden rounded-2xl bg-white shadow-2xl dark:bg-slate-900">
+
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between border-b border-slate-200 px-6 py-5 dark:border-slate-800">
+
+                <div>
+                    <h3 id="modalTitle"
+                        class="text-xl font-bold">
+                        Add Employee
+                    </h3>
+
+                    <p class="mt-1 text-sm text-slate-500">
+                        Enter employee information below.
+                    </p>
+                </div>
+
+                <button
+                    onclick="closeEmployeeModal()"
+                    class="rounded-xl p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    <i data-lucide="x" class="h-5 w-5"></i>
+
+                </button>
+
+            </div>
+
+
+            <!-- Form -->
+            <form id="employeeForm"
+                  class="space-y-5 p-6">
+
+                <input
+                    type="hidden"
+                    id="editEmployeeId"
+                >
+
+
+                <div class="grid gap-5 md:grid-cols-2">
+
+                    <!-- Full Name -->
+                    <div>
+
+                        <label class="mb-2 block text-sm font-semibold">
+                            Full Name
+                        </label>
+
+                        <input
+                            id="employeeName"
+                            required
+                            type="text"
+                            placeholder="e.g. Ananya Roy"
+                            class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-800"
+                        >
+
+                    </div>
+
+
+                    <!-- Employee ID -->
+                    <div>
+
+                        <label class="mb-2 block text-sm font-semibold">
+                            Employee ID
+                        </label>
+
+                        <input
+                            id="employeeId"
+                            required
+                            type="text"
+                            placeholder="e.g. EMP011"
+                            class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm uppercase outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-800"
+                        >
+
+                    </div>
+
+
+                    <!-- Department -->
+                    <div>
+
+                        <label class="mb-2 block text-sm font-semibold">
+                            Department
+                        </label>
+
+                        <select
+                            id="employeeDepartment"
+                            required
+                            class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800">
+
+                            <option value="">Select department</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Human Resources">Human Resources</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Sales">Sales</option>
+                            <option value="Operations">Operations</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Designation -->
+                    <div>
+
+                        <label class="mb-2 block text-sm font-semibold">
+                            Designation
+                        </label>
+
+                        <input
+                            id="employeeDesignation"
+                            required
+                            type="text"
+                            placeholder="e.g. Software Engineer"
+                            class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-800"
+                        >
+
+                    </div>
+
+
+                    <!-- Joining Date -->
+                    <div>
+
+                        <label class="mb-2 block text-sm font-semibold">
+                            Joining Date
+                        </label>
+
+                        <input
+                            id="employeeJoiningDate"
+                            required
+                            type="date"
+                            class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-800"
+                        >
+
+                    </div>
+
+
+                    <!-- Status -->
+                    <div>
+
+                        <label class="mb-2 block text-sm font-semibold">
+                            Status
+                        </label>
+
+                        <select
+                            id="employeeStatus"
+                            required
+                            class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800">
+
+                            <option value="Active">Active</option>
+                            <option value="On Leave">On Leave</option>
+                            <option value="Inactive">Inactive</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Actions -->
+                <div class="flex justify-end gap-3 border-t border-slate-200 pt-5 dark:border-slate-800">
+
+                    <button
+                        type="button"
+                        onclick="closeEmployeeModal()"
+                        class="rounded-xl border border-slate-200 px-5 py-2.5 text-sm font-semibold hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800">
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 hover:bg-blue-700">
+
+                        <span id="saveButtonText">
+                            Add Employee
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         TOAST
+    ========================================================== -->
+
+    <div
+        id="toast"
+        class="fixed bottom-6 right-6 z-[200] hidden max-w-sm rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-2xl dark:border-slate-700 dark:bg-slate-900">
+
+        <div class="flex items-center gap-3">
+
+            <div id="toastIcon"
+                 class="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400">
+
+                <i data-lucide="check" class="h-5 w-5"></i>
+
+            </div>
+
+            <div>
+                <p id="toastTitle"
+                   class="text-sm font-semibold">
+                    Success
+                </p>
+
+                <p id="toastMessage"
+                   class="text-xs text-slate-500">
+                    Action completed successfully.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- External JavaScript -->
+    <script src="../js/app.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/charts.js"></script>
+    <script src="../js/employees.js"></script>
+
+
+</body>
+</html>

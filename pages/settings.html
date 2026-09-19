@@ -1,0 +1,2225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Settings | TalentSphere</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: "class"
+        };
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #94a3b8 transparent;
+        }
+
+        body {
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+                BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        .sidebar-transition {
+            transition: transform 0.3s ease;
+        }
+
+        .toggle {
+            position: relative;
+            width: 46px;
+            height: 25px;
+            border-radius: 999px;
+            background: #cbd5e1;
+            transition: 0.25s;
+        }
+
+        .toggle::after {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 19px;
+            height: 19px;
+            border-radius: 50%;
+            background: white;
+            transition: 0.25s;
+            box-shadow: 0 1px 3px rgba(0,0,0,.2);
+        }
+
+        .toggle.active {
+            background: #2563eb;
+        }
+
+        .toggle.active::after {
+            transform: translateX(21px);
+        }
+
+        .modal-backdrop {
+            backdrop-filter: blur(5px);
+        }
+
+        @media print {
+            .no-print,
+            aside,
+            header {
+                display: none !important;
+            }
+
+            main {
+                margin-left: 0 !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+
+    <!-- =====================================================
+         MOBILE OVERLAY
+    ====================================================== -->
+
+    <div
+        id="sidebarOverlay"
+        class="fixed inset-0 z-40 hidden bg-black/50 lg:hidden"
+        onclick="closeSidebar()">
+    </div>
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside
+        id="sidebar"
+        class="sidebar-transition fixed left-0 top-0 z-50 flex h-screen w-72 -translate-x-full flex-col border-r border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900 lg:translate-x-0">
+
+        <!-- Logo -->
+
+        <div class="flex h-20 items-center border-b border-slate-200 px-6 dark:border-slate-800">
+
+            <div class="flex items-center gap-3">
+
+                <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-500/20">
+
+                    <i data-lucide="users-round" class="h-6 w-6"></i>
+
+                </div>
+
+                <div>
+
+                    <h1 class="text-xl font-bold tracking-tight">
+                        Talent<span class="text-blue-600">Sphere</span>
+                    </h1>
+
+                    <p class="text-[11px] font-medium uppercase tracking-wider text-slate-400">
+                        HR Management
+                    </p>
+
+                </div>
+
+            </div>
+
+            <button
+                onclick="closeSidebar()"
+                class="ml-auto rounded-lg p-2 text-slate-500 hover:bg-slate-100 lg:hidden dark:hover:bg-slate-800">
+
+                <i data-lucide="x" class="h-5 w-5"></i>
+
+            </button>
+
+        </div>
+
+
+        <!-- Navigation -->
+
+        <nav class="flex-1 overflow-y-auto px-4 py-5">
+
+            <p class="mb-3 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                Main
+            </p>
+
+            <div class="space-y-1">
+
+                <a href="../index.html"
+                   class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+
+                    <i data-lucide="layout-dashboard" class="h-5 w-5"></i>
+                    Dashboard
+
+                </a>
+
+
+                <a href="employees.html"
+                   class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+
+                    <i data-lucide="users" class="h-5 w-5"></i>
+                    Employees
+
+                </a>
+
+
+                <a href="recruitment.html"
+                   class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+
+                    <i data-lucide="briefcase-business" class="h-5 w-5"></i>
+                    Recruitment
+
+                </a>
+
+
+                <a href="attendance.html"
+                   class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+
+                    <i data-lucide="clock-3" class="h-5 w-5"></i>
+                    Attendance
+
+                </a>
+
+
+                <a href="leave.html"
+                   class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+
+                    <i data-lucide="calendar-off" class="h-5 w-5"></i>
+                    Leave
+
+                </a>
+
+
+                <a href="performance.html"
+                   class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+
+                    <i data-lucide="chart-no-axes-combined" class="h-5 w-5"></i>
+                    Performance
+
+                </a>
+
+
+                <a href="payroll.html"
+                   class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+
+                    <i data-lucide="wallet-cards" class="h-5 w-5"></i>
+                    Payroll
+
+                </a>
+
+            </div>
+
+
+            <p class="mb-3 mt-8 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                Analytics
+            </p>
+
+
+            <div class="space-y-1">
+
+                <a href="reports.html"
+                   class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+
+                    <i data-lucide="file-bar-chart-2" class="h-5 w-5"></i>
+                    Reports
+
+                </a>
+
+
+                <a href="calendar.html"
+                   class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+
+                    <i data-lucide="calendar-days" class="h-5 w-5"></i>
+                    Calendar
+
+                </a>
+
+            </div>
+
+
+            <p class="mb-3 mt-8 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                System
+            </p>
+
+
+            <a href="settings.html"
+               class="flex items-center gap-3 rounded-xl bg-blue-50 px-3 py-3 text-sm font-semibold text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">
+
+                <i data-lucide="settings" class="h-5 w-5"></i>
+                Settings
+
+            </a>
+
+        </nav>
+
+
+        <!-- Sidebar User -->
+
+        <div class="border-t border-slate-200 p-4 dark:border-slate-800">
+
+            <div class="flex items-center gap-3 rounded-xl bg-slate-50 p-3 dark:bg-slate-800/60">
+
+                <div
+                    id="sidebarAvatar"
+                    class="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 text-sm font-bold text-white">
+                    SG
+                </div>
+
+                <div class="min-w-0 flex-1">
+
+                    <p
+                        id="sidebarName"
+                        class="truncate text-sm font-semibold">
+                        Sumouna Ghosh
+                    </p>
+
+                    <p
+                        id="sidebarEmail"
+                        class="truncate text-xs text-slate-500">
+                        admin@talentsphere.com
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="min-h-screen lg:ml-72">
+
+        <!-- Header -->
+
+        <header
+            class="sticky top-0 z-30 flex h-20 items-center border-b border-slate-200 bg-white/90 px-4 backdrop-blur md:px-6 dark:border-slate-800 dark:bg-slate-900/90">
+
+            <div class="flex w-full items-center gap-4">
+
+                <button
+                    onclick="openSidebar()"
+                    class="rounded-xl p-2 text-slate-600 hover:bg-slate-100 lg:hidden dark:text-slate-300 dark:hover:bg-slate-800">
+
+                    <i data-lucide="menu" class="h-6 w-6"></i>
+
+                </button>
+
+
+                <div class="hidden md:block">
+
+                    <h2 class="text-lg font-bold">
+                        Settings
+                    </h2>
+
+                    <p class="text-xs text-slate-500">
+                        Manage your TalentSphere preferences
+                    </p>
+
+                </div>
+
+
+                <div class="ml-auto flex items-center gap-2">
+
+                    <!-- Theme -->
+
+                    <button
+                        onclick="toggleTheme()"
+                        class="rounded-xl p-2.5 text-slate-500 hover:bg-slate-100 hover:text-blue-600 dark:text-slate-300 dark:hover:bg-slate-800">
+
+                        <i
+                            id="themeIcon"
+                            data-lucide="moon"
+                            class="h-5 w-5">
+                        </i>
+
+                    </button>
+
+
+                    <!-- Notification -->
+
+                    <button
+                        class="relative rounded-xl p-2.5 text-slate-500 hover:bg-slate-100 hover:text-blue-600 dark:text-slate-300 dark:hover:bg-slate-800">
+
+                        <i data-lucide="bell" class="h-5 w-5"></i>
+
+                        <span class="absolute right-2 top-2 h-2 w-2 rounded-full bg-red-500"></span>
+
+                    </button>
+
+
+                    <!-- Profile -->
+
+                    <div class="ml-1 hidden items-center gap-3 border-l border-slate-200 pl-4 sm:flex dark:border-slate-700">
+
+                        <div
+                            id="headerAvatar"
+                            class="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 text-xs font-bold text-white">
+                            SG
+                        </div>
+
+                        <div class="hidden xl:block">
+
+                            <p
+                                id="headerName"
+                                class="text-sm font-semibold">
+                                Sumouna Ghosh
+                            </p>
+
+                            <p class="text-xs text-slate-500">
+                                HR Administrator
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             PAGE CONTENT
+        ====================================================== -->
+
+        <div class="p-4 md:p-6 lg:p-8">
+
+            <!-- Page Heading -->
+
+            <div class="mb-7">
+
+                <div class="mb-2 flex items-center gap-2 text-sm text-slate-500">
+
+                    <span>TalentSphere</span>
+
+                    <i data-lucide="chevron-right" class="h-4 w-4"></i>
+
+                    <span class="text-blue-600">
+                        Settings
+                    </span>
+
+                </div>
+
+
+                <h1 class="text-2xl font-bold tracking-tight md:text-3xl">
+                    Settings & Preferences
+                </h1>
+
+                <p class="mt-1 text-sm text-slate-500">
+                    Customize your profile, appearance, notifications and system preferences.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 PROFILE
+            ================================================== -->
+
+            <section
+                class="mb-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
+
+                <div class="border-b border-slate-200 px-6 py-5 dark:border-slate-800">
+
+                    <div class="flex items-center gap-3">
+
+                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">
+
+                            <i data-lucide="user-round" class="h-5 w-5"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h2 class="font-bold">
+                                Profile Information
+                            </h2>
+
+                            <p class="text-xs text-slate-500">
+                                Update your account information
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <form
+                    id="profileForm"
+                    class="p-6">
+
+                    <div class="grid gap-6 lg:grid-cols-[auto_1fr]">
+
+                        <!-- Avatar -->
+
+                        <div class="flex flex-col items-center">
+
+                            <div
+                                id="profileAvatar"
+                                class="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 text-2xl font-bold text-white shadow-lg">
+                                SG
+                            </div>
+
+                            <button
+                                type="button"
+                                onclick="changeAvatar()"
+                                class="mt-3 text-xs font-semibold text-blue-600 hover:text-blue-700">
+
+                                Change Avatar
+
+                            </button>
+
+                        </div>
+
+
+                        <!-- Fields -->
+
+                        <div class="grid gap-5 md:grid-cols-2">
+
+                            <div>
+
+                                <label class="mb-2 block text-sm font-semibold">
+                                    Full Name
+                                </label>
+
+                                <input
+                                    id="profileName"
+                                    type="text"
+                                    value="Sumouna Ghosh"
+                                    class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-800"
+                                >
+
+                            </div>
+
+
+                            <div>
+
+                                <label class="mb-2 block text-sm font-semibold">
+                                    Role
+                                </label>
+
+                                <input
+                                    id="profileRole"
+                                    type="text"
+                                    value="HR Administrator"
+                                    class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-800"
+                                >
+
+                            </div>
+
+
+                            <div>
+
+                                <label class="mb-2 block text-sm font-semibold">
+                                    Email Address
+                                </label>
+
+                                <input
+                                    id="profileEmail"
+                                    type="email"
+                                    value="admin@talentsphere.com"
+                                    class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-800"
+                                >
+
+                            </div>
+
+
+                            <div>
+
+                                <label class="mb-2 block text-sm font-semibold">
+                                    Phone Number
+                                </label>
+
+                                <input
+                                    id="profilePhone"
+                                    type="tel"
+                                    value="+91 98765 43210"
+                                    class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-800"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="mt-6 flex justify-end">
+
+                        <button
+                            type="submit"
+                            class="flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-700">
+
+                            <i data-lucide="save" class="h-4 w-4"></i>
+
+                            Save Profile
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+
+            <!-- =================================================
+                 APPEARANCE
+            ================================================== -->
+
+            <section
+                class="mb-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
+
+                <div class="border-b border-slate-200 px-6 py-5 dark:border-slate-800">
+
+                    <div class="flex items-center gap-3">
+
+                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400">
+
+                            <i data-lucide="palette" class="h-5 w-5"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h2 class="font-bold">
+                                Appearance
+                            </h2>
+
+                            <p class="text-xs text-slate-500">
+                                Customize how TalentSphere looks
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="divide-y divide-slate-100 dark:divide-slate-800">
+
+                    <!-- Dark Mode -->
+
+                    <div class="flex items-center justify-between gap-4 px-6 py-5">
+
+                        <div class="flex items-start gap-4">
+
+                            <div class="mt-1 text-slate-500">
+
+                                <i data-lucide="moon" class="h-5 w-5"></i>
+
+                            </div>
+
+                            <div>
+
+                                <p class="font-semibold">
+                                    Dark Mode
+                                </p>
+
+                                <p class="mt-1 text-xs text-slate-500">
+                                    Use a dark theme across the dashboard
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            id="darkModeToggle"
+                            onclick="toggleThemeFromSettings()"
+                            class="toggle flex-shrink-0">
+                        </button>
+
+                    </div>
+
+
+                    <!-- Compact -->
+
+                    <div class="flex items-center justify-between gap-4 px-6 py-5">
+
+                        <div class="flex items-start gap-4">
+
+                            <div class="mt-1 text-slate-500">
+
+                                <i data-lucide="panel-top" class="h-5 w-5"></i>
+
+                            </div>
+
+                            <div>
+
+                                <p class="font-semibold">
+                                    Compact Layout
+                                </p>
+
+                                <p class="mt-1 text-xs text-slate-500">
+                                    Reduce spacing for more information on screen
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            id="compactToggle"
+                            onclick="toggleSetting('compactLayout')"
+                            class="toggle flex-shrink-0">
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 NOTIFICATIONS
+            ================================================== -->
+
+            <section
+                class="mb-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
+
+                <div class="border-b border-slate-200 px-6 py-5 dark:border-slate-800">
+
+                    <div class="flex items-center gap-3">
+
+                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400">
+
+                            <i data-lucide="bell-ring" class="h-5 w-5"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h2 class="font-bold">
+                                Notifications
+                            </h2>
+
+                            <p class="text-xs text-slate-500">
+                                Choose which HR updates you want to receive
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="divide-y divide-slate-100 dark:divide-slate-800">
+
+                    <!-- Leave -->
+
+                    <div class="flex items-center justify-between gap-4 px-6 py-5">
+
+                        <div>
+
+                            <p class="font-semibold">
+                                Leave Requests
+                            </p>
+
+                            <p class="mt-1 text-xs text-slate-500">
+                                Get notified when employees submit leave requests
+                            </p>
+
+                        </div>
+
+                        <button
+                            id="leaveNotification"
+                            onclick="toggleSetting('leaveNotifications')"
+                            class="toggle flex-shrink-0 active">
+                        </button>
+
+                    </div>
+
+
+                    <!-- Attendance -->
+
+                    <div class="flex items-center justify-between gap-4 px-6 py-5">
+
+                        <div>
+
+                            <p class="font-semibold">
+                                Attendance Alerts
+                            </p>
+
+                            <p class="mt-1 text-xs text-slate-500">
+                                Receive alerts for attendance issues
+                            </p>
+
+                        </div>
+
+                        <button
+                            id="attendanceNotification"
+                            onclick="toggleSetting('attendanceNotifications')"
+                            class="toggle flex-shrink-0 active">
+                        </button>
+
+                    </div>
+
+
+                    <!-- Recruitment -->
+
+                    <div class="flex items-center justify-between gap-4 px-6 py-5">
+
+                        <div>
+
+                            <p class="font-semibold">
+                                Recruitment Updates
+                            </p>
+
+                            <p class="mt-1 text-xs text-slate-500">
+                                Get updates about candidates and job openings
+                            </p>
+
+                        </div>
+
+                        <button
+                            id="recruitmentNotification"
+                            onclick="toggleSetting('recruitmentNotifications')"
+                            class="toggle flex-shrink-0 active">
+                        </button>
+
+                    </div>
+
+
+                    <!-- Weekly Report -->
+
+                    <div class="flex items-center justify-between gap-4 px-6 py-5">
+
+                        <div>
+
+                            <p class="font-semibold">
+                                Weekly HR Report
+                            </p>
+
+                            <p class="mt-1 text-xs text-slate-500">
+                                Receive a weekly summary of HR activity
+                            </p>
+
+                        </div>
+
+                        <button
+                            id="weeklyReportNotification"
+                            onclick="toggleSetting('weeklyReport')"
+                            class="toggle flex-shrink-0">
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 PREFERENCES
+            ================================================== -->
+
+            <section
+                class="mb-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
+
+                <div class="border-b border-slate-200 px-6 py-5 dark:border-slate-800">
+
+                    <div class="flex items-center gap-3">
+
+                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-50 text-cyan-600 dark:bg-cyan-500/10 dark:text-cyan-400">
+
+                            <i data-lucide="sliders-horizontal" class="h-5 w-5"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h2 class="font-bold">
+                                Preferences
+                            </h2>
+
+                            <p class="text-xs text-slate-500">
+                                Configure regional and dashboard preferences
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="grid gap-5 p-6 md:grid-cols-2">
+
+                    <!-- Language -->
+
+                    <div>
+
+                        <label class="mb-2 block text-sm font-semibold">
+                            Language
+                        </label>
+
+                        <select
+                            id="language"
+                            class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800">
+
+                            <option value="English">English</option>
+                            <option value="Bengali">Bengali</option>
+                            <option value="Hindi">Hindi</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Timezone -->
+
+                    <div>
+
+                        <label class="mb-2 block text-sm font-semibold">
+                            Timezone
+                        </label>
+
+                        <select
+                            id="timezone"
+                            class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800">
+
+                            <option value="Asia/Kolkata">
+                                India Standard Time (IST)
+                            </option>
+
+                            <option value="UTC">
+                                Coordinated Universal Time (UTC)
+                            </option>
+
+                            <option value="America/New_York">
+                                Eastern Time (ET)
+                            </option>
+
+                            <option value="Europe/London">
+                                Greenwich Mean Time (GMT)
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Date Format -->
+
+                    <div>
+
+                        <label class="mb-2 block text-sm font-semibold">
+                            Date Format
+                        </label>
+
+                        <select
+                            id="dateFormat"
+                            class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800">
+
+                            <option value="DD/MM/YYYY">
+                                DD/MM/YYYY
+                            </option>
+
+                            <option value="MM/DD/YYYY">
+                                MM/DD/YYYY
+                            </option>
+
+                            <option value="YYYY-MM-DD">
+                                YYYY-MM-DD
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Start Page -->
+
+                    <div>
+
+                        <label class="mb-2 block text-sm font-semibold">
+                            Default Start Page
+                        </label>
+
+                        <select
+                            id="startPage"
+                            class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800">
+
+                            <option value="dashboard">
+                                Dashboard
+                            </option>
+
+                            <option value="employees">
+                                Employees
+                            </option>
+
+                            <option value="attendance">
+                                Attendance
+                            </option>
+
+                            <option value="reports">
+                                Reports
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="flex justify-end px-6 pb-6">
+
+                    <button
+                        onclick="savePreferences()"
+                        class="flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 hover:bg-blue-700">
+
+                        <i data-lucide="save" class="h-4 w-4"></i>
+
+                        Save Preferences
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECURITY
+            ================================================== -->
+
+            <section
+                class="mb-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
+
+                <div class="border-b border-slate-200 px-6 py-5 dark:border-slate-800">
+
+                    <div class="flex items-center gap-3">
+
+                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400">
+
+                            <i data-lucide="shield-check" class="h-5 w-5"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h2 class="font-bold">
+                                Security
+                            </h2>
+
+                            <p class="text-xs text-slate-500">
+                                Protect your TalentSphere account
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="divide-y divide-slate-100 dark:divide-slate-800">
+
+                    <!-- Password -->
+
+                    <div class="flex flex-col gap-4 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+
+                        <div class="flex items-start gap-4">
+
+                            <div class="mt-1 text-slate-500">
+
+                                <i data-lucide="key-round" class="h-5 w-5"></i>
+
+                            </div>
+
+                            <div>
+
+                                <p class="font-semibold">
+                                    Password
+                                </p>
+
+                                <p class="mt-1 text-xs text-slate-500">
+                                    Change your account password
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            onclick="openPasswordModal()"
+                            class="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800">
+
+                            Change Password
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- 2FA -->
+
+                    <div class="flex items-center justify-between gap-4 px-6 py-5">
+
+                        <div class="flex items-start gap-4">
+
+                            <div class="mt-1 text-slate-500">
+
+                                <i data-lucide="smartphone" class="h-5 w-5"></i>
+
+                            </div>
+
+                            <div>
+
+                                <p class="font-semibold">
+                                    Two-Factor Authentication
+                                </p>
+
+                                <p class="mt-1 text-xs text-slate-500">
+                                    Add an extra layer of security
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            id="twoFactorToggle"
+                            onclick="toggleSetting('twoFactor')"
+                            class="toggle flex-shrink-0">
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 DATA MANAGEMENT
+            ================================================== -->
+
+            <section
+                class="mb-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
+
+                <div class="border-b border-slate-200 px-6 py-5 dark:border-slate-800">
+
+                    <div class="flex items-center gap-3">
+
+                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400">
+
+                            <i data-lucide="database" class="h-5 w-5"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h2 class="font-bold">
+                                Data Management
+                            </h2>
+
+                            <p class="text-xs text-slate-500">
+                                Export or reset your local TalentSphere settings
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="flex flex-col gap-4 p-6 sm:flex-row">
+
+                    <button
+                        onclick="exportSettings()"
+                        class="flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-5 py-3 text-sm font-semibold hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800">
+
+                        <i data-lucide="download" class="h-4 w-4"></i>
+
+                        Export Settings
+
+                    </button>
+
+
+                    <button
+                        onclick="resetSettings()"
+                        class="flex items-center justify-center gap-2 rounded-xl border border-red-200 px-5 py-3 text-sm font-semibold text-red-600 hover:bg-red-50 dark:border-red-500/30 dark:hover:bg-red-500/10">
+
+                        <i data-lucide="rotate-ccw" class="h-4 w-4"></i>
+
+                        Reset Settings
+
+                    </button>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- Footer -->
+
+        <footer
+            class="border-t border-slate-200 px-6 py-5 text-center text-xs text-slate-500 dark:border-slate-800">
+
+            © 2026 TalentSphere. Smart HR Management Platform.
+
+        </footer>
+
+    </main>
+
+
+    <!-- =====================================================
+         PASSWORD MODAL
+    ====================================================== -->
+
+    <div
+        id="passwordModal"
+        class="modal-backdrop fixed inset-0 z-[100] hidden items-center justify-center bg-black/50 p-4">
+
+        <div class="w-full max-w-md rounded-2xl bg-white shadow-2xl dark:bg-slate-900">
+
+            <div class="flex items-center justify-between border-b border-slate-200 px-6 py-5 dark:border-slate-800">
+
+                <div>
+
+                    <h3 class="text-lg font-bold">
+                        Change Password
+                    </h3>
+
+                    <p class="mt-1 text-xs text-slate-500">
+                        Create a new secure password
+                    </p>
+
+                </div>
+
+
+                <button
+                    onclick="closePasswordModal()"
+                    class="rounded-xl p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    <i data-lucide="x" class="h-5 w-5"></i>
+
+                </button>
+
+            </div>
+
+
+            <form
+                id="passwordForm"
+                class="space-y-5 p-6">
+
+                <div>
+
+                    <label class="mb-2 block text-sm font-semibold">
+                        Current Password
+                    </label>
+
+                    <input
+                        id="currentPassword"
+                        type="password"
+                        required
+                        class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label class="mb-2 block text-sm font-semibold">
+                        New Password
+                    </label>
+
+                    <input
+                        id="newPassword"
+                        type="password"
+                        required
+                        minlength="6"
+                        class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label class="mb-2 block text-sm font-semibold">
+                        Confirm New Password
+                    </label>
+
+                    <input
+                        id="confirmPassword"
+                        type="password"
+                        required
+                        minlength="6"
+                        class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-blue-500 dark:border-slate-700 dark:bg-slate-800"
+                    >
+
+                </div>
+
+
+                <div class="flex justify-end gap-3 pt-2">
+
+                    <button
+                        type="button"
+                        onclick="closePasswordModal()"
+                        class="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold dark:border-slate-700">
+
+                        Cancel
+
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-700">
+
+                        Update Password
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         TOAST
+    ====================================================== -->
+
+    <div
+        id="toast"
+        class="fixed bottom-6 right-6 z-[200] hidden max-w-sm rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-2xl dark:border-slate-700 dark:bg-slate-900">
+
+        <div class="flex items-center gap-3">
+
+            <div
+                id="toastIcon"
+                class="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400">
+
+                <i data-lucide="check" class="h-5 w-5"></i>
+
+            </div>
+
+
+            <div>
+
+                <p
+                    id="toastTitle"
+                    class="text-sm font-semibold">
+                    Success
+                </p>
+
+                <p
+                    id="toastMessage"
+                    class="text-xs text-slate-500">
+                    Settings updated successfully.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+        /* =====================================================
+           STORAGE KEYS
+        ====================================================== */
+
+        const PROFILE_KEY = "talentSphereProfile";
+        const SETTINGS_KEY = "talentSphereSettings";
+        const PREFERENCES_KEY = "talentSpherePreferences";
+        const THEME_KEY = "talentSphereTheme";
+
+
+        let settings = {
+            compactLayout: false,
+            leaveNotifications: true,
+            attendanceNotifications: true,
+            recruitmentNotifications: true,
+            weeklyReport: false,
+            twoFactor: false
+        };
+
+
+        let preferences = {
+            language: "English",
+            timezone: "Asia/Kolkata",
+            dateFormat: "DD/MM/YYYY",
+            startPage: "dashboard"
+        };
+
+
+        let profile = {
+            name: "Sumouna Ghosh",
+            role: "HR Administrator",
+            email: "admin@talentsphere.com",
+            phone: "+91 98765 43210"
+        };
+
+
+        let toastTimer;
+
+
+        /* =====================================================
+           INITIALIZE
+        ====================================================== */
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            loadProfile();
+
+            loadSettings();
+
+            loadPreferences();
+
+            applySavedTheme();
+
+            updateAllUI();
+
+            lucide.createIcons();
+
+        });
+
+
+        /* =====================================================
+           PROFILE
+        ====================================================== */
+
+        function loadProfile() {
+
+            const saved =
+                localStorage.getItem(PROFILE_KEY);
+
+            if (saved) {
+
+                try {
+
+                    profile = {
+                        ...profile,
+                        ...JSON.parse(saved)
+                    };
+
+                } catch (error) {
+
+                    console.log("Profile data could not be loaded.");
+
+                }
+
+            }
+
+
+            document.getElementById("profileName").value =
+                profile.name;
+
+            document.getElementById("profileRole").value =
+                profile.role;
+
+            document.getElementById("profileEmail").value =
+                profile.email;
+
+            document.getElementById("profilePhone").value =
+                profile.phone;
+
+        }
+
+
+        document.getElementById("profileForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+
+                profile = {
+
+                    name:
+                        document.getElementById("profileName")
+                            .value.trim(),
+
+                    role:
+                        document.getElementById("profileRole")
+                            .value.trim(),
+
+                    email:
+                        document.getElementById("profileEmail")
+                            .value.trim(),
+
+                    phone:
+                        document.getElementById("profilePhone")
+                            .value.trim()
+
+                };
+
+
+                localStorage.setItem(
+                    PROFILE_KEY,
+                    JSON.stringify(profile)
+                );
+
+
+                updateProfileDisplay();
+
+
+                showToast(
+                    "Profile Saved",
+                    "Your profile information has been updated."
+                );
+
+            });
+
+
+        function updateProfileDisplay() {
+
+            const initials =
+                getInitials(profile.name);
+
+
+            document.getElementById("profileAvatar")
+                .textContent = initials;
+
+            document.getElementById("sidebarAvatar")
+                .textContent = initials;
+
+            document.getElementById("headerAvatar")
+                .textContent = initials;
+
+            document.getElementById("sidebarName")
+                .textContent = profile.name;
+
+            document.getElementById("sidebarEmail")
+                .textContent = profile.email;
+
+            document.getElementById("headerName")
+                .textContent = profile.name;
+
+        }
+
+
+        function getInitials(name) {
+
+            return name
+                .split(" ")
+                .filter(Boolean)
+                .map(word => word[0])
+                .join("")
+                .substring(0, 2)
+                .toUpperCase();
+
+        }
+
+
+        function changeAvatar() {
+
+            showToast(
+                "Avatar",
+                "Avatar upload can be connected to a backend later."
+            );
+
+        }
+
+
+        /* =====================================================
+           SETTINGS
+        ====================================================== */
+
+        function loadSettings() {
+
+            const saved =
+                localStorage.getItem(SETTINGS_KEY);
+
+            if (saved) {
+
+                try {
+
+                    settings = {
+                        ...settings,
+                        ...JSON.parse(saved)
+                    };
+
+                } catch (error) {
+
+                    console.log("Settings could not be loaded.");
+
+                }
+
+            }
+
+        }
+
+
+        function saveSettings() {
+
+            localStorage.setItem(
+                SETTINGS_KEY,
+                JSON.stringify(settings)
+            );
+
+        }
+
+
+        function toggleSetting(key) {
+
+            settings[key] =
+                !settings[key];
+
+            saveSettings();
+
+            updateSettingToggles();
+
+            if (key === "compactLayout") {
+
+                applyCompactLayout();
+
+            }
+
+            showToast(
+                "Setting Updated",
+                "Your preference has been saved."
+            );
+
+        }
+
+
+        function updateSettingToggles() {
+
+            setToggle(
+                "compactToggle",
+                settings.compactLayout
+            );
+
+            setToggle(
+                "leaveNotification",
+                settings.leaveNotifications
+            );
+
+            setToggle(
+                "attendanceNotification",
+                settings.attendanceNotifications
+            );
+
+            setToggle(
+                "recruitmentNotification",
+                settings.recruitmentNotifications
+            );
+
+            setToggle(
+                "weeklyReportNotification",
+                settings.weeklyReport
+            );
+
+            setToggle(
+                "twoFactorToggle",
+                settings.twoFactor
+            );
+
+
+            setToggle(
+                "darkModeToggle",
+                document.documentElement.classList.contains("dark")
+            );
+
+        }
+
+
+        function setToggle(id, active) {
+
+            const element =
+                document.getElementById(id);
+
+            if (!element) return;
+
+            element.classList.toggle(
+                "active",
+                Boolean(active)
+            );
+
+        }
+
+
+        function applyCompactLayout() {
+
+            const body =
+                document.body;
+
+            if (settings.compactLayout) {
+
+                body.classList.add("compact-layout");
+
+            } else {
+
+                body.classList.remove("compact-layout");
+
+            }
+
+        }
+
+
+        /* =====================================================
+           PREFERENCES
+        ====================================================== */
+
+        function loadPreferences() {
+
+            const saved =
+                localStorage.getItem(PREFERENCES_KEY);
+
+            if (saved) {
+
+                try {
+
+                    preferences = {
+                        ...preferences,
+                        ...JSON.parse(saved)
+                    };
+
+                } catch (error) {
+
+                    console.log("Preferences could not be loaded.");
+
+                }
+
+            }
+
+
+            document.getElementById("language").value =
+                preferences.language;
+
+            document.getElementById("timezone").value =
+                preferences.timezone;
+
+            document.getElementById("dateFormat").value =
+                preferences.dateFormat;
+
+            document.getElementById("startPage").value =
+                preferences.startPage;
+
+        }
+
+
+        function savePreferences() {
+
+            preferences = {
+
+                language:
+                    document.getElementById("language").value,
+
+                timezone:
+                    document.getElementById("timezone").value,
+
+                dateFormat:
+                    document.getElementById("dateFormat").value,
+
+                startPage:
+                    document.getElementById("startPage").value
+
+            };
+
+
+            localStorage.setItem(
+                PREFERENCES_KEY,
+                JSON.stringify(preferences)
+            );
+
+
+            showToast(
+                "Preferences Saved",
+                "Your preferences have been updated."
+            );
+
+        }
+
+
+        /* =====================================================
+           THEME
+        ====================================================== */
+
+        function applySavedTheme() {
+
+            const savedTheme =
+                localStorage.getItem(THEME_KEY);
+
+
+            if (
+                savedTheme === "dark" ||
+                (
+                    !savedTheme &&
+                    window.matchMedia(
+                        "(prefers-color-scheme: dark)"
+                    ).matches
+                )
+            ) {
+
+                document.documentElement.classList.add("dark");
+
+            } else {
+
+                document.documentElement.classList.remove("dark");
+
+            }
+
+
+            updateThemeIcon();
+
+        }
+
+
+        function toggleTheme() {
+
+            const isDark =
+                document.documentElement.classList.toggle("dark");
+
+
+            localStorage.setItem(
+                THEME_KEY,
+                isDark ? "dark" : "light"
+            );
+
+
+            updateThemeIcon();
+
+            updateSettingToggles();
+
+        }
+
+
+        function toggleThemeFromSettings() {
+
+            toggleTheme();
+
+        }
+
+
+        function updateThemeIcon() {
+
+            const icon =
+                document.getElementById("themeIcon");
+
+            if (!icon) return;
+
+
+            icon.setAttribute(
+                "data-lucide",
+                document.documentElement.classList.contains("dark")
+                    ? "sun"
+                    : "moon"
+            );
+
+
+            lucide.createIcons();
+
+        }
+
+
+        /* =====================================================
+           PASSWORD
+        ====================================================== */
+
+        function openPasswordModal() {
+
+            const modal =
+                document.getElementById("passwordModal");
+
+            modal.classList.remove("hidden");
+
+            modal.classList.add("flex");
+
+            document.body.classList.add("overflow-hidden");
+
+            lucide.createIcons();
+
+        }
+
+
+        function closePasswordModal() {
+
+            const modal =
+                document.getElementById("passwordModal");
+
+            modal.classList.add("hidden");
+
+            modal.classList.remove("flex");
+
+            document.body.classList.remove("overflow-hidden");
+
+            document.getElementById("passwordForm")
+                .reset();
+
+        }
+
+
+        document.getElementById("passwordForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+
+                const current =
+                    document.getElementById("currentPassword").value;
+
+                const newPassword =
+                    document.getElementById("newPassword").value;
+
+                const confirmPassword =
+                    document.getElementById("confirmPassword").value;
+
+
+                if (current.length === 0) {
+
+                    showToast(
+                        "Password Error",
+                        "Please enter your current password.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (newPassword.length < 6) {
+
+                    showToast(
+                        "Password Error",
+                        "New password must contain at least 6 characters.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (newPassword !== confirmPassword) {
+
+                    showToast(
+                        "Password Error",
+                        "New passwords do not match.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                closePasswordModal();
+
+
+                showToast(
+                    "Password Updated",
+                    "Your password has been updated successfully."
+                );
+
+            });
+
+
+        /* =====================================================
+           EXPORT SETTINGS
+        ====================================================== */
+
+        function exportSettings() {
+
+            const data = {
+
+                application: "TalentSphere",
+
+                exportedAt:
+                    new Date().toISOString(),
+
+                profile,
+
+                settings,
+
+                preferences,
+
+                theme:
+                    localStorage.getItem(THEME_KEY) || "light"
+
+            };
+
+
+            const blob =
+                new Blob(
+                    [
+                        JSON.stringify(data, null, 2)
+                    ],
+                    {
+                        type: "application/json"
+                    }
+                );
+
+
+            const url =
+                URL.createObjectURL(blob);
+
+
+            const link =
+                document.createElement("a");
+
+            link.href = url;
+
+            link.download =
+                "TalentSphere_Settings.json";
+
+            link.click();
+
+
+            URL.revokeObjectURL(url);
+
+
+            showToast(
+                "Export Complete",
+                "Your settings have been exported."
+            );
+
+        }
+
+
+        /* =====================================================
+           RESET SETTINGS
+        ====================================================== */
+
+        function resetSettings() {
+
+            const confirmed =
+                confirm(
+                    "Reset TalentSphere settings to default values?"
+                );
+
+
+            if (!confirmed) return;
+
+
+            localStorage.removeItem(PROFILE_KEY);
+            localStorage.removeItem(SETTINGS_KEY);
+            localStorage.removeItem(PREFERENCES_KEY);
+            localStorage.removeItem(THEME_KEY);
+
+
+            profile = {
+
+                name: "Sumouna Ghosh",
+                role: "HR Administrator",
+                email: "admin@talentsphere.com",
+                phone: "+91 98765 43210"
+
+            };
+
+
+            settings = {
+
+                compactLayout: false,
+                leaveNotifications: true,
+                attendanceNotifications: true,
+                recruitmentNotifications: true,
+                weeklyReport: false,
+                twoFactor: false
+
+            };
+
+
+            preferences = {
+
+                language: "English",
+                timezone: "Asia/Kolkata",
+                dateFormat: "DD/MM/YYYY",
+                startPage: "dashboard"
+
+            };
+
+
+            document.documentElement.classList.remove("dark");
+
+
+            loadProfile();
+
+            loadPreferences();
+
+            updateAllUI();
+
+            updateThemeIcon();
+
+
+            showToast(
+                "Settings Reset",
+                "All settings have been restored to default."
+            );
+
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+        ====================================================== */
+
+        function openSidebar() {
+
+            document.getElementById("sidebar")
+                .classList.remove("-translate-x-full");
+
+            document.getElementById("sidebarOverlay")
+                .classList.remove("hidden");
+
+        }
+
+
+        function closeSidebar() {
+
+            document.getElementById("sidebar")
+                .classList.add("-translate-x-full");
+
+            document.getElementById("sidebarOverlay")
+                .classList.add("hidden");
+
+        }
+
+
+        /* =====================================================
+           TOAST
+        ====================================================== */
+
+        function showToast(
+            title,
+            message,
+            type = "success"
+        ) {
+
+            const toast =
+                document.getElementById("toast");
+
+            const icon =
+                document.getElementById("toastIcon");
+
+
+            document.getElementById("toastTitle")
+                .textContent = title;
+
+            document.getElementById("toastMessage")
+                .textContent = message;
+
+
+            if (type === "error") {
+
+                icon.className =
+                    "flex h-9 w-9 items-center justify-center rounded-full bg-red-100 text-red-600 dark:bg-red-500/10 dark:text-red-400";
+
+                icon.innerHTML =
+                    '<i data-lucide="circle-alert" class="h-5 w-5"></i>';
+
+            } else {
+
+                icon.className =
+                    "flex h-9 w-9 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400";
+
+                icon.innerHTML =
+                    '<i data-lucide="check" class="h-5 w-5"></i>';
+
+            }
+
+
+            toast.classList.remove("hidden");
+
+            lucide.createIcons();
+
+
+            clearTimeout(toastTimer);
+
+
+            toastTimer =
+                setTimeout(() => {
+
+                    toast.classList.add("hidden");
+
+                }, 3000);
+
+        }
+
+
+        /* =====================================================
+           UPDATE UI
+        ====================================================== */
+
+        function updateAllUI() {
+
+            updateProfileDisplay();
+
+            updateSettingToggles();
+
+            applyCompactLayout();
+
+        }
+
+
+        /* =====================================================
+           MODAL OUTSIDE CLICK
+        ====================================================== */
+
+        document.getElementById("passwordModal")
+            .addEventListener("click", function(event) {
+
+                if (event.target === this) {
+
+                    closePasswordModal();
+
+                }
+
+            });
+
+
+        /* =====================================================
+           ESCAPE KEY
+        ====================================================== */
+
+        document.addEventListener("keydown", function(event) {
+
+            if (event.key === "Escape") {
+
+                const modal =
+                    document.getElementById("passwordModal");
+
+                if (!modal.classList.contains("hidden")) {
+
+                    closePasswordModal();
+
+                }
+
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>

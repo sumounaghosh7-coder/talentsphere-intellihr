@@ -1,0 +1,2309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Management | TalentSphere</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#4f46e5"
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .calendar-day {
+            min-height: 85px;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-day {
+                min-height: 60px;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+
+<div class="flex min-h-screen">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside id="sidebar"
+        class="fixed md:static z-50 inset-y-0 left-0 w-64
+        bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800
+        transform -translate-x-full md:translate-x-0 transition-transform duration-300">
+
+        <div class="h-full flex flex-col">
+
+            <!-- Logo -->
+            <div class="h-16 flex items-center px-6 border-b border-slate-200 dark:border-slate-800">
+                <div class="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center">
+                    <i data-lucide="users" class="w-5 h-5 text-white"></i>
+                </div>
+
+                <div class="ml-3">
+                    <h1 class="font-bold text-lg">TalentSphere</h1>
+                    <p class="text-[10px] text-slate-500 dark:text-slate-400">
+                        HR MANAGEMENT
+                    </p>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 p-4 space-y-1 overflow-y-auto scrollbar-hide">
+
+                <p class="px-3 pt-2 pb-2 text-xs font-semibold uppercase text-slate-400">
+                    Main
+                </p>
+
+                <a href="../index.html"
+                   class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg
+                   hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="employees.html"
+                   class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg
+                   hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <i data-lucide="users-round" class="w-5 h-5"></i>
+                    <span>Employees</span>
+                </a>
+
+                <a href="recruitment.html"
+                   class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg
+                   hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <i data-lucide="user-plus" class="w-5 h-5"></i>
+                    <span>Recruitment</span>
+                </a>
+
+                <a href="attendance.html"
+                   class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg
+                   hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <i data-lucide="clock-3" class="w-5 h-5"></i>
+                    <span>Attendance</span>
+                </a>
+
+                <a href="leave.html"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg
+                   bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400">
+                    <i data-lucide="calendar-days" class="w-5 h-5"></i>
+                    <span class="font-medium">Leave Management</span>
+                </a>
+
+                <a href="performance.html"
+                   class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg
+                   hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <i data-lucide="chart-no-axes-combined" class="w-5 h-5"></i>
+                    <span>Performance</span>
+                </a>
+
+                <a href="payroll.html"
+                   class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg
+                   hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <i data-lucide="wallet-cards" class="w-5 h-5"></i>
+                    <span>Payroll</span>
+                </a>
+
+                <p class="px-3 pt-6 pb-2 text-xs font-semibold uppercase text-slate-400">
+                    Analytics
+                </p>
+
+                <a href="reports.html"
+                   class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg
+                   hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <i data-lucide="file-bar-chart" class="w-5 h-5"></i>
+                    <span>Reports</span>
+                </a>
+
+                <a href="calendar.html"
+                   class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg
+                   hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <i data-lucide="calendar" class="w-5 h-5"></i>
+                    <span>Calendar</span>
+                </a>
+
+                <p class="px-3 pt-6 pb-2 text-xs font-semibold uppercase text-slate-400">
+                    System
+                </p>
+
+                <a href="settings.html"
+                   class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg
+                   hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <i data-lucide="settings" class="w-5 h-5"></i>
+                    <span>Settings</span>
+                </a>
+
+            </nav>
+
+            <!-- Sidebar Bottom -->
+            <div class="p-4 border-t border-slate-200 dark:border-slate-800">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-500/20
+                                flex items-center justify-center text-indigo-600 dark:text-indigo-400
+                                font-semibold">
+                        SG
+                    </div>
+
+                    <div class="flex-1 min-w-0">
+                        <p class="font-medium truncate">HR Admin</p>
+                        <p class="text-xs text-slate-500">Administrator</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </aside>
+
+    <!-- Mobile Overlay -->
+    <div id="sidebarOverlay"
+         class="fixed inset-0 bg-black/50 z-40 hidden md:hidden"></div>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="flex-1 min-w-0">
+
+        <!-- Navbar -->
+        <header class="h-16 bg-white dark:bg-slate-900 border-b border-slate-200
+                       dark:border-slate-800 flex items-center justify-between px-4 md:px-6">
+
+            <div class="flex items-center gap-3">
+
+                <button id="menuBtn"
+                        class="md:hidden p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+
+                <div class="relative hidden sm:block">
+                    <i data-lucide="search"
+                       class="absolute left-3 top-1/2 -translate-y-1/2
+                              w-4 h-4 text-slate-400"></i>
+
+                    <input id="globalSearch"
+                           type="text"
+                           placeholder="Search..."
+                           class="w-64 lg:w-80 pl-10 pr-4 py-2 rounded-lg
+                                  bg-slate-100 dark:bg-slate-800
+                                  border border-transparent
+                                  focus:border-indigo-500 focus:ring-2
+                                  focus:ring-indigo-500/20 outline-none text-sm">
+                </div>
+
+            </div>
+
+            <div class="flex items-center gap-2">
+
+                <button id="themeBtn"
+                        class="p-2.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <i data-lucide="moon" class="w-5 h-5"></i>
+                </button>
+
+                <button class="relative p-2.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <i data-lucide="bell" class="w-5 h-5"></i>
+                    <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500"></span>
+                </button>
+
+                <div class="hidden sm:flex items-center gap-3 ml-2 pl-3 border-l
+                            border-slate-200 dark:border-slate-700">
+
+                    <div class="w-9 h-9 rounded-full bg-indigo-600 flex items-center
+                                justify-center text-white text-sm font-semibold">
+                        SG
+                    </div>
+
+                    <div class="hidden lg:block">
+                        <p class="text-sm font-semibold">HR Admin</p>
+                        <p class="text-xs text-slate-500">Administrator</p>
+                    </div>
+                </div>
+
+            </div>
+        </header>
+
+
+        <!-- ================= PAGE ================= -->
+        <section class="p-4 md:p-6 lg:p-8">
+
+            <!-- Page Header -->
+            <div class="flex flex-col md:flex-row md:items-center
+                        justify-between gap-4 mb-6">
+
+                <div>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-1">
+                        HR Management
+                    </p>
+
+                    <h2 class="text-2xl md:text-3xl font-bold">
+                        Leave Management
+                    </h2>
+
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                        Manage employee leave requests and balances.
+                    </p>
+                </div>
+
+                <button id="applyLeaveBtn"
+                        class="inline-flex items-center justify-center gap-2
+                               px-4 py-2.5 rounded-lg bg-indigo-600 text-white
+                               hover:bg-indigo-700 transition">
+                    <i data-lucide="plus" class="w-5 h-5"></i>
+                    Apply Leave
+                </button>
+
+            </div>
+
+
+            <!-- ================= STAT CARDS ================= -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+
+                <div class="bg-white dark:bg-slate-900 rounded-xl p-5
+                            border border-slate-200 dark:border-slate-800">
+
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-slate-500">Total Requests</p>
+                            <h3 id="totalRequests" class="text-2xl font-bold mt-1">0</h3>
+                        </div>
+
+                        <div class="w-11 h-11 rounded-lg bg-indigo-100 dark:bg-indigo-500/10
+                                    text-indigo-600 dark:text-indigo-400
+                                    flex items-center justify-center">
+                            <i data-lucide="file-text" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-slate-500 mt-3">
+                        All leave applications
+                    </p>
+                </div>
+
+
+                <div class="bg-white dark:bg-slate-900 rounded-xl p-5
+                            border border-slate-200 dark:border-slate-800">
+
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-slate-500">Pending</p>
+                            <h3 id="pendingRequests" class="text-2xl font-bold mt-1">0</h3>
+                        </div>
+
+                        <div class="w-11 h-11 rounded-lg bg-amber-100 dark:bg-amber-500/10
+                                    text-amber-600 dark:text-amber-400
+                                    flex items-center justify-center">
+                            <i data-lucide="clock-3" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-amber-600 mt-3">
+                        Awaiting approval
+                    </p>
+                </div>
+
+
+                <div class="bg-white dark:bg-slate-900 rounded-xl p-5
+                            border border-slate-200 dark:border-slate-800">
+
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-slate-500">Approved</p>
+                            <h3 id="approvedRequests" class="text-2xl font-bold mt-1">0</h3>
+                        </div>
+
+                        <div class="w-11 h-11 rounded-lg bg-emerald-100 dark:bg-emerald-500/10
+                                    text-emerald-600 dark:text-emerald-400
+                                    flex items-center justify-center">
+                            <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-emerald-600 mt-3">
+                        Approved applications
+                    </p>
+                </div>
+
+
+                <div class="bg-white dark:bg-slate-900 rounded-xl p-5
+                            border border-slate-200 dark:border-slate-800">
+
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-slate-500">Rejected</p>
+                            <h3 id="rejectedRequests" class="text-2xl font-bold mt-1">0</h3>
+                        </div>
+
+                        <div class="w-11 h-11 rounded-lg bg-red-100 dark:bg-red-500/10
+                                    text-red-600 dark:text-red-400
+                                    flex items-center justify-center">
+                            <i data-lucide="x-circle" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-red-600 mt-3">
+                        Rejected applications
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- ================= LEAVE BALANCE ================= -->
+            <div class="bg-white dark:bg-slate-900 rounded-xl
+                        border border-slate-200 dark:border-slate-800 p-5 mb-6">
+
+                <div class="flex items-center justify-between mb-5">
+                    <div>
+                        <h3 class="font-semibold text-lg">Leave Balance</h3>
+                        <p class="text-sm text-slate-500">
+                            Organization-wide leave availability
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+                    <!-- Casual -->
+                    <div class="border border-slate-200 dark:border-slate-700
+                                rounded-xl p-4">
+
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm font-medium">Casual Leave</span>
+                            <i data-lucide="coffee"
+                               class="w-5 h-5 text-indigo-500"></i>
+                        </div>
+
+                        <div class="flex items-end justify-between">
+                            <div>
+                                <span class="text-2xl font-bold">12</span>
+                                <span class="text-xs text-slate-500"> / 15</span>
+                            </div>
+
+                            <span class="text-xs text-emerald-600">80%</span>
+                        </div>
+
+                        <div class="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full mt-3">
+                            <div class="h-2 bg-indigo-500 rounded-full" style="width:80%"></div>
+                        </div>
+                    </div>
+
+
+                    <!-- Sick -->
+                    <div class="border border-slate-200 dark:border-slate-700
+                                rounded-xl p-4">
+
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm font-medium">Sick Leave</span>
+                            <i data-lucide="heart-pulse"
+                               class="w-5 h-5 text-red-500"></i>
+                        </div>
+
+                        <div class="flex items-end justify-between">
+                            <div>
+                                <span class="text-2xl font-bold">7</span>
+                                <span class="text-xs text-slate-500"> / 10</span>
+                            </div>
+
+                            <span class="text-xs text-emerald-600">70%</span>
+                        </div>
+
+                        <div class="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full mt-3">
+                            <div class="h-2 bg-red-500 rounded-full" style="width:70%"></div>
+                        </div>
+                    </div>
+
+
+                    <!-- Earned -->
+                    <div class="border border-slate-200 dark:border-slate-700
+                                rounded-xl p-4">
+
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm font-medium">Earned Leave</span>
+                            <i data-lucide="briefcase-business"
+                               class="w-5 h-5 text-emerald-500"></i>
+                        </div>
+
+                        <div class="flex items-end justify-between">
+                            <div>
+                                <span class="text-2xl font-bold">18</span>
+                                <span class="text-xs text-slate-500"> / 20</span>
+                            </div>
+
+                            <span class="text-xs text-emerald-600">90%</span>
+                        </div>
+
+                        <div class="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full mt-3">
+                            <div class="h-2 bg-emerald-500 rounded-full" style="width:90%"></div>
+                        </div>
+                    </div>
+
+
+                    <!-- WFH -->
+                    <div class="border border-slate-200 dark:border-slate-700
+                                rounded-xl p-4">
+
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm font-medium">Work From Home</span>
+                            <i data-lucide="house"
+                               class="w-5 h-5 text-orange-500"></i>
+                        </div>
+
+                        <div class="flex items-end justify-between">
+                            <div>
+                                <span class="text-2xl font-bold">6</span>
+                                <span class="text-xs text-slate-500"> / 10</span>
+                            </div>
+
+                            <span class="text-xs text-amber-600">60%</span>
+                        </div>
+
+                        <div class="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full mt-3">
+                            <div class="h-2 bg-orange-500 rounded-full" style="width:60%"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- ================= FILTERS ================= -->
+            <div class="bg-white dark:bg-slate-900 rounded-xl
+                        border border-slate-200 dark:border-slate-800 p-4 mb-6">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
+
+                    <!-- Search -->
+                    <div class="relative lg:col-span-2">
+
+                        <i data-lucide="search"
+                           class="absolute left-3 top-1/2 -translate-y-1/2
+                                  w-4 h-4 text-slate-400"></i>
+
+                        <input id="searchInput"
+                               type="text"
+                               placeholder="Search employee or ID..."
+                               class="w-full pl-10 pr-4 py-2.5 rounded-lg
+                                      bg-slate-50 dark:bg-slate-800
+                                      border border-slate-200 dark:border-slate-700
+                                      outline-none focus:ring-2 focus:ring-indigo-500/20
+                                      focus:border-indigo-500 text-sm">
+                    </div>
+
+                    <!-- Department -->
+                    <select id="departmentFilter"
+                            class="px-3 py-2.5 rounded-lg
+                                   bg-slate-50 dark:bg-slate-800
+                                   border border-slate-200 dark:border-slate-700
+                                   outline-none text-sm">
+
+                        <option value="">All Departments</option>
+                        <option>Engineering</option>
+                        <option>Human Resources</option>
+                        <option>Marketing</option>
+                        <option>Finance</option>
+                        <option>Operations</option>
+                    </select>
+
+                    <!-- Type -->
+                    <select id="typeFilter"
+                            class="px-3 py-2.5 rounded-lg
+                                   bg-slate-50 dark:bg-slate-800
+                                   border border-slate-200 dark:border-slate-700
+                                   outline-none text-sm">
+
+                        <option value="">All Leave Types</option>
+                        <option>Casual Leave</option>
+                        <option>Sick Leave</option>
+                        <option>Earned Leave</option>
+                        <option>Work From Home</option>
+                        <option>Other</option>
+                    </select>
+
+                    <!-- Status -->
+                    <select id="statusFilter"
+                            class="px-3 py-2.5 rounded-lg
+                                   bg-slate-50 dark:bg-slate-800
+                                   border border-slate-200 dark:border-slate-700
+                                   outline-none text-sm">
+
+                        <option value="">All Status</option>
+                        <option>Pending</option>
+                        <option>Approved</option>
+                        <option>Rejected</option>
+                    </select>
+
+                </div>
+            </div>
+
+
+            <!-- ================= MAIN GRID ================= -->
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+
+                <!-- Leave Requests -->
+                <div class="xl:col-span-2 bg-white dark:bg-slate-900 rounded-xl
+                            border border-slate-200 dark:border-slate-800">
+
+                    <div class="p-5 border-b border-slate-200 dark:border-slate-800
+                                flex items-center justify-between">
+
+                        <div>
+                            <h3 class="font-semibold text-lg">Leave Requests</h3>
+                            <p class="text-sm text-slate-500">
+                                Review and manage employee requests
+                            </p>
+                        </div>
+
+                        <button id="exportBtn"
+                                class="hidden sm:inline-flex items-center gap-2
+                                       px-3 py-2 rounded-lg border
+                                       border-slate-200 dark:border-slate-700
+                                       hover:bg-slate-50 dark:hover:bg-slate-800
+                                       text-sm">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                            Export
+                        </button>
+
+                    </div>
+
+
+                    <div class="overflow-x-auto">
+
+                        <table class="w-full text-sm">
+
+                            <thead class="bg-slate-50 dark:bg-slate-800/60">
+                                <tr>
+                                    <th class="text-left px-5 py-3 font-semibold">Employee</th>
+                                    <th class="text-left px-5 py-3 font-semibold">Leave Type</th>
+                                    <th class="text-left px-5 py-3 font-semibold">Duration</th>
+                                    <th class="text-left px-5 py-3 font-semibold">Days</th>
+                                    <th class="text-left px-5 py-3 font-semibold">Status</th>
+                                    <th class="text-right px-5 py-3 font-semibold">Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="leaveTableBody"
+                                   class="divide-y divide-slate-200 dark:divide-slate-800">
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <div id="emptyState" class="hidden p-12 text-center">
+
+                        <div class="w-14 h-14 mx-auto rounded-full bg-slate-100
+                                    dark:bg-slate-800 flex items-center justify-center">
+
+                            <i data-lucide="calendar-x"
+                               class="w-7 h-7 text-slate-400"></i>
+
+                        </div>
+
+                        <h3 class="font-semibold mt-4">No leave requests found</h3>
+
+                        <p class="text-sm text-slate-500 mt-1">
+                            Try changing your filters or apply a new leave request.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= CHART ================= -->
+                <div class="bg-white dark:bg-slate-900 rounded-xl
+                            border border-slate-200 dark:border-slate-800 p-5">
+
+                    <div class="mb-5">
+                        <h3 class="font-semibold text-lg">Leave Distribution</h3>
+                        <p class="text-sm text-slate-500">
+                            Requests by leave type
+                        </p>
+                    </div>
+
+                    <div class="h-64 flex items-center justify-center">
+                        <canvas id="leaveChart"></canvas>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= CALENDAR ================= -->
+            <div class="bg-white dark:bg-slate-900 rounded-xl
+                        border border-slate-200 dark:border-slate-800 p-5 mt-6">
+
+                <div class="flex flex-col sm:flex-row sm:items-center
+                            justify-between gap-3 mb-5">
+
+                    <div>
+                        <h3 class="font-semibold text-lg">Leave Calendar</h3>
+                        <p class="text-sm text-slate-500">
+                            September 2026
+                        </p>
+                    </div>
+
+                    <div class="flex items-center gap-4 text-xs">
+
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
+                            Approved
+                        </div>
+
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                            Pending
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="grid grid-cols-7 border-l border-t
+                            border-slate-200 dark:border-slate-700">
+
+                    <div class="p-2 text-center text-xs font-semibold text-slate-500
+                                border-r border-b border-slate-200 dark:border-slate-700">
+                        Sun
+                    </div>
+
+                    <div class="p-2 text-center text-xs font-semibold text-slate-500
+                                border-r border-b border-slate-200 dark:border-slate-700">
+                        Mon
+                    </div>
+
+                    <div class="p-2 text-center text-xs font-semibold text-slate-500
+                                border-r border-b border-slate-200 dark:border-slate-700">
+                        Tue
+                    </div>
+
+                    <div class="p-2 text-center text-xs font-semibold text-slate-500
+                                border-r border-b border-slate-200 dark:border-slate-700">
+                        Wed
+                    </div>
+
+                    <div class="p-2 text-center text-xs font-semibold text-slate-500
+                                border-r border-b border-slate-200 dark:border-slate-700">
+                        Thu
+                    </div>
+
+                    <div class="p-2 text-center text-xs font-semibold text-slate-500
+                                border-r border-b border-slate-200 dark:border-slate-700">
+                        Fri
+                    </div>
+
+                    <div class="p-2 text-center text-xs font-semibold text-slate-500
+                                border-r border-b border-slate-200 dark:border-slate-700">
+                        Sat
+                    </div>
+
+                    <div id="calendarDays" class="contents"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Footer -->
+        <footer class="px-6 py-5 text-center text-xs text-slate-500
+                       border-t border-slate-200 dark:border-slate-800">
+            © 2026 TalentSphere. Smart Human Resource Management Platform.
+        </footer>
+
+    </main>
+</div>
+
+
+<!-- ================= APPLY LEAVE MODAL ================= -->
+<div id="leaveModal"
+     class="fixed inset-0 z-[60] hidden items-center justify-center
+            bg-black/50 p-4">
+
+    <div class="w-full max-w-2xl bg-white dark:bg-slate-900
+                rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
+
+        <!-- Modal Header -->
+        <div class="flex items-center justify-between p-5
+                    border-b border-slate-200 dark:border-slate-800">
+
+            <div>
+                <h3 class="text-lg font-bold">Apply for Leave</h3>
+                <p class="text-sm text-slate-500">
+                    Submit a new employee leave request.
+                </p>
+            </div>
+
+            <button id="closeModal"
+                    class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+        </div>
+
+
+        <!-- Form -->
+        <form id="leaveForm" class="p-5 space-y-5">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                <!-- Employee -->
+                <div>
+                    <label class="block text-sm font-medium mb-2">
+                        Employee
+                    </label>
+
+                    <select id="employee"
+                            required
+                            class="w-full px-3 py-2.5 rounded-lg
+                                   bg-slate-50 dark:bg-slate-800
+                                   border border-slate-200 dark:border-slate-700
+                                   outline-none focus:border-indigo-500">
+
+                        <option value="">Select Employee</option>
+
+                        <option value="Ananya Roy|EMP001|Engineering">
+                            Ananya Roy — EMP001
+                        </option>
+
+                        <option value="Rahul Das|EMP002|Human Resources">
+                            Rahul Das — EMP002
+                        </option>
+
+                        <option value="Priya Sen|EMP003|Marketing">
+                            Priya Sen — EMP003
+                        </option>
+
+                        <option value="Arjun Mehta|EMP004|Engineering">
+                            Arjun Mehta — EMP004
+                        </option>
+
+                        <option value="Sneha Roy|EMP005|Finance">
+                            Sneha Roy — EMP005
+                        </option>
+
+                        <option value="Kunal Bose|EMP006|Engineering">
+                            Kunal Bose — EMP006
+                        </option>
+
+                        <option value="Riya Das|EMP007|Marketing">
+                            Riya Das — EMP007
+                        </option>
+
+                        <option value="Amit Sen|EMP008|Finance">
+                            Amit Sen — EMP008
+                        </option>
+
+                        <option value="Nisha Roy|EMP009|Human Resources">
+                            Nisha Roy — EMP009
+                        </option>
+
+                        <option value="Aditya Sharma|EMP010|Engineering">
+                            Aditya Sharma — EMP010
+                        </option>
+
+                    </select>
+                </div>
+
+
+                <!-- Leave Type -->
+                <div>
+                    <label class="block text-sm font-medium mb-2">
+                        Leave Type
+                    </label>
+
+                    <select id="leaveType"
+                            required
+                            class="w-full px-3 py-2.5 rounded-lg
+                                   bg-slate-50 dark:bg-slate-800
+                                   border border-slate-200 dark:border-slate-700
+                                   outline-none focus:border-indigo-500">
+
+                        <option value="">Select Type</option>
+                        <option>Casual Leave</option>
+                        <option>Sick Leave</option>
+                        <option>Earned Leave</option>
+                        <option>Work From Home</option>
+                        <option>Other</option>
+
+                    </select>
+                </div>
+
+
+                <!-- From Date -->
+                <div>
+                    <label class="block text-sm font-medium mb-2">
+                        From Date
+                    </label>
+
+                    <input id="fromDate"
+                           type="date"
+                           required
+                           class="w-full px-3 py-2.5 rounded-lg
+                                  bg-slate-50 dark:bg-slate-800
+                                  border border-slate-200 dark:border-slate-700
+                                  outline-none focus:border-indigo-500">
+                </div>
+
+
+                <!-- To Date -->
+                <div>
+                    <label class="block text-sm font-medium mb-2">
+                        To Date
+                    </label>
+
+                    <input id="toDate"
+                           type="date"
+                           required
+                           class="w-full px-3 py-2.5 rounded-lg
+                                  bg-slate-50 dark:bg-slate-800
+                                  border border-slate-200 dark:border-slate-700
+                                  outline-none focus:border-indigo-500">
+                </div>
+
+            </div>
+
+
+            <!-- Days Preview -->
+            <div id="daysPreview"
+                 class="hidden rounded-lg bg-indigo-50 dark:bg-indigo-500/10
+                        border border-indigo-100 dark:border-indigo-500/20
+                        px-4 py-3 text-sm text-indigo-700 dark:text-indigo-300">
+            </div>
+
+
+            <!-- Reason -->
+            <div>
+                <label class="block text-sm font-medium mb-2">
+                    Reason
+                </label>
+
+                <textarea id="reason"
+                          rows="4"
+                          required
+                          placeholder="Enter reason for leave..."
+                          class="w-full px-3 py-2.5 rounded-lg
+                                 bg-slate-50 dark:bg-slate-800
+                                 border border-slate-200 dark:border-slate-700
+                                 outline-none focus:border-indigo-500
+                                 resize-none"></textarea>
+            </div>
+
+
+            <!-- Buttons -->
+            <div class="flex justify-end gap-3 pt-2">
+
+                <button type="button"
+                        id="cancelModal"
+                        class="px-4 py-2.5 rounded-lg
+                               border border-slate-200 dark:border-slate-700
+                               hover:bg-slate-50 dark:hover:bg-slate-800">
+                    Cancel
+                </button>
+
+                <button type="submit"
+                        class="px-5 py-2.5 rounded-lg bg-indigo-600
+                               text-white hover:bg-indigo-700">
+                    Submit Request
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+
+<!-- ================= TOAST ================= -->
+<div id="toast"
+     class="fixed right-5 bottom-5 z-[100] hidden">
+
+    <div class="flex items-center gap-3 bg-slate-900 text-white
+                px-4 py-3 rounded-xl shadow-xl">
+
+        <i id="toastIcon" data-lucide="check-circle" class="w-5 h-5"></i>
+
+        <span id="toastMessage" class="text-sm">
+            Success
+        </span>
+
+    </div>
+</div>
+
+
+<script>
+
+    /* ============================================================
+       TALENTSPHERE LEAVE MANAGEMENT
+       ============================================================ */
+
+
+    /* ================= THEME ================= */
+
+    const savedTheme = localStorage.getItem("talentSphereTheme");
+
+    if (savedTheme === "dark") {
+        document.documentElement.classList.add("dark");
+    }
+
+
+    const themeBtn = document.getElementById("themeBtn");
+
+    themeBtn.addEventListener("click", () => {
+
+        document.documentElement.classList.toggle("dark");
+
+        const isDark =
+            document.documentElement.classList.contains("dark");
+
+        localStorage.setItem(
+            "talentSphereTheme",
+            isDark ? "dark" : "light"
+        );
+
+        updateChart();
+
+    });
+
+
+    /* ================= SIDEBAR ================= */
+
+    const sidebar = document.getElementById("sidebar");
+    const sidebarOverlay = document.getElementById("sidebarOverlay");
+    const menuBtn = document.getElementById("menuBtn");
+
+
+    function openSidebar() {
+
+        sidebar.classList.remove("-translate-x-full");
+        sidebarOverlay.classList.remove("hidden");
+
+    }
+
+
+    function closeSidebar() {
+
+        sidebar.classList.add("-translate-x-full");
+        sidebarOverlay.classList.add("hidden");
+
+    }
+
+
+    menuBtn.addEventListener("click", openSidebar);
+    sidebarOverlay.addEventListener("click", closeSidebar);
+
+
+    /* ================= DATA ================= */
+
+    const defaultLeaveRequests = [
+
+        {
+            id: 1,
+            name: "Ananya Roy",
+            employeeId: "EMP001",
+            department: "Engineering",
+            type: "Casual Leave",
+            from: "2026-09-04",
+            to: "2026-09-05",
+            days: 2,
+            reason: "Personal work",
+            status: "Approved"
+        },
+
+        {
+            id: 2,
+            name: "Rahul Das",
+            employeeId: "EMP002",
+            department: "Human Resources",
+            type: "Sick Leave",
+            from: "2026-09-08",
+            to: "2026-09-09",
+            days: 2,
+            reason: "Health recovery",
+            status: "Pending"
+        },
+
+        {
+            id: 3,
+            name: "Priya Sen",
+            employeeId: "EMP003",
+            department: "Marketing",
+            type: "Earned Leave",
+            from: "2026-09-12",
+            to: "2026-09-14",
+            days: 3,
+            reason: "Family function",
+            status: "Approved"
+        },
+
+        {
+            id: 4,
+            name: "Arjun Mehta",
+            employeeId: "EMP004",
+            department: "Engineering",
+            type: "Work From Home",
+            from: "2026-09-10",
+            to: "2026-09-10",
+            days: 1,
+            reason: "Personal appointment",
+            status: "Pending"
+        },
+
+        {
+            id: 5,
+            name: "Sneha Roy",
+            employeeId: "EMP005",
+            department: "Finance",
+            type: "Casual Leave",
+            from: "2026-09-16",
+            to: "2026-09-17",
+            days: 2,
+            reason: "Personal work",
+            status: "Rejected"
+        },
+
+        {
+            id: 6,
+            name: "Kunal Bose",
+            employeeId: "EMP006",
+            department: "Engineering",
+            type: "Sick Leave",
+            from: "2026-09-18",
+            to: "2026-09-19",
+            days: 2,
+            reason: "Medical rest",
+            status: "Approved"
+        },
+
+        {
+            id: 7,
+            name: "Riya Das",
+            employeeId: "EMP007",
+            department: "Marketing",
+            type: "Casual Leave",
+            from: "2026-09-21",
+            to: "2026-09-22",
+            days: 2,
+            reason: "Personal work",
+            status: "Pending"
+        },
+
+        {
+            id: 8,
+            name: "Amit Sen",
+            employeeId: "EMP008",
+            department: "Finance",
+            type: "Earned Leave",
+            from: "2026-09-23",
+            to: "2026-09-25",
+            days: 3,
+            reason: "Vacation",
+            status: "Approved"
+        },
+
+        {
+            id: 9,
+            name: "Nisha Roy",
+            employeeId: "EMP009",
+            department: "Human Resources",
+            type: "Work From Home",
+            from: "2026-09-26",
+            to: "2026-09-26",
+            days: 1,
+            reason: "Remote work requirement",
+            status: "Pending"
+        },
+
+        {
+            id: 10,
+            name: "Aditya Sharma",
+            employeeId: "EMP010",
+            department: "Engineering",
+            type: "Other",
+            from: "2026-09-28",
+            to: "2026-09-29",
+            days: 2,
+            reason: "Personal emergency",
+            status: "Rejected"
+        }
+
+    ];
+
+
+    let leaveRequests =
+        JSON.parse(
+            localStorage.getItem("talentSphereLeaveRequests")
+        ) || defaultLeaveRequests;
+
+
+    /* ================= ELEMENTS ================= */
+
+    const tableBody =
+        document.getElementById("leaveTableBody");
+
+    const emptyState =
+        document.getElementById("emptyState");
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const departmentFilter =
+        document.getElementById("departmentFilter");
+
+    const typeFilter =
+        document.getElementById("typeFilter");
+
+    const statusFilter =
+        document.getElementById("statusFilter");
+
+
+    /* ================= SAVE DATA ================= */
+
+    function saveData() {
+
+        localStorage.setItem(
+            "talentSphereLeaveRequests",
+            JSON.stringify(leaveRequests)
+        );
+
+    }
+
+
+    /* ================= DATE FORMAT ================= */
+
+    function formatDate(dateString) {
+
+        if (!dateString) return "-";
+
+        const date = new Date(dateString + "T00:00:00");
+
+        return date.toLocaleDateString("en-IN", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        });
+
+    }
+
+
+    /* ================= STATUS BADGE ================= */
+
+    function statusBadge(status) {
+
+        const classes = {
+
+            Pending:
+                "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
+
+            Approved:
+                "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400",
+
+            Rejected:
+                "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400"
+
+        };
+
+        return `
+            <span class="inline-flex items-center px-2.5 py-1
+                         rounded-full text-xs font-medium
+                         ${classes[status] || classes.Pending}">
+                ${status}
+            </span>
+        `;
+
+    }
+
+
+    /* ================= TYPE ICON ================= */
+
+    function typeIcon(type) {
+
+        const icons = {
+
+            "Casual Leave": "coffee",
+            "Sick Leave": "heart-pulse",
+            "Earned Leave": "briefcase-business",
+            "Work From Home": "house",
+            "Other": "calendar"
+
+        };
+
+        return icons[type] || "calendar";
+
+    }
+
+
+    /* ================= RENDER TABLE ================= */
+
+    function renderTable() {
+
+        const search =
+            searchInput.value.toLowerCase().trim();
+
+        const department =
+            departmentFilter.value;
+
+        const type =
+            typeFilter.value;
+
+        const status =
+            statusFilter.value;
+
+
+        const filtered =
+            leaveRequests.filter(item => {
+
+                const matchesSearch =
+                    item.name.toLowerCase().includes(search) ||
+                    item.employeeId.toLowerCase().includes(search);
+
+                const matchesDepartment =
+                    !department ||
+                    item.department === department;
+
+                const matchesType =
+                    !type ||
+                    item.type === type;
+
+                const matchesStatus =
+                    !status ||
+                    item.status === status;
+
+                return (
+                    matchesSearch &&
+                    matchesDepartment &&
+                    matchesType &&
+                    matchesStatus
+                );
+
+            });
+
+
+        tableBody.innerHTML = "";
+
+
+        if (filtered.length === 0) {
+
+            emptyState.classList.remove("hidden");
+
+        } else {
+
+            emptyState.classList.add("hidden");
+
+            filtered.forEach(item => {
+
+                const initials =
+                    item.name
+                        .split(" ")
+                        .map(word => word[0])
+                        .join("")
+                        .slice(0, 2)
+                        .toUpperCase();
+
+
+                const row =
+                    document.createElement("tr");
+
+                row.className =
+                    "hover:bg-slate-50 dark:hover:bg-slate-800/50";
+
+
+                row.innerHTML = `
+
+                    <td class="px-5 py-4">
+
+                        <div class="flex items-center gap-3">
+
+                            <div class="w-9 h-9 rounded-full
+                                        bg-indigo-100 dark:bg-indigo-500/10
+                                        text-indigo-600 dark:text-indigo-400
+                                        flex items-center justify-center
+                                        text-xs font-semibold">
+
+                                ${initials}
+
+                            </div>
+
+                            <div>
+
+                                <p class="font-medium">
+                                    ${item.name}
+                                </p>
+
+                                <p class="text-xs text-slate-500">
+                                    ${item.employeeId} · ${item.department}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+
+                    <td class="px-5 py-4">
+
+                        <div class="flex items-center gap-2">
+
+                            <div class="w-8 h-8 rounded-lg
+                                        bg-slate-100 dark:bg-slate-800
+                                        flex items-center justify-center">
+
+                                <i data-lucide="${typeIcon(item.type)}"
+                                   class="w-4 h-4 text-indigo-500"></i>
+
+                            </div>
+
+                            <span>${item.type}</span>
+
+                        </div>
+
+                    </td>
+
+
+                    <td class="px-5 py-4 whitespace-nowrap">
+
+                        <p class="text-xs">
+                            ${formatDate(item.from)}
+                        </p>
+
+                        <p class="text-xs text-slate-500">
+                            to ${formatDate(item.to)}
+                        </p>
+
+                    </td>
+
+
+                    <td class="px-5 py-4">
+
+                        <span class="font-semibold">
+                            ${item.days}
+                        </span>
+
+                        <span class="text-xs text-slate-500">
+                            day${item.days > 1 ? "s" : ""}
+                        </span>
+
+                    </td>
+
+
+                    <td class="px-5 py-4">
+                        ${statusBadge(item.status)}
+                    </td>
+
+
+                    <td class="px-5 py-4">
+
+                        <div class="flex justify-end items-center gap-1">
+
+                            ${
+                                item.status === "Pending"
+                                ? `
+                                    <button
+                                        onclick="approveLeave(${item.id})"
+                                        title="Approve"
+                                        class="p-2 rounded-lg text-emerald-600
+                                               hover:bg-emerald-50
+                                               dark:hover:bg-emerald-500/10">
+
+                                        <i data-lucide="check"
+                                           class="w-4 h-4"></i>
+
+                                    </button>
+
+                                    <button
+                                        onclick="rejectLeave(${item.id})"
+                                        title="Reject"
+                                        class="p-2 rounded-lg text-red-600
+                                               hover:bg-red-50
+                                               dark:hover:bg-red-500/10">
+
+                                        <i data-lucide="x"
+                                           class="w-4 h-4"></i>
+
+                                    </button>
+                                `
+                                : `
+                                    <button
+                                        onclick="viewLeave(${item.id})"
+                                        title="View"
+                                        class="p-2 rounded-lg text-slate-500
+                                               hover:bg-slate-100
+                                               dark:hover:bg-slate-800">
+
+                                        <i data-lucide="eye"
+                                           class="w-4 h-4"></i>
+
+                                    </button>
+                                `
+                            }
+
+
+                            <button
+                                onclick="deleteLeave(${item.id})"
+                                title="Delete"
+                                class="p-2 rounded-lg text-slate-500
+                                       hover:text-red-600
+                                       hover:bg-red-50
+                                       dark:hover:bg-red-500/10">
+
+                                <i data-lucide="trash-2"
+                                   class="w-4 h-4"></i>
+
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                `;
+
+                tableBody.appendChild(row);
+
+            });
+
+        }
+
+
+        updateStats();
+        updateChart();
+        renderCalendar();
+
+        lucide.createIcons();
+
+    }
+
+
+    /* ================= STATS ================= */
+
+    function updateStats() {
+
+        const total =
+            leaveRequests.length;
+
+        const pending =
+            leaveRequests.filter(
+                item => item.status === "Pending"
+            ).length;
+
+        const approved =
+            leaveRequests.filter(
+                item => item.status === "Approved"
+            ).length;
+
+        const rejected =
+            leaveRequests.filter(
+                item => item.status === "Rejected"
+            ).length;
+
+
+        document.getElementById("totalRequests").textContent =
+            total;
+
+        document.getElementById("pendingRequests").textContent =
+            pending;
+
+        document.getElementById("approvedRequests").textContent =
+            approved;
+
+        document.getElementById("rejectedRequests").textContent =
+            rejected;
+
+    }
+
+
+    /* ================= APPROVE ================= */
+
+    function approveLeave(id) {
+
+        const item =
+            leaveRequests.find(
+                request => request.id === id
+            );
+
+        if (!item) return;
+
+        item.status = "Approved";
+
+        saveData();
+        renderTable();
+
+        showToast(
+            `${item.name}'s leave has been approved.`
+        );
+
+    }
+
+
+    /* ================= REJECT ================= */
+
+    function rejectLeave(id) {
+
+        const item =
+            leaveRequests.find(
+                request => request.id === id
+            );
+
+        if (!item) return;
+
+        item.status = "Rejected";
+
+        saveData();
+        renderTable();
+
+        showToast(
+            `${item.name}'s leave has been rejected.`
+        );
+
+    }
+
+
+    /* ================= VIEW ================= */
+
+    function viewLeave(id) {
+
+        const item =
+            leaveRequests.find(
+                request => request.id === id
+            );
+
+        if (!item) return;
+
+        alert(
+            `Employee: ${item.name}\n` +
+            `Employee ID: ${item.employeeId}\n` +
+            `Department: ${item.department}\n` +
+            `Leave Type: ${item.type}\n` +
+            `From: ${formatDate(item.from)}\n` +
+            `To: ${formatDate(item.to)}\n` +
+            `Days: ${item.days}\n` +
+            `Status: ${item.status}\n` +
+            `Reason: ${item.reason}`
+        );
+
+    }
+
+
+    /* ================= DELETE ================= */
+
+    function deleteLeave(id) {
+
+        const item =
+            leaveRequests.find(
+                request => request.id === id
+            );
+
+        if (!item) return;
+
+        const confirmed =
+            confirm(
+                `Delete leave request from ${item.name}?`
+            );
+
+        if (!confirmed) return;
+
+        leaveRequests =
+            leaveRequests.filter(
+                request => request.id !== id
+            );
+
+        saveData();
+        renderTable();
+
+        showToast("Leave request deleted.");
+
+    }
+
+
+    /* ================= FILTER EVENTS ================= */
+
+    searchInput.addEventListener(
+        "input",
+        renderTable
+    );
+
+    departmentFilter.addEventListener(
+        "change",
+        renderTable
+    );
+
+    typeFilter.addEventListener(
+        "change",
+        renderTable
+    );
+
+    statusFilter.addEventListener(
+        "change",
+        renderTable
+    );
+
+
+    /* ================= MODAL ================= */
+
+    const leaveModal =
+        document.getElementById("leaveModal");
+
+    const applyLeaveBtn =
+        document.getElementById("applyLeaveBtn");
+
+    const closeModal =
+        document.getElementById("closeModal");
+
+    const cancelModal =
+        document.getElementById("cancelModal");
+
+
+    function openModal() {
+
+        leaveModal.classList.remove("hidden");
+        leaveModal.classList.add("flex");
+
+    }
+
+
+    function closeLeaveModal() {
+
+        leaveModal.classList.add("hidden");
+        leaveModal.classList.remove("flex");
+
+        document.getElementById("leaveForm").reset();
+
+        document.getElementById("daysPreview")
+            .classList.add("hidden");
+
+    }
+
+
+    applyLeaveBtn.addEventListener(
+        "click",
+        openModal
+    );
+
+    closeModal.addEventListener(
+        "click",
+        closeLeaveModal
+    );
+
+    cancelModal.addEventListener(
+        "click",
+        closeLeaveModal
+    );
+
+
+    leaveModal.addEventListener("click", event => {
+
+        if (event.target === leaveModal) {
+            closeLeaveModal();
+        }
+
+    });
+
+
+    /* ================= CALCULATE DAYS ================= */
+
+    const fromDate =
+        document.getElementById("fromDate");
+
+    const toDate =
+        document.getElementById("toDate");
+
+    const daysPreview =
+        document.getElementById("daysPreview");
+
+
+    function calculateDays() {
+
+        if (!fromDate.value || !toDate.value) {
+
+            daysPreview.classList.add("hidden");
+
+            return 0;
+
+        }
+
+
+        const start =
+            new Date(fromDate.value + "T00:00:00");
+
+        const end =
+            new Date(toDate.value + "T00:00:00");
+
+
+        if (end < start) {
+
+            daysPreview.classList.remove("hidden");
+
+            daysPreview.textContent =
+                "To Date cannot be earlier than From Date.";
+
+            return 0;
+
+        }
+
+
+        const difference =
+            end - start;
+
+        const days =
+            Math.floor(
+                difference / (1000 * 60 * 60 * 24)
+            ) + 1;
+
+
+        daysPreview.classList.remove("hidden");
+
+        daysPreview.innerHTML =
+            `<strong>${days}</strong> day${days > 1 ? "s" : ""} of leave selected.`;
+
+
+        return days;
+
+    }
+
+
+    fromDate.addEventListener(
+        "change",
+        calculateDays
+    );
+
+    toDate.addEventListener(
+        "change",
+        calculateDays
+    );
+
+
+    /* ================= SUBMIT LEAVE ================= */
+
+    document.getElementById("leaveForm")
+        .addEventListener("submit", event => {
+
+            event.preventDefault();
+
+
+            const employeeValue =
+                document.getElementById("employee").value;
+
+            const leaveType =
+                document.getElementById("leaveType").value;
+
+            const startDate =
+                fromDate.value;
+
+            const endDate =
+                toDate.value;
+
+            const reason =
+                document.getElementById("reason").value.trim();
+
+
+            if (!employeeValue ||
+                !leaveType ||
+                !startDate ||
+                !endDate ||
+                !reason) {
+
+                showToast(
+                    "Please complete all fields.",
+                    true
+                );
+
+                return;
+
+            }
+
+
+            const days =
+                calculateDays();
+
+
+            if (days <= 0) {
+
+                showToast(
+                    "Please select valid dates.",
+                    true
+                );
+
+                return;
+
+            }
+
+
+            const [name, employeeId, department] =
+                employeeValue.split("|");
+
+
+            const newRequest = {
+
+                id: Date.now(),
+
+                name,
+
+                employeeId,
+
+                department,
+
+                type: leaveType,
+
+                from: startDate,
+
+                to: endDate,
+
+                days,
+
+                reason,
+
+                status: "Pending"
+
+            };
+
+
+            leaveRequests.unshift(
+                newRequest
+            );
+
+
+            saveData();
+
+            closeLeaveModal();
+
+            renderTable();
+
+            showToast(
+                "Leave request submitted successfully."
+            );
+
+        });
+
+
+    /* ================= CHART ================= */
+
+    let leaveChart;
+
+
+    function updateChart() {
+
+        const canvas =
+            document.getElementById("leaveChart");
+
+        if (!canvas) return;
+
+
+        const counts = {
+
+            "Casual Leave": 0,
+            "Sick Leave": 0,
+            "Earned Leave": 0,
+            "Work From Home": 0,
+            "Other": 0
+
+        };
+
+
+        leaveRequests.forEach(item => {
+
+            if (counts[item.type] !== undefined) {
+                counts[item.type]++;
+            }
+
+        });
+
+
+        if (leaveChart) {
+            leaveChart.destroy();
+        }
+
+
+        const isDark =
+            document.documentElement.classList.contains("dark");
+
+
+        leaveChart =
+            new Chart(canvas, {
+
+                type: "doughnut",
+
+                data: {
+
+                    labels: Object.keys(counts),
+
+                    datasets: [{
+
+                        data: Object.values(counts),
+
+                        borderWidth: 0,
+
+                        backgroundColor: [
+                            "#6366f1",
+                            "#ef4444",
+                            "#10b981",
+                            "#f59e0b",
+                            "#64748b"
+                        ]
+
+                    }]
+
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+                    cutout: "68%",
+
+                    plugins: {
+
+                        legend: {
+
+                            position: "bottom",
+
+                            labels: {
+
+                                color:
+                                    isDark
+                                    ? "#cbd5e1"
+                                    : "#475569",
+
+                                boxWidth: 12,
+
+                                padding: 15,
+
+                                font: {
+                                    size: 11
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            });
+
+    }
+
+
+    /* ================= CALENDAR ================= */
+
+    function renderCalendar() {
+
+        const container =
+            document.getElementById("calendarDays");
+
+        container.innerHTML = "";
+
+
+        const year = 2026;
+        const month = 8; // September
+
+        const firstDay =
+            new Date(year, month, 1).getDay();
+
+        const totalDays =
+            new Date(year, month + 1, 0).getDate();
+
+
+        /* Empty cells before day 1 */
+
+        for (let i = 0; i < firstDay; i++) {
+
+            const empty =
+                document.createElement("div");
+
+            empty.className =
+                "calendar-day border-r border-b border-slate-200 dark:border-slate-700";
+
+            container.appendChild(empty);
+
+        }
+
+
+        for (let day = 1; day <= totalDays; day++) {
+
+            const date =
+                `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+
+
+            const requests =
+                leaveRequests.filter(item => {
+
+                    return (
+                        date >= item.from &&
+                        date <= item.to
+                    );
+
+                });
+
+
+            const cell =
+                document.createElement("div");
+
+            cell.className =
+                "calendar-day p-2 border-r border-b border-slate-200 dark:border-slate-700";
+
+
+            const today =
+                day === 19;
+
+
+            cell.innerHTML = `
+
+                <div class="flex items-center justify-between mb-1">
+
+                    <span class="
+                        text-xs font-medium
+                        ${today
+                            ? "w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center"
+                            : "text-slate-500"}
+                    ">
+                        ${day}
+                    </span>
+
+                </div>
+
+                <div class="space-y-1">
+
+                    ${requests.slice(0, 2).map(item => {
+
+                        const bg =
+                            item.status === "Approved"
+                                ? "bg-indigo-100 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-400"
+                                : item.status === "Pending"
+                                    ? "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400"
+                                    : "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400";
+
+
+                        return `
+                            <div class="px-1.5 py-1 rounded text-[9px]
+                                        truncate ${bg}"
+                                 title="${item.name} - ${item.type}">
+                                ${item.name.split(" ")[0]}
+                            </div>
+                        `;
+
+                    }).join("")}
+
+
+                    ${
+                        requests.length > 2
+                            ? `
+                                <div class="text-[9px] text-slate-400">
+                                    +${requests.length - 2} more
+                                </div>
+                              `
+                            : ""
+                    }
+
+                </div>
+
+            `;
+
+
+            container.appendChild(cell);
+
+        }
+
+    }
+
+
+    /* ================= EXPORT CSV ================= */
+
+    document.getElementById("exportBtn")
+        .addEventListener("click", () => {
+
+            if (!leaveRequests.length) {
+
+                showToast(
+                    "No data available to export.",
+                    true
+                );
+
+                return;
+
+            }
+
+
+            const headers = [
+
+                "Employee",
+                "Employee ID",
+                "Department",
+                "Leave Type",
+                "From",
+                "To",
+                "Days",
+                "Reason",
+                "Status"
+
+            ];
+
+
+            const rows =
+                leaveRequests.map(item => [
+
+                    item.name,
+                    item.employeeId,
+                    item.department,
+                    item.type,
+                    item.from,
+                    item.to,
+                    item.days,
+                    item.reason,
+                    item.status
+
+                ]);
+
+
+            const csv = [
+
+                headers,
+
+                ...rows
+
+            ].map(row =>
+
+                row.map(value =>
+
+                    `"${String(value).replace(/"/g, '""')}"`
+
+                ).join(",")
+
+            ).join("\n");
+
+
+            const blob =
+                new Blob(
+                    [csv],
+                    { type: "text/csv;charset=utf-8;" }
+                );
+
+
+            const url =
+                URL.createObjectURL(blob);
+
+
+            const link =
+                document.createElement("a");
+
+            link.href = url;
+
+            link.download =
+                "talentSphere-leave-requests.csv";
+
+            link.click();
+
+
+            URL.revokeObjectURL(url);
+
+
+            showToast(
+                "Leave report exported successfully."
+            );
+
+        });
+
+
+    /* ================= TOAST ================= */
+
+    let toastTimer;
+
+
+    function showToast(message, error = false) {
+
+        const toast =
+            document.getElementById("toast");
+
+        const toastMessage =
+            document.getElementById("toastMessage");
+
+        const toastIcon =
+            document.getElementById("toastIcon");
+
+
+        toastMessage.textContent =
+            message;
+
+
+        toastIcon.setAttribute(
+            "data-lucide",
+            error
+                ? "circle-alert"
+                : "check-circle"
+        );
+
+
+        toast.classList.remove("hidden");
+
+        lucide.createIcons();
+
+
+        clearTimeout(toastTimer);
+
+
+        toastTimer =
+            setTimeout(() => {
+
+                toast.classList.add("hidden");
+
+            }, 3000);
+
+    }
+
+
+    /* ================= GLOBAL SEARCH ================= */
+
+    document.getElementById("globalSearch")
+        .addEventListener("input", event => {
+
+            searchInput.value =
+                event.target.value;
+
+            renderTable();
+
+        });
+
+
+    /* ================= INITIALIZE ================= */
+
+    lucide.createIcons();
+
+    renderTable();
+
+</script>
+
+</body>
+</html>
